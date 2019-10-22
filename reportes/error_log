@@ -1,0 +1,10 @@
+[18-Aug-2018 21:49:05 UTC] PHP Notice:  Undefined index: id_empresa in /home/lunasystems/public_html/clientes/store/reportes/rpt_ver_ticket_venta.php on line 18
+[18-Aug-2018 21:49:05 UTC] PHP Fatal error:  Uncaught exception 'Exception' with message 'FPDF error: Unsupported image type: /images/tiendas/logo/' in /home/lunasystems/public_html/clientes/store/includes/fpdf.php:271
+Stack trace:
+#0 /home/lunasystems/public_html/clientes/store/includes/fpdf.php(884): FPDF->Error('Unsupported ima...')
+#1 /home/lunasystems/public_html/clientes/store/reportes/rpt_ver_ticket_venta.php(46): FPDF->Image('../images/tiend...', 28, 8, 20, 20)
+#2 {main}
+  thrown in /home/lunasystems/public_html/clientes/store/includes/fpdf.php on line 271
+[18-Aug-2018 21:50:26 UTC] PHP Notice:  Undefined index: descripcion in /home/lunasystems/public_html/clientes/store/reportes/rpt_ver_ticket_venta.php on line 63
+[18-Aug-2018 22:01:56 UTC] PHP Notice:  Undefined index: descripcion in /home/lunasystems/public_html/clientes/store/reportes/rpt_ver_ticket_venta.php on line 64
+[18-Aug-2018 22:02:24 UTC] PHP Notice:  Undefined index: descripcion in /home/lunasystems/public_html/clientes/store/reportes/rpt_ver_ticket_venta.php on line 64
