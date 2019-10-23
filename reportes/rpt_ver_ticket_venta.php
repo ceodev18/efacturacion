@@ -9,8 +9,8 @@ require_once '../class/cl_tienda.php';
 require_once '../class/cl_venta.php';
 require_once '../class/cl_detalle_venta.php';
 
-require('../includes/rotations.php');
-define('FPDF_FONTPATH', '../includes/font/');
+require('../fixed/rotations.php');
+define('FPDF_FONTPATH', '../fixed/font/');
 
 $c_tienda = new cl_tienda();
 $c_venta = new cl_venta();

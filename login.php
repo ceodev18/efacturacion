@@ -18,7 +18,7 @@
     <!--for checkbox-->
     <link href="plugins/iCheck/blue.css" rel="stylesheet">
     <!--template css-->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="public/css/style.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -39,7 +39,7 @@
             <div class="row">
                 <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
                     <div class="misc-header text-center">
-                        <img src="images/store_logo_all.png" alt="Chimbote Store" height="45px">
+                        <img src="public/images/store_logo_all.png" alt="Chimbote Store" height="45px">
                     </div>
                     <div class="misc-box">
                         <p class="text-center text-uppercase pad-v">ingrese para continuar.</p>
@@ -86,7 +86,7 @@
                             </div>
                             <hr>
                             <p class=" text-center">deseas registrarte?</p>
-                            <a href="registrar.php" class="btn btn-block btn-default">Registrar ahora</a>
+                            <a href="contents/registrar.php" class="btn btn-block btn-default">Registrar ahora</a>
                         </form>
                     </div>
                     <div class="text-center misc-footer">
@@ -106,6 +106,6 @@
 <script src="plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="plugins/nano-scroll/jquery.nanoscroller.min.js"></script>
 <script src="plugins/metisMenu/metisMenu.min.js"></script>
-<script src="js/float-custom.js"></script>
+<script src="public/js/float-custom.js"></script>
 </body>
 </html>

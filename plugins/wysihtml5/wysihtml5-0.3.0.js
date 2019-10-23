@@ -4863,7 +4863,7 @@ wysihtml5.dom.parse = (function() {
     
     /**
      * Repair node
-     * IE is a bit bitchy when it comes to invalid nested markup which includes unclosed tags
+     * IE is a bit bitchy when it comes to invalid nested markup which fixed unclosed tags
      * A <p> doesn't need to be closed according HTML4-5 spec, we simply replace it with a <div> to preserve its content and layout
      */
     if ("outerHTML" in oldNode) {
@@ -9381,7 +9381,7 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
     toolbar:              undef,
     // Whether urls, entered by the user should automatically become clickable-links
     autoLink:             true,
-    // Object which includes parser rules to apply when html gets inserted via copy & paste
+    // Object which fixed parser rules to apply when html gets inserted via copy & paste
     // See parser_rules/*.js for examples
     parserRules:          { tags: { br: {}, span: {}, div: {}, p: {} }, classes: {} },
     // Parser method to use when the user inserts content via copy & paste

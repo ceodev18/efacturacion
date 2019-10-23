@@ -29,11 +29,11 @@ if ($_SESSION['id_empresa'] == null || $_SESSION['id_empresa'] == "") {
         <link href="plugins/jasny-bootstrap/css/jasny-bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="plugins/nano-scroll/nanoscroller.css">
         <link rel="stylesheet" href="plugins/metisMenu/metisMenu.min.css">
-        <link href="images/favicon.png" rel="icon"/>
+        <link href="public/images/favicon.png" rel="icon"/>
         <link href="plugins/chart-c3/c3.min.css" rel="stylesheet">
 
         <!--template css-->
-        <link href="css/style.css" rel="stylesheet">
+        <link href="public/css/style.css" rel="stylesheet">
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -43,11 +43,11 @@ if ($_SESSION['id_empresa'] == null || $_SESSION['id_empresa'] == "") {
     </head>
     <body>
 
-        <?php include 'includes/menu_superior.php' ?>
+        <?php include 'fixed/menu_superior.php' ?>
 
-        <?php include 'includes/menu_derecha.php' ?>
+        <?php include 'fixed/menu_derecha.php' ?>
 
-        <?php include 'includes/menu_izquierda.php' ?>
+        <?php include 'fixed/menu_izquierda.php' ?>
 
 
         <!--main content start-->
@@ -93,7 +93,7 @@ if ($_SESSION['id_empresa'] == null || $_SESSION['id_empresa'] == "") {
             <!--end page content-->
 
 
-            <?php include 'includes/footer.php'; ?>
+            <?php include 'fixed/footer.php'; ?>
 
         </section>
         <!--end main content-->
@@ -108,7 +108,7 @@ if ($_SESSION['id_empresa'] == null || $_SESSION['id_empresa'] == "") {
         <script src="plugins/slimscroll/jquery.slimscroll.min.js"></script>
         <script src="plugins/nano-scroll/jquery.nanoscroller.min.js"></script>
         <script src="plugins/metisMenu/metisMenu.min.js"></script>
-        <script src="js/float-custom.js"></script>
+        <script src="public/js/float-custom.js"></script>
 
         <!--page script-->
         <script src="plugins/flot/jquery.flot.js"></script>
@@ -116,7 +116,7 @@ if ($_SESSION['id_empresa'] == null || $_SESSION['id_empresa'] == "") {
         <script src="plugins/flot/jquery.flot.pie.js"></script>
         <script src="plugins/flot/jquery.flot.time.js"></script>
         <script src="plugins/flot/jquery.flot.tooltip.min.js"></script>
-        <script src="js/flot.custom.js"></script>
+        <script src="public/js/flot.custom.js"></script>
 
     </body>
 
