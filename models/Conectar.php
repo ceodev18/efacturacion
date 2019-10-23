@@ -16,7 +16,7 @@ if (!isset($_SESSION)) {
  * Date: 02/05/2019
  * Time: 06:42 PM
  */
-class cl_conectar
+class conectar
 {
 
     private static $_instancia;
@@ -50,7 +50,7 @@ class cl_conectar
 
         if (!self::es_string($sql))
             exit();
-        $db = cl_conectar::getInstancia();
+        $db = conectar::getInstancia();
         $mysqli = $db->getConnection();
         $resultado = $mysqli->query($sql);
         if ($row = $resultado->fetch_assoc()) {
@@ -66,7 +66,7 @@ class cl_conectar
     private function es_string($sql)
     {
         if (!is_string($sql)) {
-            trigger_error('class.cl_conectar.inc: $SQL enviado no es un string: ' . $sql);
+            trigger_error('class.conectar.inc: $SQL enviado no es un string: ' . $sql);
             return false;
         }
         return true;
@@ -100,7 +100,7 @@ class cl_conectar
     {
         if (!self::es_string($sql))
             exit();
-        $db = cl_conectar::getInstancia();
+        $db = conectar::getInstancia();
         $mysqli = $db->getConnection();
         $resultado = $mysqli->query($sql);
         return $resultado; // Este resultado se puede usar así:  while ($row = $resultado->fetch_assoc()){...}
@@ -116,12 +116,12 @@ class cl_conectar
     {
         if (!self::es_string($sql))
             exit();
-        $db = cl_conectar::getInstancia();
+        $db = conectar::getInstancia();
         $mysqli = $db->getConnection();
         $resultado = $mysqli->query($sql);
         // Si hay un error en el SQL, este es el error de MySQL
         if (!$resultado) {
-            return "class.cl_conectar.class: error " . $mysqli->error;
+            return "class.conectar.class: error " . $mysqli->error;
         }
 
         $i = 0;
@@ -144,12 +144,12 @@ class cl_conectar
     {
         if (!self::es_string($sql))
             exit();
-        $db = cl_conectar::getInstancia();
+        $db = conectar::getInstancia();
         $mysqli = $db->getConnection();
         $resultado = $mysqli->query($sql);
         // Si hay un error en el SQL, este es el error de MySQL
         if (!$resultado) {
-            return "class.cl_conectar.class: error " . $mysqli->error;
+            return "class.conectar.class: error " . $mysqli->error;
         }
         if (!$row = $resultado->fetch_assoc()) {
             return "{}";
@@ -168,12 +168,12 @@ class cl_conectar
     {
         if (!self::es_string($sql, $columna))
             exit();
-        $db = cl_conectar::getInstancia();
+        $db = conectar::getInstancia();
         $mysqli = $db->getConnection();
         $resultado = $mysqli->query($sql);
         // Si hay un error en el SQL, este es el error de MySQL
         if (!$resultado) {
-            return "class.cl_conectar.class: error " . $mysqli->error;
+            return "class.conectar.class: error " . $mysqli->error;
         }
         $Valor = NULL;
         //Trae el primer valor del arreglo
@@ -193,10 +193,10 @@ class cl_conectar
     {
         if (!self::es_string($sql))
             exit();
-        $db = cl_conectar::getInstancia();
+        $db = conectar::getInstancia();
         $mysqli = $db->getConnection();
         if (!$resultado = $mysqli->query($sql)) {
-            echo "class.cl_conectar.class: error " . $mysqli->error . " con " . $sql . "<br>";
+            echo "class.conectar.class: error " . $mysqli->error . " con " . $sql . "<br>";
             return false;
         } else {
             return $resultado;
