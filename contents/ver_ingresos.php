@@ -2,10 +2,10 @@
 session_start();
 
 require 'class/cl_ingreso.php';
-require 'class/cl_varios.php';
+require 'class/variosp';
 require_once 'class/cl_tienda.php';
 $c_ingreso = new cl_ingreso();
-$c_varios = new cl_varios();
+$c_varios = new varios();
 
 $c_tienda = new cl_tienda();
 if ($_SESSION['id_empresa'] == null || $_SESSION['id_empresa'] == "") {

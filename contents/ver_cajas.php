@@ -1,11 +1,10 @@
 <?php
 session_start();
 
-require 'class/cl_varios.php';
-require 'class/cl_tienda.php';
+require 'class/Varios.phprequire 'class/cl_tienda.php';
 require 'class/cl_caja_diaria.php';
 
-$c_varios = new cl_varios();
+$c_varios = new varios();
 $c_tienda = new cl_tienda();
 
 if ($_SESSION['id_empresa'] == null || $_SESSION['id_empresa'] == "") {

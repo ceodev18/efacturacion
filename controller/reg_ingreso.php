@@ -3,10 +3,10 @@ session_start();
 
 require '../class/cl_ingreso.php';
 require '../class/cl_detalle_ingreso.php';
-require '../class/cl_varios.php';
+require '../class/variosp';
 $c_ingreso = new cl_ingreso();
 $c_detalle = new cl_detalle_ingreso();
-$c_varios = new cl_varios();
+$c_varios = new varios();
 
 $c_ingreso->setId_tienda($_SESSION['id_empresa']);
 $c_ingreso->setPeriodo(filter_input(INPUT_POST, 'input_periodo'));
