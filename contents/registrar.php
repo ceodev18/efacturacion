@@ -133,7 +133,7 @@
                                 </form>
                             </div>
                             <div class="text-center misc-footer">
-                                <span>&copy; Copyright <?php echo date('Y') ?>. Chimbote Store <br>development by Luna Systems Peru</span>
+                                <span>&copy; Copyright <?php// echo date('Y') ?>. Chimbote Store <br>development by Luna Systems Peru</span>
                             </div>
                         </div>
                     </div>

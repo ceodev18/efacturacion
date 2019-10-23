@@ -77,13 +77,13 @@ s
                                 <div class="form-group">
                                     <label class="col-lg-2 control-label">Codigo</label>
                                     <div class="col-lg-2">
-                                        <input type="text" placeholder="Codigo" class="form-control text-center" id="input_codigo_producto" name="input_codigo_producto" value="<?php echo $c_producto->getCodigo() ?>" readonly="true">
+                                        <input type="text" placeholder="Codigo" class="form-control text-center" id="input_codigo_producto" name="input_codigo_producto" value="" readonly="true">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-lg-2 control-label">Descripcion</label>
                                     <div class="col-lg-10">
-                                        <input type="text" placeholder="Descripcion del Producto" class="form-control" id="input_descripcion_producto" name="input_descripcion_producto" value="<?php echo $c_producto->getDescripcion() ?>">
+                                        <input type="text" placeholder="Descripcion del Producto" class="form-control" id="input_descripcion_producto" name="input_descripcion_producto" value="">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -101,17 +101,17 @@ s
                                 <div class="form-group">
                                     <label class="col-lg-2 control-label">Precio Venta</label>
                                     <div class="col-lg-2">
-                                        <input type="text" class="form-control text-right" id="input_precio_producto" name="input_precio_producto" onkeyup="calcular_precio_compra()" value="<?php echo $c_producto->getPrecio() ?>" />
+                                        <input type="text" class="form-control text-right" id="input_precio_producto" name="input_precio_producto" onkeyup="calcular_precio_compra()" value="" />
                                     </div>
                                     <label class="col-lg-4 control-label">Precio Compra</label>
                                     <div class="col-lg-2">
-                                        <input type="text" class="form-control text-right" id="input_costo_producto" name="input_costo_producto" value="<?php echo $c_producto->getCosto() ?>" readonly="true"/>
+                                        <input type="text" class="form-control text-right" id="input_costo_producto" name="input_costo_producto" value="" readonly="true"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-lg-2 control-label">Caracteristicas</label>
                                     <div class="col-lg-10">
-                                        <textarea class="form-control" rows="5" id="input_caracteristicas_producto" name="input_caracteristicas_producto"><?php echo $c_producto->getDescripcion() ?></textarea>
+                                        <textarea class="form-control" rows="5" id="input_caracteristicas_producto" name="input_caracteristicas_producto"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -129,7 +129,7 @@ s
             <!--end page content-->
 
 
-            <?php include 'fixed/footer.php'; ?>
+            <?php include '../fixed/footer.php'; ?>
 
         </section>
         <!--end main content-->

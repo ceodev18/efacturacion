@@ -126,8 +126,6 @@
         </section>
         <!--end main content-->
 
-
-
         <!--Common plugins-->
         <script src="../public/plugins/jquery/dist/jquery.min.js"></script>
         <script src="../public/plugins/bootstrap/js/bootstrap.min.js"></script>

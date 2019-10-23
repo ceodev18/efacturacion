@@ -1,27 +1,4 @@
-<?php
-/*session_start();
-$_SESSION['detalle_venta'] = "";
 
-require_once 'class/cl_tienda.php';
-require 'class/cl_documento_empresa.php';
-require 'class/cl_caja_diaria.php';
-
-$c_tido = new cl_documento_empresa();
-
-$c_tienda = new cl_tienda();
-if ($_SESSION['id_empresa'] == null || $_SESSION['id_empresa'] == "") {
-    header("Location: login.php");
-} else {
-    $c_tienda->setId($_SESSION['id_empresa']);
-    $c_tienda->validar_tienda();
-}
-
-$c_caja = new cl_caja_diaria();
-$c_caja->setId_tienda($_SESSION['id_empresa']);
-$c_caja->setFecha(date('Y-m-d'));
-
-$existe_caja = $c_caja->obtener_datos();*/
-?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -89,7 +66,7 @@ $existe_caja = $c_caja->obtener_datos();*/
 
     <!--start page content-->
     <?php
-    if ($existe_caja) {
+    //if ($existe_caja) {
         ?>
 
         <div class="row">
@@ -236,14 +213,15 @@ $existe_caja = $c_caja->obtener_datos();*/
         </div>
 
         <?php
-    } else {
-        require 'modals/m_sin_caja.php';
-    } ?>
+    //} else {
+        //require 'modals/m_sin_caja.php';
+    //}
+    ?>
 
     <!--end page content-->
 
 
-    <?php include 'fixed/footer.php'; ?>
+    <?php include '../fixed/footer.php'; ?>
 
 </section>
 <!--end main content-->

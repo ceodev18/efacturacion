@@ -1,19 +1,4 @@
-<?php
-session_start();
 
-require 'class/cl_cliente.php';
-require_once 'class/cl_tienda.php';
-$c_cliente = new cl_cliente();
-$c_cliente->setId_tienda($_SESSION['id_empresa']);
-
-$c_tienda = new cl_tienda();
-if ($_SESSION['id_empresa'] == null || $_SESSION['id_empresa'] == "") {
-    header("Location: login.php");
-} else {
-    $c_tienda->setId($_SESSION['id_empresa']);
-    $c_tienda->validar_tienda();
-}
-?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -47,11 +32,11 @@ if ($_SESSION['id_empresa'] == null || $_SESSION['id_empresa'] == "") {
     </head>
     <body>
 
-        <?php include 'fixed/menu_superior.php' ?>
+        <?php include '../fixed/menu_superior.php' ?>
 
-        <?php include 'fixed/menu_derecha.php' ?>
+        <?php include '../fixed/menu_derecha.php' ?>
 
-        <?php include 'fixed/menu_izquierda.php' ?>
+        <?php include '../fixed/menu_izquierda.php' ?>
 
 
         <!--main content start-->
@@ -100,8 +85,31 @@ if ($_SESSION['id_empresa'] == null || $_SESSION['id_empresa'] == "") {
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $a_clientes = $c_cliente->ver_clientes();
-                                        foreach ($a_clientes as $value) {
+                                        //$a_clientes = $c_cliente->ver_clientes();
+
+                                        for($i =0;$i<20;$i++){
+                                            if($i/2==1){
+                                                $texto_estado = '<span class="btn btn-xs btn-danger">Deudor</span>';
+                                            } else {
+                                                $texto_estado = '<span class="btn btn-xs btn-success">Normal</span>';
+                                            }
+
+                                            ?>
+                                            <tr>
+                                                <td class="text-center">id_cliente</td>
+                                                <td>datos - documento</td>
+                                                <td class="text-right">total_venta</td>
+                                                <td class="text-right">total venta - total pagado</td>
+                                                <td class="text-center">estado</td>
+                                                <td class="text-center">
+                                                    <a href="#" class="btn btn-xs btn-danger" > <i class="fa fa-edit"></i></a>
+                                                </td>
+                                            </tr>
+                                            <?php
+                                        }
+
+
+                                        /*foreach ($a_clientes as $value) {
                                         $diferencia = $value['total_venta'] - $value['total_pagado'];
                                         if ($diferencia > 0) {
                                         $texto_estado = '<span class="btn btn-xs btn-danger">Deudor</span>';
@@ -122,7 +130,7 @@ if ($_SESSION['id_empresa'] == null || $_SESSION['id_empresa'] == "") {
                                                 </td>
                                             </tr>
                                             <?php
-                                        }
+                                        }*/
                                         ?>
                                     </tbody>
                                 </table>
@@ -135,7 +143,7 @@ if ($_SESSION['id_empresa'] == null || $_SESSION['id_empresa'] == "") {
             <!--end page content-->
 
 
-            <?php include 'fixed/footer.php'; ?>
+            <?php include '../fixed/footer.php'; ?>
 
         </section>
         <!--end main content-->
