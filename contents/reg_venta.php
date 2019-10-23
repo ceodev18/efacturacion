@@ -1,5 +1,5 @@
 <?php
-session_start();
+/*session_start();
 $_SESSION['detalle_venta'] = "";
 
 require_once 'class/cl_tienda.php';
@@ -20,7 +20,7 @@ $c_caja = new cl_caja_diaria();
 $c_caja->setId_tienda($_SESSION['id_empresa']);
 $c_caja->setFecha(date('Y-m-d'));
 
-$existe_caja = $c_caja->obtener_datos();
+$existe_caja = $c_caja->obtener_datos();*/
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -58,11 +58,11 @@ $existe_caja = $c_caja->obtener_datos();
 </head>
 <body>
 
-<?php include 'fixed/menu_superior.php' ?>
+<?php include '../fixed/menu_superior.php' ?>
 
-<?php include 'fixed/menu_derecha.php' ?>
+<?php include '../fixed/menu_derecha.php' ?>
 
-<?php include 'fixed/menu_izquierda.php' ?>
+<?php include '../fixed/menu_izquierda.php' ?>
 
 
 <!--main content start-->
@@ -139,7 +139,7 @@ $existe_caja = $c_caja->obtener_datos();
                                 <div class="col-lg-1">
                                     <input type="hidden" name="input_costo_producto" id="input_costo_producto"/>
                                     <button type="button" class="btn btn-success" disabled="true" id="btn_add_producto"
-                                            onclick="addProducto()">Agregar
+                                            onclick="//addProducto()">Agregar
                                     </button>
                                 </div>
                             </div>

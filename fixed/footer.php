@@ -1,5 +1,5 @@
 <!--Start footer-->
 <footer class="footer">
-    <span>Copyright &copy; <?php echo date('Y')?>. developed by Luna Systems Peru</span>
+    <span>Copyright &copy; 2019. developed by Luna Systems Peru</span>
 </footer>
 <!--end footer-->

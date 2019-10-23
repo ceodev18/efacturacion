@@ -1,16 +1,4 @@
-<?php
-require 'class/cl_clasificacion_producto.php';
-require 'class/cl_producto.php';
-$c_producto = new cl_producto();
-$c_clasificacion = new cl_clasificacion_producto();
 
-if (isset($_GET)) {
-    $c_producto->setCodigo(filter_input(INPUT_GET, 'codigo'));
-    $c_producto->datos_producto();
-} else {
-    header("Location: ver_productos.php");
-}
-?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -31,6 +19,8 @@ if (isset($_GET)) {
         <link rel="stylesheet" href="../public/plugins/nano-scroll/nanoscroller.css">
         <link rel="stylesheet" href="../public/plugins/metisMenu/metisMenu.min.css">
         <link href="../public/plugins/bootstrap-sweet-alerts/sweet-alert.css" rel="stylesheet">
+s
+        <link href="../public/images" rel="stylesheet">
 
         <!--template css-->
         <link href="../public/css/style.css" rel="stylesheet">
@@ -43,11 +33,11 @@ if (isset($_GET)) {
     </head>
     <body>
 
-        <?php include 'fixed/menu_superior.php' ?>
+        <?php include '../fixed/menu_superior.php' ?>
 
-        <?php include 'fixed/menu_derecha.php' ?>
+        <?php include '../fixed/menu_derecha.php' ?>
 
-        <?php include 'fixed/menu_izquierda.php' ?>
+        <?php include '../fixed/menu_izquierda.php' ?>
 
 
         <!--main content start-->
@@ -100,15 +90,7 @@ if (isset($_GET)) {
                                     <label class="col-lg-2 control-label">Clasificacion</label>
                                     <div class="col-lg-4">
                                         <select class="form-control" id="select_clasificacion" name="select_clasificacion">
-                                            <?php
-                                            $a_clasificacion = $c_clasificacion->ver_clasificacion();
-                                            foreach ($a_clasificacion as $value) {
-                                                ?>
-                                                <option value="<?php echo $value['codigo'] ?>"><?php echo $value['descripcion'] ?></option>
-                                                <?php
-                                            }
-                                            ?>
-
+                                                <option value="">OPCION</option>
                                         </select>
                                     </div>
                                     <label class="col-lg-4 control-label">Porcentaje</label>
