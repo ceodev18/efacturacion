@@ -383,14 +383,12 @@
         });
 
         $("#input_buscar_productos").autocomplete({
-            source: "ajax_post/buscar_producto.php",
+            source: "../controller/jason/cargar_productos.php",
             minLength: 2,
             select: function (event, ui) {
                 event.preventDefault();
-                $('#input_cactual_producto').val(ui.item.cantidad);
                 $('#input_descripcion_producto').val(ui.item.codigo + " | " + ui.item.descripcion);
-                $('#input_precio_producto').val(ui.item.precio_descontado);
-                $('#input_costo_producto').val(ui.item.costo);
+                $('#input_precio_producto').val(ui.item.precio);
                 $('#hidden_codigo_producto').val(ui.item.codigo);
                 $('#input_cantidad_producto').prop("readonly", false);
                 $('#input_precio_producto').prop("readonly", false);
@@ -441,39 +439,6 @@
             $('#input_falta_cliente').val(number_format(faltante, 2));
         } else {
             $('#input_falta_cliente').val(0.00);
-        }
-    }
-
-    function validar_efectivo() {
-        var total = $('#input_total_pedido').val();
-        var entregado = $('#input_pago_cliente').val();
-        var cliente = $('#input_id_cliente').val();
-        var error = false;
-
-        if (entregado < total) {
-            if (cliente === '0') {
-                error = true;
-                swal("NO PODEMOS CONTINUAR, SELECCIONE UN CLIENTE PRIMERO!");
-                //alert('NO PODEMOS CONTINUAR, SELECCIONE UN CLIENTE PRIMERO');
-            }
-        }
-
-//                if (!error) {
-//                    $('#btn_guardar_pedido').prop("disabled", false);
-//                } else {
-//                    $('#btn_guardar_pedido').prop("disabled", true);
-//                }
-        return error;
-    }
-
-    function addProducto() {
-        //                var parcial_venta = $('#input_cantidad_producto').val() * $('#input_precio_producto').val();
-        //                suma_pedido = suma_pedido + parcial_venta;
-        //                $('#input_total_pedido').val(suma_pedido);
-        //                $('#lbl_suma_pedido').text("S/ " + number_format(suma_pedido, 2));
-        if (validar_detalle()) {
-            enviar_detalle_pedido();
-            clean();
         }
     }
 
