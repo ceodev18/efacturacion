@@ -8,9 +8,10 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <title>Drupee - Modificar Producto</title>
+        <title>Sistema de Facturacion Electronica - Luna Systems Peru</title>
 
         <!-- Common plugins -->
+        <link href="../public/images/favicon.png" rel="icon"/>
         <link href="../public/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="../public/plugins/simple-line-icons/simple-line-icons.css" rel="stylesheet">
         <link href="../public/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">

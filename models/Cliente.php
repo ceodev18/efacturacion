@@ -9,6 +9,8 @@ class Cliente
     private $datos;
     private $direccion;
     private $id_empresa;
+    private $total_venta;
+    private $ultima_venta;
     private $conectar;
 
     /**
@@ -99,10 +101,42 @@ class Cliente
         $this->id_empresa = $id_empresa;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getTotalVenta()
+    {
+        return $this->total_venta;
+    }
+
+    /**
+     * @param mixed $total_venta
+     */
+    public function setTotalVenta($total_venta)
+    {
+        $this->total_venta = $total_venta;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUltimaVenta()
+    {
+        return $this->ultima_venta;
+    }
+
+    /**
+     * @param mixed $ultima_venta
+     */
+    public function setUltimaVenta($ultima_venta)
+    {
+        $this->ultima_venta = $ultima_venta;
+    }
+
     public function insertar()
     {
         $sql = "insert into clientes 
-        values ('$this->id_cliente', '$this->documento', '$this->datos', '$this->direccion', '$this->id_empresa')";
+        values ('$this->id_cliente', '$this->documento', '$this->datos', '$this->direccion', '$this->id_empresa', '$this->ultima_venta', '$this->total_venta')";
         return $this->conectar->ejecutar_idu($sql);
     }
 
@@ -131,6 +165,8 @@ class Cliente
         $this->datos = $fila['datos'];
         $this->direccion = $fila['direccion'];
         $this->id_empresa = $fila['id_empresa'];
+        $this->ultima_venta = $fila['ultima_venta'];
+        $this->total_venta = $fila['total_venta'];
     }
 
     public function verFilas()

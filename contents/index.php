@@ -19,9 +19,11 @@
         <link href="../public/plugins/jasny-bootstrap/css/jasny-bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="../public/plugins/nano-scroll/nanoscroller.css">
         <link rel="stylesheet" href="../public/plugins/metisMenu/metisMenu.min.css">
+        <link href="../public/images/favicon.png" rel="icon"/>
+        <link href="../public/plugins/chart-c3/c3.min.css" rel="stylesheet">
+
         <!--template css-->
         <link href="../public/css/style.css" rel="stylesheet">
-        <link href="../public/images" rel="stylesheet">
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -47,7 +49,7 @@
             <div class="page-header">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h4>Registrar Cliente</h4>
+                        <h4>Blank Page</h4>
                     </div>
                     <div class="col-sm-6 text-right">
                         <ol class="breadcrumb">
@@ -63,69 +65,30 @@
 
             <!--start page content-->
             <div class="row">
-                <div class="col-sm-12">
-                    <!-- START panel-->
+                <div class="col-md-5">
                     <div class="panel panel-default">
-                        <div class="panel-heading">Datos del Cliente</div>
+                        <div class="panel-heading">
+                            Bar chart example
+                        </div>
                         <div class="panel-body">
-                            <form class="form-horizontal" method="post" action="">
-                                <div class="form-group">
-                                    <label class="col-lg-2 control-label">Codigo</label>
-                                    <div class="col-lg-2">
-                                        <input type="text" placeholder="00x" class="form-control text-center" readonly="true">
-                                    </div>
-                                </div>
-<!--                                <div class="form-group">
-                                    <label class="col-lg-2 control-label">DNI / RUC</label>
-                                    <div class="col-lg-2">
-                                        <input type="text" placeholder="Ingrese digitos" name="input_documento" class="form-control text-center">
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <button class="btn btn-primary"> Validar Documento</button>
-                                    </div>
-                                </div>-->
-                                <div class="form-group">
-                                    <label class="col-lg-2 control-label">Nombre Cliente</label>
-                                    <div class="col-lg-10">
-                                        <input type="text" placeholder="Nombre cliente"  name="input_nombre" class="form-control" required="true">
-                                    </div>
-                                </div>
-                                 <div class="form-group">
-                                    <label class="col-lg-2 control-label">Direccion</label>
-                                    <div class="col-lg-10">
-                                        <input type="text" placeholder="Direccion" name="input_direccion" class="form-control">
-                                    </div>
-                                </div>
-                                 <div class="form-group">
-                                    <label class="col-lg-2 control-label">Email</label>
-                                    <div class="col-lg-10">
-                                        <input type="email" placeholder="Email" name="input_email" class="form-control">
-                                    </div>
-                                </div>
-                                 <div class="form-group">
-                                    <label class="col-lg-2 control-label">Telefono</label>
-                                    <div class="col-lg-3">
-                                        <input type="text" placeholder="Telefono" name="input_telefono" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-lg-offset-2 col-lg-10">
-                                        <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
-                                    </div>
-                                </div>
-                            </form>
+                            <div class="flot-chart">
+                                <div class="flot-chart-content" id="flot-bar-chart"></div>
+                            </div>
                         </div>
                     </div>
-                    <!-- END panel-->
-                </div>
-            </div>
+                </div><!--col-md-->
+            </div><!--end row-->
+
 
             <!--end page content-->
+
 
             <?php include '../fixed/footer.php'; ?>
 
         </section>
         <!--end main content-->
+
+
 
         <!--Common plugins-->
         <script src="../public/plugins/jquery/dist/jquery.min.js"></script>
@@ -136,6 +99,15 @@
         <script src="../public/plugins/nano-scroll/jquery.nanoscroller.min.js"></script>
         <script src="../public/plugins/metisMenu/metisMenu.min.js"></script>
         <script src="../public/js/float-custom.js"></script>
+
+        <!--page script-->
+        <script src="../public/plugins/flot/jquery.flot.js"></script>
+        <script src="../public/plugins/flot/jquery.flot.resize.js"></script>
+        <script src="../public/plugins/flot/jquery.flot.pie.js"></script>
+        <script src="../public/plugins/flot/jquery.flot.time.js"></script>
+        <script src="../public/plugins/flot/jquery.flot.tooltip.min.js"></script>
+        <script src="../public/js/flot.custom.js"></script>
+
     </body>
 
     <!-- Mirrored from bootstraplovers.com/templates/float-admin-v1.1/light-version/page-empty.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 26 Feb 2017 07:43:09 GMT -->

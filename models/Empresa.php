@@ -230,7 +230,7 @@ class Empresa
         where ruc = '$this->ruc'";
         $this->id_empresa = $this->conectar->get_valor_query($sql, 'id_empresa');
         return true;
-        if ($this->id_empresa != null) {
+        if ($this->id_empresa == NULL || $this->id_empresa == "") {
             return false;
         }
     }

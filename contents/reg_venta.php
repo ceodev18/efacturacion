@@ -8,9 +8,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Chimbote Store - Registro de Ventas</title>
+    <title>Sistema de Facturacion Electronica - Luna Systems Peru</title>
 
     <!-- Common plugins -->
+    <link href="../public/images/favicon.png" rel="icon"/>
     <link href="../public/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!--<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">-->
     <link href="../public/plugins/jquery-ui/jquery-ui.css" rel="stylesheet" type="text/css"/>

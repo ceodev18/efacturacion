@@ -1,3 +1,18 @@
+<?php
+require '../models/Producto.php';
+
+$c_producto = new Producto();
+
+$action = filter_input(INPUT_GET, 'action');
+//1 para registrar
+//2 para editar
+
+if ($action == 2) {
+    $c_producto->setIdProducto(filter_input(INPUT_GET, 'id'));
+    $c_producto->obtenerDatos();
+}
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -7,9 +22,10 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <title>Chimbote Store - Registro de Productos</title>
+        <title>Sistema de Facturacion Electronica - Luna Systems Peru</title>
 
         <!-- Common plugins -->
+        <link href="../public/images/favicon.png" rel="icon"/>
         <link href="../public/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="../public/plugins/simple-line-icons/simple-line-icons.css" rel="stylesheet">
         <link href="../public/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
@@ -18,6 +34,7 @@
         <link rel="stylesheet" href="../public/plugins/nano-scroll/nanoscroller.css">
         <link rel="stylesheet" href="../public/plugins/metisMenu/metisMenu.min.css">
         <link rel="stylesheet" type="text/css" href="../public/js/jpreview.css">
+        <link href="../public/plugins/iCheck/blue.css" rel="stylesheet">
 
         <!--template css-->
         <link href="../public/css/style.css" rel="stylesheet">
@@ -62,21 +79,7 @@
 
             <!--start page content-->
             <div class="row">
-                <form class="form-horizontal" method="post" action="../controller/reg_producto.php" enctype="multipart/form-data">
-                    <div class="col-sm-12">
-                        <div class="panel panel-default collapsed">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><b>Agregar Imagen Principal </b></h3>
-                            </div>
-
-                            <div class="panel-body">
-                                <div class="form-group" >
-                                    <input type="file" name="fimagenes[]" class="demo" multiple data-jpreview-container="#demo-1-container" accept="image/*" />
-                                </div>
-                                <div id="demo-1-container" class="jpreview-container"></div>
-                            </div>
-                        </div>
-                    </div>
+                <form class="form-horizontal" method="post" action="../controller/producto.php">
                     <div class="col-sm-12">
                         <!-- START panel-->
                         <div class="panel panel-default">
@@ -88,56 +91,29 @@
                                 <div class="form-group">
                                     <label class="col-lg-2 control-label">Codigo</label>
                                     <div class="col-lg-2">
-                                        <input type="text" placeholder="Codigo" class="form-control text-center" id="input_codigo_producto" name="input_codigo_producto" disabled="true">
+                                        <input type="text" placeholder="Codigo" class="form-control text-center" id="input_codigo_producto" name="input_codigo_producto" disabled="true" value="<?php echo $c_producto->getIdProducto()?>">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-lg-2 control-label">Descripcion</label>
                                     <div class="col-lg-10">
-                                        <input type="text" placeholder="Descripcion del Producto" class="form-control" id="input_descripcion_producto" name="input_descripcion_producto" required="true">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-lg-2 control-label">Familia</label>
-                                    <div class="col-lg-4">
-                                        <select class="form-control" id="select_familia" name="select_familia">
-
-                                                <option value=""></option>
-
-
-                                        </select>
-                                    </div>
-                                    <label class="col-lg-2 control-label">Clasificacion</label>
-                                    <div class="col-lg-4">
-                                        <select class="form-control" id="select_clasificacion" name="select_clasificacion">
-                                            <option value="-">Seleccionar Familia</option>
-                                        </select>
+                                        <input type="text" placeholder="Descripcion del Producto" class="form-control" id="input_descripcion_producto" name="input_descripcion_producto" required="true" value="<?php echo $c_producto->getDescripcion()?>">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-lg-2 control-label">Precio Venta</label>
                                     <div class="col-lg-2">
-                                        <input type="text" class="form-control text-right" id="input_precio_producto" name="input_precio_producto" value="0.00" required/>
+                                        <input type="text" class="form-control text-right" id="input_precio_producto" name="input_precio_producto" value="<?php echo $c_producto->getPrecio()?>" required/>
                                     </div>
-                                    <label class="col-lg-4 control-label">Descuento</label>
+                                    <label class="col-lg-4 control-label">Costo</label>
                                     <div class="col-lg-2">
-                                        <input type="text" class="form-control text-right" id="input_descuento_producto" name="input_descuento_producto" value="0.00" />
+                                        <input type="text" class="form-control text-right" id="input_costo_producto" name="input_costo_producto" value="<?php echo $c_producto->getCosto()?>" required/>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-lg-2 control-label">Nuevo Precio</label>
+                                    <label class="col-lg-2 control-label">Afecto ISCBP</label>
                                     <div class="col-lg-2">
-                                        <input type="text" class="form-control text-right" id="input_nuevoprecio_producto" name="input_nuevoprecio_producto" value="0.00" readonly="true"/>
-                                    </div>
-                                    <label class="col-lg-4 control-label">Precio Compra</label>
-                                    <div class="col-lg-2">
-                                        <input type="text" class="form-control text-right" id="input_costo_producto" name="input_costo_producto" value="0.00" required/>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-lg-2 control-label">Caracteristicas</label>
-                                    <div class="col-lg-10">
-                                        <textarea class="form-control" rows="5" id="input_caracteristicas_producto" name="input_caracteristicas_producto" required="true"></textarea>
+                                        <input type="checkbox" class="i-checks"  id="input_afecto" name="input_afecto" value="1"/>
                                     </div>
                                 </div>
                             </div>
@@ -145,6 +121,8 @@
                                 <div class="form-group">
                                     <div class="col-lg-offset-10 col-lg-1">
                                         <button type="submit" class="btn btn-sm btn-primary" id="btn_enviar_form">Guardar</button>
+                                        <input type="hidden" id="action" name="action" value="<?php echo $action?>" />
+                                        <input type="hidden" id="hidden_idproducto" name="hidden_idproducto" value="<?php echo $c_producto->getIdProducto()?>" />
                                     </div>
                                 </div>
 
@@ -171,59 +149,17 @@
         <script src="../public/plugins/nano-scroll/jquery.nanoscroller.min.js"></script>
         <script src="../public/plugins/metisMenu/metisMenu.min.js"></script>
         <script src="../public/js/float-custom.js"></script>
-        <script src="../public/js/bootstrap-prettyfile.js"></script>
-        <script src="../public/js/jpreview.js"></script>
-
+        <!-- iCheck for radio and checkboxes -->
+        <script src="../public/plugins/iCheck/icheck.min.js"></script>
         <script>
-            $('input[type="file"]').prettyFile();
-            $('.demo').jPreview();
-        </script>
-
-        <script lang="javascript" >
             $(document).ready(function () {
-                $("#select_familia").trigger('change');
-            });
-            
-            $("#select_familia").change(function () {
-                var id_familia = $("#select_familia").val();
-                var select_clasificacion = $("#select_clasificacion");
-                var select_familia = $(this);
-                if (id_familia !== '')
-                {
-                    $.ajax({
-                        //data: {id: cliente},
-                        url: 'ajax_post/select_obtener_clasificacion.php?codigo=' + id_familia,
-                        type: 'GET',
-                        dataType: 'json',
-                        beforeSend: function ()
-                        {
-                            select_clasificacion.prop('disabled', true);
-                        },
-                        success: function (response)
-                        {
-                            select_familia.prop('disabled', false);
-                            // Limpiamos el select
-                            select_clasificacion.find('option').remove();
-                            $(response).each(function (i, v) { // indice, valor
-                                select_clasificacion.append('<option value="' + v.id + '">' + v.Nombre + '</option>');
-                            })
-
-                            select_clasificacion.prop('disabled', false);
-                        },
-                        error: function ()
-                        {
-                            alert('Ocurrio un error en el servidor ..');
-                            select_clasificacion.prop('disabled', true);
-                        }
-                    });
-                }
-                else
-                {
-                    alert('Ocurrio un error en el servidor ..');
-                    select_clasificacion.prop('disabled', true);
-                }
+                $('.i-checks').iCheck({
+                    checkboxClass: 'icheckbox_square-blue',
+                    radioClass: 'iradio_square-blue'
+                });
             });
         </script>
+
 
     </body>
 

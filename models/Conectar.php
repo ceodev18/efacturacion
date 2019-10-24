@@ -24,15 +24,8 @@ class conectar
      */
     public function __construct()
     {
-        if (!isset($_SESSION)) {
-            session_start();
-        } else {
-
-            if ($_SESSION['logeado'] == null) {
-                header("Location: ../login.php");
-                exit;
-            }
-        }
+        $this->iniciarSession();
+        $this->verificarLogeado();
 
         $this->_connection = new mysqli($this->_host, $this->_user, $this->_pass, $this->_db);
         // Manejar error en base de datos
@@ -40,6 +33,23 @@ class conectar
             trigger_error('Falla en la conexion de base de datos' . mysqli_connect_error(), E_USER_ERROR);
         }
         $this->_connection->query("SET NAMES 'utf8'");
+    }
+
+    private function iniciarSession() {
+        if (!isset($_SESSION)) {
+            session_start();
+        }
+    }
+
+    private function verificarLogeado() {
+        if (!isset($_SESSION)) {
+            $this->iniciarSession();
+        }
+
+        if (!isset($_SESSION['id_empresa'])) {
+            print_r($_SESSION);
+         //   header("location: ../login.php");
+        }
     }
 
     /**
