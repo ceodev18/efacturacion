@@ -1,20 +1,3 @@
-<?php
-session_start();
-
-require 'class/cl_producto.php';
-require_once 'class/cl_tienda.php';
-
-$c_tienda = new cl_tienda();
-if ($_SESSION['id_empresa'] == null || $_SESSION['id_empresa'] == "") {
-    header("Location: login.php");
-} else {
-    $c_tienda->setId($_SESSION['id_empresa']);
-    $c_tienda->validar_tienda();
-}
-
-$c_producto = new cl_producto();
-$c_producto->setId_tienda($_SESSION['id_empresa']);
-?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -51,11 +34,11 @@ $c_producto->setId_tienda($_SESSION['id_empresa']);
     </head>
     <body>
 
-        <?php include 'fixed/menu_superior.php' ?>
+        <?php include '../fixed/menu_superior.php' ?>
 
-        <?php include 'fixed/menu_derecha.php' ?>
+        <?php include '../fixed/menu_derecha.php' ?>
 
-        <?php include 'fixed/menu_izquierda.php' ?>
+        <?php include '../fixed/menu_izquierda.php' ?>
 
 
         <!--main content start-->
@@ -106,32 +89,33 @@ $c_producto->setId_tienda($_SESSION['id_empresa']);
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $a_productos = $c_producto->ver_productos();
-                                        foreach ($a_productos as $value) {
-                                            $text_estado = '<span class="btn btn-xs btn-success">en Stock</span>';
-                                            $text_cantidad = number_format($value['cantidad'], 2);
-
-                                            if ($value['cantidad'] == 0) {
-                                                $text_cantidad = '-';
+                                        for($i=0;$i<20;$i++)
+                                        {
+                                            if($i/2==0)
+                                            {
+                                                $text_estado = '<span class="btn btn-xs btn-success">en Stock</span>';
+                                            }
+                                            else{
                                                 $text_estado = '<span class="btn btn-xs btn-github">Inactivo</span>';
                                             }
-                                            ?>
+                                        ?>
                                             <tr>
-                                                <td class="text-center"><?php echo $value['id_producto'] ?></td>
-                                                <td><?php echo utf8_decode($value['nombre_corto']) ?></td>
-                                                <td><?php echo $value['familia'] . " - " . $value['clasificacion'] ?></td>
-                                                <td class="text-right"><?php echo $value['precio'] ?></td>
-                                                <td class="text-right"><?php echo $value['descuento'] ?> %</td>
-                                                <td class="text-center"><?php echo $text_cantidad ?></td>
-                                                <td class="text-center"><?php echo $text_estado ?></td>
+                                                <td class="text-center">id_producto</td>
+                                                <td>nombre_producto</td>
+                                                <td>clasificacion</td>
+                                                <td class="text-right">precio</td>
+                                                <td class="text-right">descuento</td>
+                                                <td class="text-center">cantidad</td>
+                                                <td class="text-center"></td>
                                                 <td class="text-center">
-                                                    <a href="mod_producto.php?codigo=<?php echo $value['id_producto'] ?>" class="btn btn-xs btn-facebook" title="Editar Producto" alt="Editar Producto"> <i class="fa fa-edit"></i></a>
-                                                    <button type="button" onclick="obtener_imagenes(<?php echo $value['id_producto'] ?>)" data-toggle="modal" data-target="#modal_ver_imagenes" class="btn btn-xs btn-warning" alt="Ver Imagenes" title="Ver Imagenes"> <i class="fa fa-image"></i></button>
-                                                    <a href="ver_kardex.php?codigo=<?php echo $value['id_producto'] ?>" class="btn btn-xs btn-success" title="Ver Kardex" alt="Ver Kardex"> <i class="fa fa-arrows-h"></i></a>
+                                                    <a href="mod_producto.php?codigo=" class="btn btn-xs btn-facebook" title="Editar Producto" alt="Editar Producto"> <i class="fa fa-edit"></i></a>
+                                                    <button type="button" onclick="" data-toggle="modal" data-target="#modal_ver_imagenes" class="btn btn-xs btn-warning" alt="Ver Imagenes" title="Ver Imagenes"> <i class="fa fa-image"></i></button>
+                                                    <a href="ver_kardex.php?codigo=" class="btn btn-xs btn-success" title="Ver Kardex" alt="Ver Kardex"> <i class="fa fa-arrows-h"></i></a>
                                                 </td>
                                             </tr>
                                             <?php
                                         }
+
                                         ?>
 
                                     </tbody>
@@ -145,7 +129,7 @@ $c_producto->setId_tienda($_SESSION['id_empresa']);
             <!--end page content-->
 
 
-            <?php include 'fixed/footer.php'; ?>
+            <?php include '../fixed/footer.php'; ?>
 
         </section>
         <!--end main content-->

@@ -1,13 +1,4 @@
-<?php
-session_start();
 
-if (isset($_SESSION['id_empresa'])) {
-    require 'models/Empresa.php';
-    $c_empresa = new Empresa();
-} else {
-    header("Location: login.php");
-}
-?>
 <!DOCTYPE html>
 <html lang="es">
 

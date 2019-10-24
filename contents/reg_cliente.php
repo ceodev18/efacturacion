@@ -1,15 +1,4 @@
-<?php
-session_start();
-require_once 'class/cl_tienda.php';
 
-$c_tienda = new cl_tienda();
-if ($_SESSION['id_empresa'] == null || $_SESSION['id_empresa'] == "") {
-    header("Location: login.php");
-} else {
-    $c_tienda->setId($_SESSION['id_empresa']);
-    $c_tienda->validar_tienda();
-}
-?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -31,6 +20,7 @@ if ($_SESSION['id_empresa'] == null || $_SESSION['id_empresa'] == "") {
         <link rel="stylesheet" href="../public/plugins/metisMenu/metisMenu.min.css">
         <!--template css-->
         <link href="../public/css/style.css" rel="stylesheet">
+        <link href="../public/images" rel="stylesheet">
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -40,11 +30,11 @@ if ($_SESSION['id_empresa'] == null || $_SESSION['id_empresa'] == "") {
     </head>
     <body>
 
-        <?php include 'fixed/menu_superior.php' ?>
+        <?php include '../fixed/menu_superior.php' ?>
 
-        <?php include 'fixed/menu_derecha.php' ?>
+        <?php include '../fixed/menu_derecha.php' ?>
 
-        <?php include 'fixed/menu_izquierda.php' ?>
+        <?php include '../fixed/menu_izquierda.php' ?>
 
 
         <!--main content start-->
@@ -77,7 +67,7 @@ if ($_SESSION['id_empresa'] == null || $_SESSION['id_empresa'] == "") {
                     <div class="panel panel-default">
                         <div class="panel-heading">Datos del Cliente</div>
                         <div class="panel-body">
-                            <form class="form-horizontal" method="post" action="../controller/reg_cliente.php">
+                            <form class="form-horizontal" method="post" action="">
                                 <div class="form-group">
                                     <label class="col-lg-2 control-label">Codigo</label>
                                     <div class="col-lg-2">
@@ -131,13 +121,10 @@ if ($_SESSION['id_empresa'] == null || $_SESSION['id_empresa'] == "") {
 
             <!--end page content-->
 
-
-            <?php include 'fixed/footer.php'; ?>
+            <?php include '../fixed/footer.php'; ?>
 
         </section>
         <!--end main content-->
-
-
 
         <!--Common plugins-->
         <script src="../public/plugins/jquery/dist/jquery.min.js"></script>

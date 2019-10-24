@@ -1,18 +1,3 @@
-<?php
-session_start();
-
-require 'class/cl_familia.php';
-require_once 'class/cl_tienda.php';
-
-$c_tienda = new cl_tienda();
-$c_familia = new cl_familia();
-if ($_SESSION['id_empresa'] == null || $_SESSION['id_empresa'] == "") {
-    header("Location: login.php");
-} else {
-    $c_tienda->setId($_SESSION['id_empresa']);
-    $c_tienda->validar_tienda();
-}
-?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -45,11 +30,11 @@ if ($_SESSION['id_empresa'] == null || $_SESSION['id_empresa'] == "") {
     </head>
     <body>
 
-        <?php include 'fixed/menu_superior.php' ?>
+        <?php include '../fixed/menu_superior.php' ?>
 
-        <?php include 'fixed/menu_derecha.php' ?>
+        <?php include '../fixed/menu_derecha.php' ?>
 
-        <?php include 'fixed/menu_izquierda.php' ?>
+        <?php include '../fixed/menu_izquierda.php' ?>
 
 
         <!--main content start-->
@@ -116,14 +101,10 @@ if ($_SESSION['id_empresa'] == null || $_SESSION['id_empresa'] == "") {
                                     <label class="col-lg-2 control-label">Familia</label>
                                     <div class="col-lg-4">
                                         <select class="form-control" id="select_familia" name="select_familia">
-                                            <?php
-                                            $a_familia = $c_familia->ver_familias();
-                                            foreach ($a_familia as $value) {
-                                                ?>
-                                                <option value="<?php echo $value['id_familia'] ?>"><?php echo $value['descripcion'] ?></option>
-                                                <?php
-                                            }
-                                            ?>
+
+                                                <option value=""></option>
+
+
                                         </select>
                                     </div>
                                     <label class="col-lg-2 control-label">Clasificacion</label>
@@ -176,7 +157,7 @@ if ($_SESSION['id_empresa'] == null || $_SESSION['id_empresa'] == "") {
 
             <!--end page content-->
 
-            <?php include 'fixed/footer.php'; ?>
+            <?php include '../fixed/footer.php'; ?>
 
         </section>
         <!--end main content-->

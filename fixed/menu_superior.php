@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-xs-6">
                 <a href="index.php" class="admin-logo">
-                    <h1><img src="images/logo.png" height="45px" alt="Chimbote Store"></h1>
+                    <h1><img src="../public/images/logo.png" height="45px" alt="Chimbote Store"></h1>
                 </a>
                 <div class="left-nav-toggle visible-xs visible-sm">
                     <a href="#">
@@ -24,7 +24,7 @@
             <div class="col-xs-6">
                 <ul class="list-inline top-right-nav">
                     <li class="dropdown hidden-xs icon-dropdown">
-                        <a href="reg_venta.php" class="dropdown-toggle" >
+                        <a href="../contents/reg_venta.php" class="dropdown-toggle" >
                             <i class="fa fa-shopping-cart"></i>
                         </a>
                     </li>
@@ -116,14 +116,14 @@
                     </li>
                     <li class="dropdown avtar-dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="images/tiendas/logo/<?php echo $c_tienda->getLogo();?>" class="img-circle" width="30" alt="">
+                            <img src="../public/images/logo.png" class="img-circle" width="30" alt="">
                         </a>
                         <ul class="dropdown-menu top-dropdown">
-                            <li><a href="javascript: void(0);"><i class="icon-home"></i> <?php echo $c_tienda->getNombre_comercial();?></a></li>
+                            <li><a href="javascript: void(0);"><i class="icon-home"></i> </*?php echo $c_tienda->getNombre_comercial();*/?></a></li>
                             <li><a href="javascript: void(0);"><i class="icon-user"></i> Perfil</a></li>
                             <li><a href="javascript: void(0);"><i class="icon-settings"></i> Configuracion</a></li>
                             <li class="divider"></li>
-                            <li><a href="procesos/logout.php"><i class="icon-logout"></i> Cerrar Sesion</a></li>
+                            <!--li><a href="procesos/logout.php"><i class="icon-logout"></i> Cerrar Sesion</a></li-->
                         </ul>
                     </li>
 

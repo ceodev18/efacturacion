@@ -1,31 +1,3 @@
-<?php
-session_start();
-
-require 'class/cl_venta.php';
-require 'class/variosp';
-require_once 'class/cl_tienda.php';
-require 'class/cl_caja_diaria.php';
-
-$c_venta = new cl_venta();
-$c_varios = new varios();
-$c_tienda = new cl_tienda();
-
-if ($_SESSION['id_empresa'] == null || $_SESSION['id_empresa'] == "") {
-    header("Location: login.php");
-} else {
-    $c_tienda->setId($_SESSION['id_empresa']);
-    $c_tienda->validar_tienda();
-}
-
-$c_venta->setId_tienda($_SESSION['id_empresa']);
-$c_venta->setId_usuario($_SESSION['id_usuario']);
-
-$c_caja = new cl_caja_diaria();
-$c_caja->setId_tienda($_SESSION['id_empresa']);
-$c_caja->setFecha(date('Y-m-d'));
-
-$existe_caja = $c_caja->obtener_datos();
-?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -111,11 +83,11 @@ $existe_caja = $c_caja->obtener_datos();
     </head>
     <body>
 
-        <?php include 'fixed/menu_superior.php' ?>
+        <?php include '../fixed/menu_superior.php' ?>
 
-        <?php include 'fixed/menu_derecha.php' ?>
+        <?php include '../fixed/menu_derecha.php' ?>
 
-        <?php include 'fixed/menu_izquierda.php' ?>
+        <?php include '../fixed/menu_izquierda.php' ?>
 
 
         <!--main content start-->
@@ -153,14 +125,7 @@ $existe_caja = $c_caja->obtener_datos();
                             <div class="panel-heading-btn col-sm-3">
                                 <select class="form-control" id="select_periodo" name="select_periodo">
                                     <option value="-" >Seleccionar Periodo</option>
-                                    <?php
-                                    $a_periodos = $c_venta->ver_periodos();
-                                    foreach ($a_periodos as $value) {
-                                        ?>
-                                        <option value="<?php echo $value['periodo'] ?>"><?php echo $value['periodo'] ?></option>
-                                        <?php
-                                    }
-                                    ?>
+                                        <option value="">Periodo</option>
                                 </select>
                             </div>
                         </div>
@@ -181,57 +146,51 @@ $existe_caja = $c_caja->obtener_datos();
                                     </thead>
                                     <tbody>
                                         <?php
-                                        if (filter_input(INPUT_GET, 'periodo') != null) {
-                                            $c_venta->setPeriodo(filter_input(INPUT_GET, 'periodo'));
-                                        }
-                                        if (filter_input(INPUT_GET, 'periodo') == null) {
-                                            $c_venta->setPeriodo(date('Ym'));
-                                        }
-                                        $a_ventas = $c_venta->ver_ventas_periodo();
-                                        $total = 0;
-                                        $pagado = 0;
-                                        foreach ($a_ventas as $value) {
-                                            $total = $total + $value['total'];
-                                            $pagado = $pagado + $value['pagado'];
-                                            $estado = $value['estado'];
-                                            if ($estado == 1) {
-                                                $label_estado = '<span class="label label-success">Normal</span>';
+                                        $existe_caja="";
+                                        for($i=0;$i<20;$i++)
+                                        {
+                                            $estado ="";
+                                            if ($i/2==0) {
+                                                $estado = '<span class="label label-success">Normal</span>';
                                             }
-                                            if ($estado == 2) {
-                                                $label_estado = '<span class="label label-warning">Pendiente</span>';
+                                            if ($i/2==1) {
+                                                $estado = '<span class="label label-warning">Pendiente</span>';
                                             }
-                                            if ($estado == 0) {
-                                                $label_estado = '<span class="label label-default">Anulado</span>';
-                                            }
+
                                             ?>
                                             <tr>
-                                                <!--<td class="text-center"><?php echo $value['periodo'] . '-' . $c_varios->zerofill($value['codigo'], 3) ?></td>-->
-                                                <td class="text-center"><?php echo $value['siglas'] . ' | ' . $c_varios->zerofill($value['serie'], 3) . ' - ' . $c_varios->zerofill($value['numero'], 5) ?></td>
-                                                <td class="text-center"><?php echo $value['fecha'] ?></td>
-                                                <td ><?php echo $value['datos'] ?></td>
-                                                <td class="text-right"><?php echo number_format($value['total'], 2) ?></td>
-                                                <td class="text-right"><?php echo number_format($value['pagado'], 2) ?></td>
-                                                <td class="text-center"><?php echo $label_estado ?></td>
+                                                <td class="text-center">periodo-codigo</td>
+                                                <td class="text-center">siglas-serie</td>
+                                                <td class="text-center">fecha</td>
+                                                <td >datos</td>
+                                                <td class="text-right">total</td>
+                                                <td class="text-right">pagado</td>
+                                                <td class="text-center">estado</td>
                                                 <td class="text-center">
-                                                    <?php if ($estado != 0) { ?>
-                                                    <!--<a href="reportes/rpt_ver_ticket_venta.php?periodo=<?php echo $value['periodo'] ?>&id_venta=<?php echo $value['codigo'] ?>" target="_blank" class="btn btn-xs btn-dropbox" alt="Ver e Imprimir" title="Ver e Imprimir"> <i class="fa fa-print"></i></a>-->
-                                                    <button type="button" onclick="obtener_detalle(<?php echo $value['codigo'] ?>, <?php echo $value['periodo'] ?>)" data-toggle="modal" data-target="#modal_ver_detalle" class="btn btn-xs btn-facebook" alt="Ver Detalle" title="Ver Detalle"> <i class="fa fa-bars"></i></button>
-                                                    <button type="button" onclick="obtener_cobros(<?php echo $value['codigo'] ?>, <?php echo $value['periodo'] ?>)" data-toggle="modal" data-target="#modal_ver_cobros" class="btn btn-xs btn-warning" alt="Ver Pagos" title="Ver Pagos"> <i class="fa fa-money"></i></button>
-                                                    <button type="button" onclick="anular_venta(<?php echo $value['codigo'] ?>, <?php echo $value['periodo'] ?>)" class="btn btn-xs btn-danger" alt="Anular Venta" title="Anular Venta"> <i class="fa fa-trash"></i></button>
-                                                    <?php } else { ?>
-                                                    <button type="button" onclick="eliminar_venta(<?php echo $value['codigo'] ?>, <?php echo $value['periodo'] ?>)" class="btn btn-xs btn-danger" alt="Eliminar Venta" title="Eliminar Venta"> <i class="fa fa-close"></i></button>
-                                                    <?php } ?>
+                                                    <?php
+                                                    if ($estado != 0) { ?>
+                                                    <!--<a href="reportes/rpt_ver_ticket_venta.php?periodo=<?php ?>&id_venta=<?php ?>" target="_blank" class="btn btn-xs btn-dropbox" alt="Ver e Imprimir" title="Ver e Imprimir"> <i class="fa fa-print"></i></a>-->
+                                                    <button type="button" onclick="" data-toggle="modal" data-target="#modal_ver_detalle" class="btn btn-xs btn-facebook" alt="Ver Detalle" title="Ver Detalle"> <i class="fa fa-bars"></i></button>
+                                                    <button type="button" onclick="" data-toggle="modal" data-target="#modal_ver_cobros" class="btn btn-xs btn-warning" alt="Ver Pagos" title="Ver Pagos"> <i class="fa fa-money"></i></button>
+                                                    <button type="button" onclick="" class="btn btn-xs btn-danger" alt="Anular Venta" title="Anular Venta"> <i class="fa fa-trash"></i></button>
+                                                    <?php }
+                                                    else {
+                                                        ?>
+                                                        <button type="button" onclick="" class="btn btn-xs btn-danger" alt="Eliminar Venta" title="Eliminar Venta"> <i class="fa fa-close"></i></button>
+                                                    <?php }
+                                                    ?>
                                                 </td>
                                             </tr>
-                                            <?php
+
+                                        <?php
                                         }
                                         ?>
                                     </tbody>
                                     <tfoot>
                                         <tr>
                                             <td class="text-right" colspan="4">Suma Pedido</td>
-                                            <td class="text-right"><?php echo number_format($total, 2) ?></td>
-                                            <td class="text-right"><?php echo number_format($pagado, 2) ?></td>
+                                            <td class="text-right"></td>
+                                            <td class="text-right"></td>
                                             <td></td>
                                         </tr>
                                     </tfoot>
@@ -245,7 +204,7 @@ $existe_caja = $c_caja->obtener_datos();
             <!--end page content-->
 
 
-            <?php include 'fixed/footer.php'; ?>
+            <?php include '../fixed/footer.php'; ?>
 
         </section>
         <!--end main content-->
@@ -309,7 +268,7 @@ $existe_caja = $c_caja->obtener_datos();
                                 </form>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-success" id="btn_pago_cliente" onclick="enviar_pago()">Guardar</button>
+                                    <button type="button" class="btn btn-success" id="btn_pago_cliente" onclick="">Guardar</button>
                                 </div>
 
                             </div>
