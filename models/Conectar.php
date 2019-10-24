@@ -1,14 +1,6 @@
 <?php
 
-if (!isset($_SESSION)) {
-    session_start();
-} else {
 
-    if ($_SESSION['logeado'] == null) {
-        header("Location: ../login.php");
-        exit;
-    }
-}
 
 /**
  * Created by PhpStorm.
@@ -32,6 +24,16 @@ class conectar
      */
     public function __construct()
     {
+        if (!isset($_SESSION)) {
+            session_start();
+        } else {
+
+            if ($_SESSION['logeado'] == null) {
+                header("Location: ../login.php");
+                exit;
+            }
+        }
+
         $this->_connection = new mysqli($this->_host, $this->_user, $this->_pass, $this->_db);
         // Manejar error en base de datos
         if (mysqli_connect_error()) {

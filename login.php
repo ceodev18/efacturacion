@@ -64,14 +64,6 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="text-muted" for="exampleuser1">Usuario</label>
-                                <div class="group-icon">
-                                    <input id="usuario" name="usuario" type="text" placeholder="Usuario"
-                                           class="form-control" required="">
-                                    <span class="icon-user text-muted icon-input"></span>
-                                </div>
-                            </div>
-                            <div class="form-group">
                                 <label class="text-muted" for="exampleInputPassword1">Contraseña</label>
                                 <div class="group-icon">
                                     <input id="password" name="password" type="password" placeholder="Contraseña"

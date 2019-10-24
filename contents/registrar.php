@@ -61,25 +61,25 @@
                                                     <input type="text" class="form-control" placeholder="Razon Social" id="input_razon_social" name="input_razon_social" readonly>
                                                     <input type="hidden" name="hidden_direccion" id="hidden_direccion" />
                                                 </div>
-                                                <div class="col-md-6">
+                                                <!--div class="col-md-6">
                                                     <br/>
                                                     <div class="input-group">
                                                         <input type="text" class="form-control" placeholder="Condicion" id="input_condicion" name="input_condicion" readonly>
                                                     </div>
-                                                </div>
+                                                </div-->
                                                 <div class="col-md-6">
                                                     <br/>
                                                     <div class="input-group">
                                                         <input type="text" class="form-control" placeholder="Estado" id="input_estado" name="input_estado" readonly>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-12">
+                                                <!--div class="col-md-12">
                                                     <br/>
                                                     <div class="input-group">
                                                         <span class="input-group-addon">Tienda <i class="fa fa-home"></i></span>
                                                         <input type="text" class="form-control" placeholder="Nombre tienda " id="input_nombre_comercial" name="input_nombre_comercial" required>
                                                     </div>
-                                                </div>
+                                                </div-->
                                                 <div class="col-md-12">
                                                     <br/>
                                                     <div class="input-group">
