@@ -194,7 +194,7 @@ class Empresa
     public function modificar()
     {
         $sql = "update empresas 
-        set ruc = '$this->', direccion = '$this->direccion', email = '$this->email', telefono = '$this->telefono', user_sol= '$this->user_sol', clave_sol= '$this->clave_sol'
+        set ruc = '$this->ruc', direccion = '$this->direccion', email = '$this->email', telefono = '$this->telefono', user_sol= '$this->user_sol', clave_sol= '$this->clave_sol'
         where id_empresa = '$this->id_empresa'";
         return $this->conectar->ejecutar_idu($sql);
     }
@@ -227,8 +227,12 @@ class Empresa
     {
         $sql = "select id_empresa
         from empresas 
-        where ruc = '$this->ruc' and password = '$this->password'";
+        where ruc = '$this->ruc'";
         $this->id_empresa = $this->conectar->get_valor_query($sql, 'id_empresa');
+        return true;
+        if ($this->id_empresa != null) {
+            return false;
+        }
     }
 
     public function verFilas()

@@ -1,13 +1,11 @@
 <?php
 session_start();
-require_once 'class/cl_tienda.php';
 
-$c_tienda = new cl_tienda();
-if ($_SESSION['id_empresa'] == null || $_SESSION['id_empresa'] == "") {
-    header("Location: login.php");
+if (isset($_SESSION['id_empresa'])) {
+    require 'models/Empresa.php';
+    $c_empresa = new Empresa();
 } else {
-    $c_tienda->setId($_SESSION['id_empresa']);
-    $c_tienda->validar_tienda();
+    header("Location: login.php");
 }
 ?>
 <!DOCTYPE html>
