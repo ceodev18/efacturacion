@@ -176,4 +176,12 @@ class Producto
         return $this->conectar->get_Cursor($sql);
     }
 
+    public function BuscarProductos($term)
+    {
+        $sql = "select * from productos 
+        where id_empresa = '$this->id_empresa' and descripcion like '%$term%' 
+        order by descripcion asc";
+        return $this->conectar->get_Cursor($sql);
+    }
+
 }
