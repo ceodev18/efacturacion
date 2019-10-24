@@ -22,10 +22,10 @@ if ($action == 1) {
 }
 
 if ($action == 2) {
-    $c_producto->setIdProducto(filter_input(INPUT_POST, 'input_codigo_producto'));
+    $c_producto->setIdProducto(filter_input(INPUT_POST, 'hidden_idproducto'));
     $realizado = $c_producto->modificar();
 }
 
 if ($realizado) {
-    //header("Location: ../contents/ver_productos.php");
+    header("Location: ../contents/ver_productos.php");
 }

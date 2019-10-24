@@ -114,6 +114,8 @@ if ($action == 2) {
                                     <label class="col-lg-2 control-label">Afecto ISCBP</label>
                                     <div class="col-lg-2">
                                         <input type="checkbox" class="i-checks"  id="input_afecto" name="input_afecto" value="1"/>
+                                        <input type="hidden" id="action" name="action" value="<?php echo $action?>" />
+                                        <input type="hidden" id="hidden_idproducto" name="hidden_idproducto" value="<?php echo $c_producto->getIdProducto()?>" />
                                     </div>
                                 </div>
                             </div>
@@ -121,8 +123,6 @@ if ($action == 2) {
                                 <div class="form-group">
                                     <div class="col-lg-offset-10 col-lg-1">
                                         <button type="submit" class="btn btn-sm btn-primary" id="btn_enviar_form">Guardar</button>
-                                        <input type="hidden" id="action" name="action" value="<?php echo $action?>" />
-                                        <input type="hidden" id="hidden_idproducto" name="hidden_idproducto" value="<?php echo $c_producto->getIdProducto()?>" />
                                     </div>
                                 </div>
 
