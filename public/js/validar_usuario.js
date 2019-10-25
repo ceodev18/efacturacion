@@ -1,3 +1,56 @@
+const DNI=0;
+const RUC=1;
+
+function comprobarRUC() {
+    
+    var data = obtenerDatosDocumento($("#input_ruc").val(), RUC);
+    console.log(data);
+}
+
+
+
+function obtenerDatosDocumento(numDoc, tipo) {
+   var objetcJson={};
+    var consulta="http://www.lunasystemsperu.com/consultas_json/composer/";
+    if (tipo==RUC) {
+        consulta+="consulta_sunat_JMP.php?ruc="+numDoc;
+    }else if (tipo==DNI) {
+        consulta+="consultas_dni_JMP.php?dni="+numDoc
+    }
+    /* var url ='http://www.lunasystemsperu.com/consultas_json/composer/'+consulta;
+    $.get(url, function(respuesta) {
+        objetcJson= respuesta;
+      });
+
+    return objetcJson;*/
+    var xhr  =  createCORSRequest("GET", consulta);
+    xhr.onload = function() {
+        var text = xhr.responseText;
+        var title = getTitle(text);
+        console.log(">>"+text);
+        objetcJson=text;
+      };
+    return objetcJson;
+}
+
+
+function createCORSRequest(method, url) {
+  var xhr = new XMLHttpRequest();
+  if ("withCredentials" in xhr) {
+    // XHR for Chrome/Firefox/Opera/Safari.
+    xhr.open(method, url, true);
+  } else if (typeof XDomainRequest != "undefined") {
+    // XDomainRequest for IE.
+    xhr = new XDomainRequest();
+    xhr.open(method, url);
+  } else {
+    // CORS not supported.
+    xhr = null;
+  }
+  return xhr;
+}
+
+
 function enviar_ruc() {
     var parametros = {
         "ruc": $("#input_ruc").val()
