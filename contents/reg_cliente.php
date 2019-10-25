@@ -71,8 +71,13 @@
                             <form class="form-horizontal" method="post" action="">
                                 <div class="form-group">
                                     <label class="col-lg-2 control-label">Codigo</label>
-                                    <div class="col-lg-2">
-                                        <input type="text" placeholder="00x" class="form-control text-center" readonly="true">
+                                    <div class="col-lg-10 input-group " style="padding: 0 16px;">
+                                        <!--input type="text" placeholder="ingrese codigo" class="form-control text-center" readonly="true"-->
+
+                                    <!--div class="input-group"-->
+                                        <input type="text" class="form-control" placeholder="Numero de RUC" id="input_ruc" name="input_ruc" maxlength="11" required>
+                                        <span class="input-group-btn"><button id="btn_comprueba_ruc" class="btn btn-default" type="button" onclick="enviar_ruc()">Comprobar RUC</button></span>
+                                    <!--/div-->
                                     </div>
                                 </div>
 <!--                                <div class="form-group">
@@ -85,29 +90,38 @@
                                     </div>
                                 </div>-->
                                 <div class="form-group">
+                                    <label class="col-lg-2 control-label">Nro. de Documento</label>
+                                    <div class="col-lg-10">
+                                        <input disabled type="text" placeholder="Documentos" name="input_documentos" class="form-control">
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
                                     <label class="col-lg-2 control-label">Nombre Cliente</label>
                                     <div class="col-lg-10">
-                                        <input type="text" placeholder="Nombre cliente"  name="input_nombre" class="form-control" required="true">
+                                        <input disabled type="text" placeholder="Nombre cliente"  name="input_nombre" class="form-control" required="true">
                                     </div>
                                 </div>
+
                                  <div class="form-group">
                                     <label class="col-lg-2 control-label">Direccion</label>
                                     <div class="col-lg-10">
-                                        <input type="text" placeholder="Direccion" name="input_direccion" class="form-control">
+                                        <input disabled type="text" placeholder="Direccion" name="input_direccion" class="form-control">
                                     </div>
                                 </div>
-                                 <div class="form-group">
-                                    <label class="col-lg-2 control-label">Email</label>
+
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label">Ruc de empresa</label>
                                     <div class="col-lg-10">
-                                        <input type="email" placeholder="Email" name="input_email" class="form-control">
+                                        <?php
+                                        /*buscar el id de la empresa para mostrarlo*/
+                                        session_start();
+                                        ?>
+                                        <input disabled type="text" placeholder="Ruc de Empresa" name="input_ruc_empresa" class="form-control" value="<?php echo $_SESSION['id_empresa']; ?>">
                                     </div>
                                 </div>
-                                 <div class="form-group">
-                                    <label class="col-lg-2 control-label">Telefono</label>
-                                    <div class="col-lg-3">
-                                        <input type="text" placeholder="Telefono" name="input_telefono" class="form-control">
-                                    </div>
-                                </div>
+
+
                                 <div class="form-group">
                                     <div class="col-lg-offset-2 col-lg-10">
                                         <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
