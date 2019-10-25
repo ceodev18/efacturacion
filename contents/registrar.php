@@ -55,7 +55,7 @@
                                                 <div class="col-md-12">
                                                     <div class="input-group">
                                                         <input type="text" class="form-control" placeholder="Numero de RUC" id="input_ruc" name="input_ruc" maxlength="11" required>
-                                                        <span class="input-group-btn"><button id="btn_comprueba_ruc" class="btn btn-default" type="button" onclick="enviar_ruc()">Comprobar RUC!</button></span>
+                                                        <span class="input-group-btn"><button id="btn_comprueba_ruc" class="btn btn-default" type="button" onclick="comprobarRUC()">Comprobar RUC!</button></span>
                                                     </div>
                                                     <br/>
                                                     <input type="text" class="form-control" placeholder="Razon Social" id="input_razon_social" name="input_razon_social" readonly>
