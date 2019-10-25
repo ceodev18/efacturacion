@@ -1,9 +1,11 @@
 <?php
+session_start();
+
 require '../../models/Producto.php';
 $c_producto = new Producto();
+$c_producto->setIdEmpresa(1);
 
 $searchTerm = filter_input(INPUT_GET, 'term');
-$c_producto->setIdEmpresa($_SESSION['id_empresa']);
 
 $resultados = $c_producto->BuscarProductos($searchTerm);
 

@@ -1,7 +1,6 @@
 <?php
 
 
-
 /**
  * Created by PhpStorm.
  * User: ANDY
@@ -25,7 +24,7 @@ class conectar
     public function __construct()
     {
         $this->iniciarSession();
-        $this->verificarLogeado();
+        //$this->verificarLogeado();
 
         $this->_connection = new mysqli($this->_host, $this->_user, $this->_pass, $this->_db);
         // Manejar error en base de datos
@@ -35,21 +34,25 @@ class conectar
         $this->_connection->query("SET NAMES 'utf8'");
     }
 
-    private function iniciarSession() {
+    private function iniciarSession()
+    {
         if (!isset($_SESSION)) {
             session_start();
         }
     }
 
-    private function verificarLogeado() {
+    private function verificarLogeado()
+    {
         if (!isset($_SESSION)) {
             $this->iniciarSession();
         }
 
         if (!isset($_SESSION['id_empresa'])) {
-            print_r($_SESSION);
-         //   header("location: ../login.php");
+            var_dump($_SESSION);
+            //session_destroy();
+            //header("location: ../login.php");
         }
+
     }
 
     /**

@@ -1,4 +1,8 @@
+<?php
+session_start();
 
+$_SESSION['ventaproductos'] = null;
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -68,154 +72,148 @@
     <!--start page content-->
     <?php
     //if ($existe_caja) {
-        ?>
+    ?>
 
-        <div class="row">
-            <div id="resultado" class="col-md-12"></div>
+    <div class="row">
+        <div id="resultado" class="col-md-12"></div>
 
 
-            <div class="col-md-8">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h5>Agregar Productos</h5>
-                    </div>
-                    <div class="panel-body">
-                        <form class="form-horizontal">
-                            <div class="form-group">
-                                <label class="col-lg-2 control-label">Buscar</label>
-                                <div class="col-lg-10">
-                                    <input type="text" placeholder="Consultar Productos" class="form-control"
-                                           id="input_buscar_productos">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-lg-2 control-label">Descripcion</label>
-                                <div class="col-lg-10">
-                                    <input type="text" placeholder="Descripcion" id="input_descripcion_producto"
-                                           name="input_descripcion_producto" class="form-control" readonly="true">
-                                    <input type="hidden" name="hidden_codigo_producto" id="hidden_codigo_producto">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-lg-2 control-label">Cantidad</label>
-                                <div class="col-lg-2">
-                                    <input type="text" value="1" id="input_cantidad_producto"
-                                           name="input_cantidad_producto" class="form-control text-center"
-                                           readonly="true">
-                                </div>
-                                <label class="col-lg-1 control-label">Actual</label>
-                                <div class="col-lg-2">
-                                    <input type="text" value="1" id="input_cactual_producto"
-                                           name="input_cactual_producto" class="form-control text-center"
-                                           readonly="true">
-                                </div>
-                                <label class="col-lg-1 control-label">Precio</label>
-                                <div class="col-lg-2">
-                                    <input type="text" class="form-control text-right" id="input_precio_producto"
-                                           name="input_precio_producto" value="0.00" readonly="true">
-                                </div>
-                                <div class="col-lg-1">
-                                    <input type="hidden" name="input_costo_producto" id="input_costo_producto"/>
-                                    <button type="button" class="btn btn-success" disabled="true" id="btn_add_producto"
-                                            onclick="//addProducto()">Agregar
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h5>Agregar Productos</h5>
                 </div>
-
-                <div class="panel panel-default collapsed ">
-                    <div class="panel-heading">
-                        <h5>Detalle Venta</h5>
-                    </div>
-                    <div class="panel-body table-responsive">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>Item</th>
-                                <th>Producto</th>
-                                <th>Cantidad</th>
-                                <th>P. Unit.</th>
-                                <th>Parcial</th>
-                                <th>Acciones</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <div id="body_detalle_pedido">
+                <div class="panel-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Buscar</label>
+                            <div class="col-lg-10">
+                                <input type="text" placeholder="Consultar Productos" class="form-control"
+                                       id="input_buscar_productos">
                             </div>
-                            </tbody>
-                        </table>
-                    </div>
-
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Descripcion</label>
+                            <div class="col-lg-10">
+                                <input type="text" placeholder="Descripcion" id="input_descripcion_producto"
+                                       name="input_descripcion_producto" class="form-control" readonly="true">
+                                <input type="hidden" name="hidden_codigo_producto" id="hidden_codigo_producto">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Cantidad</label>
+                            <div class="col-lg-2">
+                                <input type="text" value="1" id="input_cantidad_producto"
+                                       name="input_cantidad_producto" class="form-control text-center"
+                                       readonly="true">
+                            </div>
+                            <label class="col-lg-1 control-label">Precio</label>
+                            <div class="col-lg-2">
+                                <input type="text" class="form-control text-right" id="input_precio_producto"
+                                       name="input_precio_producto" value="0.00" readonly="true">
+                            </div>
+                            <div class="col-lg-1">
+                                <input type="hidden" name="input_costo_producto" id="input_costo_producto"/>
+                                <button type="button" class="btn btn-success" disabled="true" id="btn_add_producto"
+                                        onclick="obtenerDetalle(1)"><i class="fa fa-check"></i> Agregar
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
 
-            <div class="col-md-4">
-                <div class="widget padding-0 white-bg">
-                    <div class="padding-20 text-center">
-                        <form role="form" class="form-horizontal">
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Doc.</label>
-                                <div class="col-md-8">
-                                    <select class="form-control" name="select_documento" id="select_documento" disabled>
-                                        <option value="2">NOTA DE VENTA</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-lg-4 control-label">Fecha</label>
-                                <div class="col-lg-6">
-                                    <input type="text" placeholder="dd/mm/aaaa" name="input_fecha"
-                                           class="form-control text-center" value="<?php echo date("Y-m-d"); ?>"
-                                           disabled>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-lg-4 control-label">Cliente</label>
-                                <div class="col-lg-8">
-                                    <!--<button class="btn btn-success" type="button" data-toggle="modal" data-target="#modal_reg_cliente">Crear Cliente</button>-->
-                                    <a href="reg_cliente.php" target="_blank" class="btn btn-success">Crear Cliente</a>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-lg-12">
-                                    <input type="text" placeholder="buscar cliente" class="form-control"
-                                           id="input_cliente" name="input_cliente">
-                                    <input type="hidden" id="input_id_cliente" name="input_id_cliente" value="0">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-lg-4 control-label">Deuda</label>
-                                <div class="col-lg-6">
-                                    <input type="text" value="0.00" class="form-control text-right"
-                                           id="input_deuda_cliente" readonly="true">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-lg-12">
-                                    <input type="hidden" id="input_total_pedido" name="input_total_pedido">
-                                    <button type="button" data-toggle="modal" data-target="#cobro_venta"
-                                            class="btn btn-lg btn-primary" id="btn_finalizar_pedido" disabled>Guardar
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="bg-primary pv-15 text-center " style="height: 90px">
-                        <h1 class="mv-0 font-400" id="lbl_suma_pedido">S/ 0.00</h1>
-                        <div class="text-uppercase">Suma Pedido</div>
-                    </div>
-                </div><!--end widget-->
-                <!--                    <div class=" pull-right">
-                                        <a class="btn btn-lg btn-primary">Guardar</a>
-                                    </div>-->
+            <div class="panel panel-default collapsed ">
+                <div class="panel-heading">
+                    <h5>Detalle Venta</h5>
+                </div>
+                <div class="panel-body table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>P. Unit.</th>
+                            <th>Parcial</th>
+                            <th>Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <div id="body_detalle_pedido">
+                        </div>
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         </div>
 
-        <?php
+        <div class="col-md-4">
+            <div class="widget padding-0 white-bg">
+                <div class="padding-20 text-center">
+                    <form role="form" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Doc.</label>
+                            <div class="col-md-8">
+                                <select class="form-control" name="select_documento" id="select_documento" disabled>
+                                    <option value="2">NOTA DE VENTA</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">Fecha</label>
+                            <div class="col-lg-6">
+                                <input type="text" placeholder="dd/mm/aaaa" name="input_fecha"
+                                       class="form-control text-center" value="<?php echo date("Y-m-d"); ?>"
+                                       disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">Cliente</label>
+                            <div class="col-lg-8">
+                                <!--<button class="btn btn-success" type="button" data-toggle="modal" data-target="#modal_reg_cliente">Crear Cliente</button>-->
+                                <a href="reg_cliente.php" target="_blank" class="btn btn-success"><i class="fa fa-plus"></i> Crear Cliente</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <input type="text" placeholder="buscar cliente" class="form-control"
+                                       id="input_cliente" name="input_cliente">
+                                <input type="hidden" id="input_id_cliente" name="input_id_cliente" value="0">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">Deuda</label>
+                            <div class="col-lg-6">
+                                <input type="text" value="0.00" class="form-control text-right"
+                                       id="input_deuda_cliente" readonly="true">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <input type="hidden" id="input_total_pedido" name="input_total_pedido">
+                                <button type="button" data-toggle="modal" data-target="#cobro_venta"
+                                        class="btn btn-lg btn-primary" id="btn_finalizar_pedido" disabled><i class="fa fa-save"></i> Guardar
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="bg-primary pv-15 text-center " style="height: 90px">
+                    <h1 class="mv-0 font-400" id="lbl_suma_pedido">S/ 0.00</h1>
+                    <div class="text-uppercase">Suma Pedido</div>
+                </div>
+            </div><!--end widget-->
+            <!--                    <div class=" pull-right">
+                                    <a class="btn btn-lg btn-primary">Guardar</a>
+                                </div>-->
+        </div>
+    </div>
+
+    <?php
     //} else {
-        //require 'modals/m_sin_caja.php';
+    //require 'modals/m_sin_caja.php';
     //}
     ?>
 
@@ -226,125 +224,6 @@
 
 </section>
 <!--end main content-->
-
-
-<div class="modal fade" id="cobro_venta" tabindex="-1" role="dialog" aria-labelledby="cobro_venta">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true"
-                                                                                                   class="fa fa-times-circle"></span>
-                </button>
-                <h3 class="modal-title" id="myModalLabel">Finalizar Venta</h3>
-            </div>
-            <div class="modal-body">
-                <div class="modal-form">
-                    <form role="form" class="form-horizontal">
-                        <div class="bg-primary pv-15 text-center " style="height: 90px">
-                            <h1 class="mv-0 font-400" id="lbl_suma_pedido_pago">S/ 0.00</h1>
-                            <div class="text-uppercase">Suma Pedido</div>
-                        </div>
-                        <br>
-                        <!--                                <div class="form-group">
-                                                            <label class="col-sm-3 control-label">Tipo de venta</label>
-                                                            <div class="col-sm-9">
-                                                                <div class="col-sm-9">
-                                                                    <div class="i-checks">
-                                                                        <label> <input type="radio" checked="" value="1" id="cbx_contado" name="cbx_tipo_pago"> <i></i>Contado</label>
-                                                                    </div>
-                                                                    <div class="i-checks">
-                                                                        <label> <input type="radio" value="2" id="cbx_credito_inicial" name="cbx_tipo_pago"> <i></i>Credito</label>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>-->
-
-                        <div class="form-group">
-                            <label class="col-lg-3 control-label">Pago:</label>
-                            <div class="col-lg-6">
-                                <input type="text" value="0.00" class="form-control text-right" id="input_pago_cliente"
-                                       onkeyup="dar_vuelto()">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-3 control-label">Vuelto:</label>
-                            <div class="col-lg-6">
-                                <input type="text" value="0.00" class="form-control text-right"
-                                       id="input_vuelto_cliente" readonly="true">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-3 control-label">Deuda:</label>
-                            <div class="col-lg-6">
-                                <input type="text" value="0.00" class="form-control text-right" id="input_falta_cliente"
-                                       readonly="true">
-                            </div>
-                        </div>
-
-                        <div class="clearfix">
-                            <button type="button" class="btn btn-lg btn-primary" id="btn_guardar_pedido"
-                                    onclick="enviar_datos()">Finalizar Venta
-                            </button>
-                        </div>
-                    </form>
-                    <hr>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="modal_reg_cliente" tabindex="-1" role="dialog" aria-labelledby="modal_reg_cliente">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true"
-                                                                                                   class="fa fa-times-circle"></span>
-                </button>
-                <h3 class="modal-title" id="myModalLabel">Registrar Nuevo cliente</h3>
-            </div>
-            <div class="modal-body">
-                <div class="modal-form">
-                    <form role="form" class="form-horizontal">
-                        <div class="form-group">
-                            <label class="col-lg-2 control-label">Nombre</label>
-                            <div class="col-lg-10">
-                                <input type="text" placeholder="Nombre Cliente" name="input_nombre" class="form-control"
-                                       required="true">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-2 control-label">Direccion</label>
-                            <div class="col-lg-10">
-                                <input type="text" placeholder="Direccion" name="input_direccion" class="form-control">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-2 control-label">Email</label>
-                            <div class="col-lg-10">
-                                <input type="email" placeholder="Email" name="input_email" class="form-control">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-2 control-label">Telefono</label>
-                            <div class="col-lg-4">
-                                <input type="text" placeholder="Telefono" name="input_telefono" class="form-control">
-                            </div>
-                        </div>
-                    </form>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-success" id="btn_guardar_cliente"
-                                onclick="enviar_cliente()">Guardar
-                        </button>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 <!--Common plugins-->
 <script src="../public/plugins/jquery/dist/jquery-2.2.4.min.js" type="text/javascript"></script>
@@ -357,6 +236,7 @@
 <script src="../public/plugins/nano-scroll/jquery.nanoscroller.min.js"></script>
 <script src="../public/plugins/metisMenu/metisMenu.min.js"></script>
 <script src="../public/js/float-custom.js"></script>
+<script src="../public/js/funciones_basicas.js"></script>
 
 <script src="../public/plugins/bootstrap-sweet-alerts/sweet-alert.min.js"></script>
 
@@ -366,30 +246,26 @@
 
         //autocomplete
         $("#input_cliente").autocomplete({
-            source: "ajax_post/buscar_cliente.php",
+            source: "../controller/json/cargar_clientes.php",
             minLength: 2,
             select: function (event, ui) {
                 event.preventDefault();
-                var deuda = ui.item.total_venta - ui.item.total_pagado;
-                if (deuda > 0) {
-                    swal("ESTE CLIENTE TIENE UNA DEUDA!");
-                }
                 $('#input_cliente').val(ui.item.datos);
                 $('#input_id_cliente').val(ui.item.id);
-                $('#input_deuda_cliente').val(deuda);
                 $('#input_buscar_productos').prop("readonly", false);
                 $('#input_buscar_productos').focus();
             }
         });
 
         $("#input_buscar_productos").autocomplete({
-            source: "../controller/jason/cargar_productos.php",
+            source: "../controller/json/cargar_productos.php",
             minLength: 2,
             select: function (event, ui) {
                 event.preventDefault();
                 $('#input_descripcion_producto').val(ui.item.codigo + " | " + ui.item.descripcion);
                 $('#input_precio_producto').val(ui.item.precio);
                 $('#hidden_codigo_producto').val(ui.item.codigo);
+                $('#input_costo_producto').val(ui.item.costo);
                 $('#input_cantidad_producto').prop("readonly", false);
                 $('#input_precio_producto').prop("readonly", false);
                 $('#btn_add_producto').prop("disabled", false);
@@ -404,50 +280,11 @@
 </script>
 
 <script>
-    function number_format(amount, decimals) {
-
-        amount += ''; // por si pasan un numero en vez de un string
-        amount = parseFloat(amount.replace(/[^0-9\.]/g, '')); // elimino cualquier cosa que no sea numero o punto
-
-        decimals = decimals || 0; // por si la variable no fue fue pasada
-
-        // si no es un numero o es igual a cero retorno el mismo cero
-        if (isNaN(amount) || amount === 0)
-            return parseFloat(0).toFixed(decimals);
-        // si es mayor o menor que cero retorno el valor formateado como numero
-        amount = '' + amount.toFixed(decimals);
-        var amount_parts = amount.split('.'),
-            regexp = /(\d+)(\d{3})/;
-        while (regexp.test(amount_parts[0]))
-            amount_parts[0] = amount_parts[0].replace(regexp, '$1' + ',' + '$2');
-        return amount_parts.join('.');
-    }
-
-    function dar_vuelto() {
-        var total = $('#input_total_pedido').val();
-        var entregado = $('#input_pago_cliente').val();
-        var vuelto = entregado - total;
-        var faltante = total - entregado;
-
-        if (vuelto > 0) {
-            $('#input_vuelto_cliente').val(number_format(vuelto, 2));
-        } else {
-            $('#input_vuelto_cliente').val(0.00);
-        }
-
-        if (faltante > 0) {
-            $('#input_falta_cliente').val(number_format(faltante, 2));
-        } else {
-            $('#input_falta_cliente').val(0.00);
-        }
-    }
-
     function validar_detalle() {
         var permitir = false;
         var cantidad = $('#input_cantidad_producto').val();
         if (cantidad === "") {
             swal("NO HA INGRESADO CANTIDAD DEL PRODUCTO A VENDER!");
-            //alert("NO HA INGRESADO CANTIDAD DEL PRODUCTO A VENDER");
             $('#input_cantidad_producto').focus();
         } else {
             permitir = true;
@@ -455,57 +292,45 @@
         return permitir;
     }
 
-    function enviar_detalle_pedido() {
-        $.ajax({
-            data: {
-                input_codigo_producto: $('#hidden_codigo_producto').val(),
-                input_descripcion_producto: $('#input_descripcion_producto').val(),
-                input_precio_producto: $('#input_precio_producto').val(),
-                input_costo_producto: $('#input_costo_producto').val(),
-                input_cantidad_producto: $('#input_cantidad_producto').val()
-            },
-            url: 'ajax_post/detalle_venta.php',
-            type: 'GET',
-            //dataType: 'json',
-            beforeSend: function () {
-                //$('#body_detalle_pedido').html("");
-                $('table tbody').html("");
-            },
-            success: function (r) {
-                //alert(r);
-                $('table tbody').append(r);
-                //$('#body_detalle_pedido').html(r);
-            },
-            error: function () {
-                alert('Ocurrio un error en el servidor ..');
-                $('table tbody').html("");
-                //$('#body_detalle_pedido').html("");
+    function obtenerDetalle(action) {
+        var datainput = {
+            id_producto: $('#hidden_codigo_producto').val(),
+            action: 2
+        }
+
+        if (action == 1) {
+            datainput = {
+                id_producto: $('#hidden_codigo_producto').val(),
+                descripcion: $('#input_descripcion_producto').val(),
+                precio: $('#input_precio_producto').val(),
+                costo: $('#input_costo_producto').val(),
+                cantidad: $('#input_cantidad_producto').val(),
+                action: 1
             }
-        });
-    }
+        }
 
-    function DelProducto(item) {
+        if (action == 2) {
+            datainput = {
+                id_producto: $('#hidden_codigo_producto').val(),
+                action: 2
+            }
+        }
 
         $.ajax({
-            data: {
-                item: item
-            },
-            url: 'ajax_post/eliminar_detalle_venta.php',
+            data: datainput,
+            url: '../controller/ProductosVentaSession.php',
             type: 'POST',
             //dataType: 'json',
             beforeSend: function () {
-                //$('#body_detalle_pedido').html("");
                 $('table tbody').html("");
             },
             success: function (r) {
-                //alert(r);
+                alert(r);
                 $('table tbody').append(r);
-                //$('#body_detalle_pedido').html(r);
             },
             error: function () {
                 alert('Ocurrio un error en el servidor ..');
                 $('table tbody').html("");
-                //$('#body_detalle_pedido').html("");
             }
         });
     }

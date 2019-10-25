@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 require '../models/Empresa.php';
 
 $c_empresa = new Empresa();

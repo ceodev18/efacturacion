@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Login | Chimbote Store</title>
+    <title>Login | Sistema de Facturacion Electronica</title>
 
     <!-- Common plugins -->
     <link href="public/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -56,7 +56,7 @@
                                 ?>
                             </div>
                             <div class="form-group">
-                                <label class="text-muted" for="exampleuser1">Empresa</label>
+                                <label class="text-muted" for="ruc_empresa">Empresa</label>
                                 <div class="group-icon">
                                     <input id="ruc_empresa" name="ruc_empresa" type="text" placeholder="RUC "
                                            class="form-control" required="">
@@ -64,7 +64,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="text-muted" for="exampleInputPassword1">Contraseña</label>
+                                <label class="text-muted" for="password">Contraseña</label>
                                 <div class="group-icon">
                                     <input id="password" name="password" type="password" placeholder="Contraseña"
                                            class="form-control">
