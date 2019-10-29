@@ -1,5 +1,6 @@
 <?php
 
+require_once 'Conectar.php';
 
 class DocumentoEmpresa
 {
@@ -7,12 +8,14 @@ class DocumentoEmpresa
     private $id_tido;
     private $serie;
     private $numero;
+    private $conectar;
 
     /**
      * DocumentoEmpresa constructor.
      */
     public function __construct()
     {
+        $this->conectar = conectar::getInstancia();
     }
 
     /**
@@ -105,11 +108,11 @@ class DocumentoEmpresa
         $this->numero = $fila['numero'];
     }
 
-    public function verFilas()
+    public function verFilas($texto)
     {
-        $sql = "select * from documentos_empresas as de 
+        $sql = "select de.id_tido, ds.abreviatura, ds.cod_sunat, ds.nombre from documentos_empresas as de 
         inner join documentos_sunat ds on de.id_tido = ds.id_tido 
-        where id_empresa = '$this->id_empresa'";
+        where de.id_empresa = '$this->id_empresa' and de.id_tido in ($texto)";
         return $this->conectar->get_Cursor($sql);
     }
 

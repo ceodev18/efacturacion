@@ -1,7 +1,11 @@
 <?php
 session_start();
-
 $_SESSION['ventaproductos'] = null;
+
+require '../models/DocumentoEmpresa.php';
+$c_tido = new DocumentoEmpresa();
+$c_tido->setIdEmpresa($_SESSION['id_empresa']);
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -115,7 +119,7 @@ $_SESSION['ventaproductos'] = null;
                             <div class="col-lg-1">
                                 <input type="hidden" name="input_costo_producto" id="input_costo_producto"/>
                                 <button type="button" class="btn btn-success" disabled="true" id="btn_add_producto"
-                                        onclick="obtenerDetalle(1)"><i class="fa fa-check"></i> Agregar
+                                        onclick="agregarProducto()"><i class="fa fa-check"></i> Agregar
                                 </button>
                             </div>
                         </div>
@@ -156,8 +160,15 @@ $_SESSION['ventaproductos'] = null;
                         <div class="form-group">
                             <label class="col-md-4 control-label">Doc.</label>
                             <div class="col-md-8">
-                                <select class="form-control" name="select_documento" id="select_documento" disabled>
-                                    <option value="2">NOTA DE VENTA</option>
+                                <select class="form-control" name="select_documento" id="select_documento" >
+                                    <?php
+                                    $a_tido = $c_tido->verFilas("1,2");
+                                    foreach ($a_tido as $fila) {
+                                        ?>
+                                        <option value="<?php echo $fila['id_tido']?>"><?php echo $fila['nombre']?></option>
+                                    <?php
+                                    }
+                                    ?>
                                 </select>
                             </div>
                         </div>
@@ -184,13 +195,6 @@ $_SESSION['ventaproductos'] = null;
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 control-label">Deuda</label>
-                            <div class="col-lg-6">
-                                <input type="text" value="0.00" class="form-control text-right"
-                                       id="input_deuda_cliente" readonly="true">
-                            </div>
-                        </div>
-                        <div class="form-group">
                             <div class="col-lg-12">
                                 <input type="hidden" id="input_total_pedido" name="input_total_pedido">
                                 <button type="button" data-toggle="modal" data-target="#cobro_venta"
@@ -204,10 +208,7 @@ $_SESSION['ventaproductos'] = null;
                     <h1 class="mv-0 font-400" id="lbl_suma_pedido">S/ 0.00</h1>
                     <div class="text-uppercase">Suma Pedido</div>
                 </div>
-            </div><!--end widget-->
-            <!--                    <div class=" pull-right">
-                                    <a class="btn btn-lg btn-primary">Guardar</a>
-                                </div>-->
+            </div>
         </div>
     </div>
 
@@ -292,30 +293,26 @@ $_SESSION['ventaproductos'] = null;
         return permitir;
     }
 
-    function obtenerDetalle(action) {
+    function agregarProducto () {
         var datainput = {
             id_producto: $('#hidden_codigo_producto').val(),
+            descripcion: $('#input_descripcion_producto').val(),
+            precio: $('#input_precio_producto').val(),
+            costo: $('#input_costo_producto').val(),
+            cantidad: $('#input_cantidad_producto').val(),
+            action: 1
+        }
+        obtenerDetalle(datainput);
+    }
+    function eliminarProducto (idproducto) {
+        var datainput = {
+            id_producto: idproducto,
             action: 2
         }
+        obtenerDetalle(datainput);
+    }
 
-        if (action == 1) {
-            datainput = {
-                id_producto: $('#hidden_codigo_producto').val(),
-                descripcion: $('#input_descripcion_producto').val(),
-                precio: $('#input_precio_producto').val(),
-                costo: $('#input_costo_producto').val(),
-                cantidad: $('#input_cantidad_producto').val(),
-                action: 1
-            }
-        }
-
-        if (action == 2) {
-            datainput = {
-                id_producto: $('#hidden_codigo_producto').val(),
-                action: 2
-            }
-        }
-
+    function obtenerDetalle(datainput) {
         $.ajax({
             data: datainput,
             url: '../controller/ProductosVentaSession.php',
@@ -325,8 +322,9 @@ $_SESSION['ventaproductos'] = null;
                 $('table tbody').html("");
             },
             success: function (r) {
-                alert(r);
+                //alert(r);
                 $('table tbody').append(r);
+                clean();
             },
             error: function () {
                 alert('Ocurrio un error en el servidor ..');
