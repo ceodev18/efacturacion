@@ -1,16 +1,17 @@
 <?php
-/*session_start();
+session_start();
 require_once "../models/Cliente.php";
 
-$Cliente  = new Cliente();
+$c_cliente  = new Cliente();
 
-if(isset($_SESSION["id_empresa"])){
-    $id_empresa=$_SESSION["id_empresa"];
-    $datos=$_POST['input_nombre'];
-    $direccion=$_POST['input_direccion'];
+$c_cliente->setDocumento(filter_input(INPUT_POST, 'input_documento'));
+$c_cliente->setDatos(filter_input(INPUT_POST, 'input_datos'));
+$c_cliente->setDireccion(filter_input(INPUT_POST, 'input_direccion'));
+$c_cliente->setIdEmpresa($_SESSION['id_empresa']);
+$c_cliente->obtenerId();
 
+$realizado = $c_cliente->insertar();
 
-    $Cliente->setIdCliente('');
-    $Cliente->setDocumento();
-
-}*/
+if ($realizado) {
+    header("Location: ../contents/ver_clientes.php");
+}

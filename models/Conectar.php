@@ -36,6 +36,8 @@ class conectar
 
     private function iniciarSession()
     {
+        date_default_timezone_set('America/Lima');
+
         if (!isset($_SESSION)) {
             session_start();
         }

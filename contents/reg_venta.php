@@ -27,6 +27,7 @@ $c_tido->setIdEmpresa($_SESSION['id_empresa']);
     <link href="../public/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="../public/plugins/pace/pace.css" rel="stylesheet">
     <link href="../public/plugins/jasny-bootstrap/css/jasny-bootstrap.min.css" rel="stylesheet">
+    <link href="../public/plugins/toast/jquery.toast.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../public/plugins/nano-scroll/nanoscroller.css">
     <link rel="stylesheet" href="../public/plugins/metisMenu/metisMenu.min.css">
 
@@ -160,16 +161,25 @@ $c_tido->setIdEmpresa($_SESSION['id_empresa']);
                         <div class="form-group">
                             <label class="col-md-4 control-label">Doc.</label>
                             <div class="col-md-8">
-                                <select class="form-control" name="select_documento" id="select_documento" >
+                                <select class="form-control" name="select_documento" id="select_documento">
                                     <?php
                                     $a_tido = $c_tido->verFilas("1,2");
                                     foreach ($a_tido as $fila) {
                                         ?>
-                                        <option value="<?php echo $fila['id_tido']?>"><?php echo $fila['nombre']?></option>
-                                    <?php
+                                        <option value="<?php echo $fila['id_tido'] ?>"><?php echo $fila['nombre'] ?></option>
+                                        <?php
                                     }
                                     ?>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">Ser | Num</label>
+                            <div class="col-lg-4">
+                                <input type="text" name="input_serie" id="input_serie" class="form-control text-center" readonly>
+                            </div>
+                            <div class="col-lg-4">
+                                <input type="text" name="input_numero" id="input_numero" class="form-control text-center" readonly>
                             </div>
                         </div>
                         <div class="form-group">
@@ -183,22 +193,26 @@ $c_tido->setIdEmpresa($_SESSION['id_empresa']);
                         <div class="form-group">
                             <label class="col-lg-4 control-label">Cliente</label>
                             <div class="col-lg-8">
-                                <!--<button class="btn btn-success" type="button" data-toggle="modal" data-target="#modal_reg_cliente">Crear Cliente</button>-->
-                                <a href="reg_cliente.php" target="_blank" class="btn btn-success"><i class="fa fa-plus"></i> Crear Cliente</a>
+                                <button type="button" class="btn btn-success" id="btn_comprueba" onclick="comprobarCliente()"><i class="fa fa-plus"></i> Comprobar Documento</button>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-lg-12">
-                                <input type="text" placeholder="buscar cliente" class="form-control"
-                                       id="input_cliente" name="input_cliente">
-                                <input type="hidden" id="input_id_cliente" name="input_id_cliente" value="0">
+                                <input type="text" placeholder="Ingrese Documento" class="form-control"
+                                       id="input_documento_cliente" name="input_documento_cliente" maxlength="11">
+                                <input type="hidden" id="input_direccion_cliente" name="input_direccion_cliente" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <input type="text" placeholder="Nombre del cliente" class="form-control"
+                                       id="input_datos_cliente" name="input_datos_cliente">
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-lg-12">
                                 <input type="hidden" id="input_total_pedido" name="input_total_pedido">
-                                <button type="button" data-toggle="modal" data-target="#cobro_venta"
-                                        class="btn btn-lg btn-primary" id="btn_finalizar_pedido" disabled><i class="fa fa-save"></i> Guardar
+                                <button type="button" class="btn btn-lg btn-primary" id="btn_finalizar_pedido" disabled onclick="enviar_datos()"><i class="fa fa-save"></i> Guardar
                                 </button>
                             </div>
                         </div>
@@ -211,12 +225,6 @@ $c_tido->setIdEmpresa($_SESSION['id_empresa']);
             </div>
         </div>
     </div>
-
-    <?php
-    //} else {
-    //require 'modals/m_sin_caja.php';
-    //}
-    ?>
 
     <!--end page content-->
 
@@ -237,26 +245,15 @@ $c_tido->setIdEmpresa($_SESSION['id_empresa']);
 <script src="../public/plugins/nano-scroll/jquery.nanoscroller.min.js"></script>
 <script src="../public/plugins/metisMenu/metisMenu.min.js"></script>
 <script src="../public/js/float-custom.js"></script>
+<script src="../public/js/validar-documento-cliente.js"></script>
 <script src="../public/js/funciones_basicas.js"></script>
+<script src="../public/plugins/toast/jquery.toast.min.js"></script>
 
 <script src="../public/plugins/bootstrap-sweet-alerts/sweet-alert.min.js"></script>
 
 
 <script>
     $(function () {
-
-        //autocomplete
-        $("#input_cliente").autocomplete({
-            source: "../controller/json/cargar_clientes.php",
-            minLength: 2,
-            select: function (event, ui) {
-                event.preventDefault();
-                $('#input_cliente').val(ui.item.datos);
-                $('#input_id_cliente').val(ui.item.id);
-                $('#input_buscar_productos').prop("readonly", false);
-                $('#input_buscar_productos').focus();
-            }
-        });
 
         $("#input_buscar_productos").autocomplete({
             source: "../controller/json/cargar_productos.php",
@@ -281,6 +278,25 @@ $c_tido->setIdEmpresa($_SESSION['id_empresa']);
 </script>
 
 <script>
+    function comprobarCliente() {
+        var documento_venta = $("#select_documento").val();
+        var documento_cliente = $("#input_documento_cliente").val();
+        if (documento_venta == 1) {
+            if (documento_cliente.length == 8) {
+                validarDocumento();
+            } else {
+                swal("SOLO PUEDEN INGRESAR 8 DIGITOS");
+            }
+        }
+        if (documento_venta == 2) {
+            if (documento_cliente.length == 11) {
+                validarDocumento();
+            } else {
+                swal("SOLO PUEDEN INGRESAR 11 DIGITOS");
+            }
+        }
+    }
+
     function validar_detalle() {
         var permitir = false;
         var cantidad = $('#input_cantidad_producto').val();
@@ -293,7 +309,7 @@ $c_tido->setIdEmpresa($_SESSION['id_empresa']);
         return permitir;
     }
 
-    function agregarProducto () {
+    function agregarProducto() {
         var datainput = {
             id_producto: $('#hidden_codigo_producto').val(),
             descripcion: $('#input_descripcion_producto').val(),
@@ -304,7 +320,8 @@ $c_tido->setIdEmpresa($_SESSION['id_empresa']);
         }
         obtenerDetalle(datainput);
     }
-    function eliminarProducto (idproducto) {
+
+    function eliminarProducto(idproducto) {
         var datainput = {
             id_producto: idproducto,
             action: 2
@@ -347,24 +364,37 @@ $c_tido->setIdEmpresa($_SESSION['id_empresa']);
     }
 
     function enviar_datos() {
-        if (!validar_efectivo()) {
-            var parametros = {
-                id_cliente: $('#input_id_cliente').val(),
-                total_pedido: $('#input_total_pedido').val(),
-                total_pago: $('#input_pago_cliente').val(),
-                tipo_venta: $('input:radio[name=cbx_tipo_pago]:checked').val()
-            };
-            $.ajax({
-                data: parametros, //datos que se envian a traves de ajax
-                url: 'procesos/reg_venta.php', //archivo que recibe la peticion
-                type: 'post', //método de envio
-                beforeSend: function () {
-
-                    $("#resultado").html("Procesando, espere por favor...");
-                },
-                success: function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
-                    $("#resultado").html(response);
-                    $('#cobro_venta').modal('toggle');
+        var parametros = {
+            datos_cliente: $('#input_datos_cliente').val(),
+            documento_cliente: $('#input_documento_cliente').val(),
+            direccion_cliente: $('#input_direccion_cliente').val(),
+            total_pedido: $('#input_total_pedido').val(),
+            documento_venta: $('#select_documento').val(),
+        };
+        $.ajax({
+            data: parametros, //datos que se envian a traves de ajax
+            url: '../controller/reg_venta.php', //archivo que recibe la peticion
+            type: 'post', //método de envio
+            beforeSend: function () {
+                $("#resultado").html("Procesando, espere por favor...");
+            },
+            success: function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
+                $("#resultado").html(response);
+                var json_response = JSON.parse(response);
+                if (response.valor == 0) {
+                    swal({
+                        title: "Error al Registrar",
+                        text: response,
+                        type: "error",
+                        showCancelButton: false,
+                        //cancelButtonClass: 'btn-secondary ',
+                        confirmButtonColor: "#DD6B55",
+                        //confirmButtonText: "Ver Ticket",
+                        cancelButtonText: "No, cancel plx!",
+                        closeOnConfirm: true,
+                        closeOnCancel: true
+                    });
+                } else {
                     swal({
                         title: "Venta Registrada",
                         text: "El documento de venta se registro con exito!",
@@ -372,18 +402,19 @@ $c_tido->setIdEmpresa($_SESSION['id_empresa']);
                         showCancelButton: false,
                         //cancelButtonClass: 'btn-secondary ',
                         confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "Nueva Venta",
+                        confirmButtonText: "Ver Ticket",
                         //cancelButtonText: "No, cancel plx!",
                         closeOnConfirm: false,
                         //closeOnCancel: false
                     }, function (isConfirm) {
                         if (isConfirm) {
-                            window.location.href = "reg_venta.php";
+
+                            window.location.href = 'frm_finaliza_venta.php?id_venta=' + json_response.id_venta + '&periodo=' + json_response.periodo;
                         }
                     });
                 }
-            });
-        }
+            }
+        });
     }
 
 </script>

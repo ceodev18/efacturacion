@@ -16,3 +16,18 @@ function number_format(amount, decimals) {
         amount_parts[0] = amount_parts[0].replace(regexp, '$1' + ',' + '$2');
     return amount_parts.join('.');
 }
+
+function validar_email() {
+    var email = $("#input_email").val();
+    var emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+    //Se muestra un texto a modo de ejemplo, luego va a ser un icono
+    if (email.length > 0) {
+        if (emailRegex.test(email)) {
+            $("#error_dni").html("<div class=\"alert alert-success\"><strong> Conforme! </strong> email valido.</div>");
+        } else {
+            $("#error_dni").html("<div class=\"alert alert-danger\"><strong> Error! </strong> Email no valido.</div>");
+        }
+    } else {
+        $("#error_dni").html("");
+    }
+}

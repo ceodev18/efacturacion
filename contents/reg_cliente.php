@@ -19,6 +19,7 @@
     <link href="../public/plugins/jasny-bootstrap/css/jasny-bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../public/plugins/nano-scroll/nanoscroller.css">
     <link rel="stylesheet" href="../public/plugins/metisMenu/metisMenu.min.css">
+    <link href="../public/plugins/toast/jquery.toast.min.css" rel="stylesheet">
     <!--template css-->
     <link href="../public/css/style.css" rel="stylesheet">
     <link href="../public/images" rel="stylesheet">
@@ -28,54 +29,6 @@
           <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
-
-    <script>
-        function enviar_dni() {
-            var parametros = {
-                "dni": $("#input_ruc").val()
-            };
-            console.log("parametros", parametros);
-       
-        if ($("#input_ruc").val().length === 8) {
-            $.ajax({
-                data: parametros,
-                url: '../controller/json/validar_ruc.php',
-                type: 'post',
-                beforeSend: function() {
-                    $("#error_dni").html("<div class=\"alert alert-success\"><strong> Espere! </strong> Estamos procesando su peticion.</div>");
-                },
-                success: function(response) {
-                    $("#error_dni").html("");
-                    var json = response;
-                    console.log(json);
-                    var json_dni = JSON.parse(json);
-                    var success = json_dni.success;
-                    if (success === false) {
-                        $("#error_dni").html("<div class=\"alert alert-danger\"><strong> Error! </strong> El numero de DNI es incorrecto.</div>");
-                    }
-
-                    if (success === true) {
-                        $("#input_dni").prop('readonly', true);
-                        $("#btn_comprueba_dni").prop('disabled', true);
-                        $("#btn_validar_datos").prop('disabled', false);
-                        $("#input_apellido_paterno").focus();
-                        $("#input_nombres").val(json_dni.result.Nombres);
-                        $("#hidden_apellidos").val(json_dni.result.apellidos);
-                    }
-                },
-                error: function() {
-                    $("#error_dni").html("<div class=\"alert alert-warning\"><strong> Error! </strong> Ocurrio un error al procesar.</div>");
-                    $("#input_dni").prop('readonly', false);
-                    $("#input_nombres").val("");
-                    $("#hidden_apellidos").val("");
-                    $("#input_dni").focus();
-                }
-            });
-        } else {
-            $("#error_dni").html("<div class=\"alert alert-danger\"><strong> Error! </strong> Numero de DNI incompleto.</div>");
-        }
-    }    
-    </script>
 
 </head>
 
@@ -118,64 +71,40 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Datos del Cliente</div>
                     <div class="panel-body">
-                        <form class="form-horizontal" method="post" action="">
+                        <form class="form-horizontal" method="post" action="../controller/reg_cliente.php">
                             <div class="form-group">
                                 <label class="col-lg-2 control-label">Codigo</label>
                                 <div class="col-lg-3  ">
-                                    <!--input type="text" placeholder="ingrese codigo" class="form-control text-center" readonly="true"-->
-
-                                    <!--div class="input-group"-->
-                                    <input disabled type="text" class="form-control" placeholder="Codigo" maxlength="11" required>
-
-                                    <!--/div-->
+                                    <input type="text" class="form-control" placeholder="Codigo" maxlength="11" required readonly>
                                 </div>
                             </div>
-                            <!--                                <div class="form-group">
-                                    <label class="col-lg-2 control-label">DNI / RUC</label>
-                                    <div class="col-lg-2">
-                                        <input type="text" placeholder="Ingrese digitos" name="input_documento" class="form-control text-center">
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <button class="btn btn-primary"> Validar Documento</button>
-                                    </div>
-                                </div>-->
                             <div class="form-group">
                                 <label class="col-lg-2 control-label">Nro. de Documento</label>
                                 <div class="col-lg-4  input-group" style="padding: 0 16px;">
-                                    <input type="text" placeholder="Documentos" id="input_ruc" name="input_ruc" class="form-control">
-                                    <span class="input-group-btn"><button id="btn_comprueba_ruc" class="btn btn-default" type="button" onclick="enviar_dni()">Comprobar</button></span>
+                                    <input type="text" placeholder="Documentos" id="input_documento_cliente" name="input_documento_cliente" class="form-control" maxlength="11" required>
+                                    <span class="input-group-btn">
+                                        <button id="btn_comprueba" class="btn btn-default" type="button" onclick="validarDocumento()">Comprobar</button>
+                                    </span>
                                 </div>
 
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-2 control-label">Nombre Cliente</label>
                                 <div class="col-lg-9">
-                                    <input disabled type="text" placeholder="Nombre cliente" name="input_nombres" id="input_nombres" class="form-control" required="true">
+                                    <input type="text" placeholder="Nombre cliente" name="input_datos_cliente" id="input_datos_cliente" class="form-control" required="true" >
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-lg-2 control-label">Direccion</label>
                                 <div class="col-lg-9">
-                                    <input disabled type="text" placeholder="Direccion" name="input_direccion" class="form-control">
+                                    <input type="text" placeholder="Direccion" name="input_direccion_cliente" id="input_direccion_cliente" class="form-control">
                                 </div>
                             </div>
 
-                            <!-- <div class="form-group">
-                                    <label class="col-lg-2 control-label">Ruc de empresa</label>
-                                    <div class="col-lg-10">
-                                        <?php
-                                        /*buscar el id de la empresa para mostrarlo*/
-                                        // session_start();
-                                        ?>
-                                        <input disabled type="text" placeholder="Ruc de Empresa" name="input_ruc_empresa" class="form-control" value="<?php echo $_SESSION['id_empresa']; ?>">
-                                    </div>
-                                </div> -->
-
-
                             <div class="form-group">
                                 <div class="col-lg-offset-2 col-lg-10">
-                                    <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
+                                    <button type="submit" class="btn btn-sm btn-primary" id="btn_guardar">Guardar</button>
                                 </div>
                             </div>
                         </form>
@@ -201,7 +130,8 @@
     <script src="../public/plugins/nano-scroll/jquery.nanoscroller.min.js"></script>
     <script src="../public/plugins/metisMenu/metisMenu.min.js"></script>
     <script src="../public/js/float-custom.js"></script>
-    <!-- <script src="../public/js/validar_usuarios.js" ></script> -->
+    <script src="../public/js/validar-documento-cliente.js" ></script>
+    <script src="../public/plugins/toast/jquery.toast.min.js"></script>
 </body>
 
 <!-- Mirrored from bootstraplovers.com/templates/float-admin-v1.1/light-version/page-empty.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 26 Feb 2017 07:43:09 GMT -->

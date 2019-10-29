@@ -14,6 +14,10 @@ class Empresa
     private $password;
     private $user_sol;
     private $clave_sol;
+    private $ubigeo;
+    private $distrito;
+    private $provincia;
+    private $departamento;
     private $conectar;
 
     /**
@@ -184,10 +188,74 @@ class Empresa
         $this->clave_sol = $clave_sol;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getUbigeo()
+    {
+        return $this->ubigeo;
+    }
+
+    /**
+     * @param mixed $ubigeo
+     */
+    public function setUbigeo($ubigeo)
+    {
+        $this->ubigeo = $ubigeo;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDistrito()
+    {
+        return $this->distrito;
+    }
+
+    /**
+     * @param mixed $distrito
+     */
+    public function setDistrito($distrito)
+    {
+        $this->distrito = $distrito;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProvincia()
+    {
+        return $this->provincia;
+    }
+
+    /**
+     * @param mixed $provincia
+     */
+    public function setProvincia($provincia)
+    {
+        $this->provincia = $provincia;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDepartamento()
+    {
+        return $this->departamento;
+    }
+
+    /**
+     * @param mixed $departamento
+     */
+    public function setDepartamento($departamento)
+    {
+        $this->departamento = $departamento;
+    }
+
     public function insertar()
     {
         $sql = "insert into empresas 
-        values ('$this->id_empresa', '$this->ruc', '$this->razon_social', '$this->direccion', '$this->email', '$this->telefono', '$this->estado', '$this->password', '$this->user_sol', '$this->clave_sol')";
+        values ('$this->id_empresa', '$this->ruc', '$this->razon_social', '$this->direccion', '$this->email', '$this->telefono', '$this->estado', '$this->password', '$this->user_sol', '$this->clave_sol', '$this->ubigeo', '$this->distrito', '$this->provincia', '$this->departamento')";
         return $this->conectar->ejecutar_idu($sql);
     }
 
@@ -221,6 +289,10 @@ class Empresa
         $this->password = $fila['password'];
         $this->user_sol = $fila['user_sol'];
         $this->clave_sol = $fila['clave_sol'];
+        $this->ubigeo = $fila['ubigeo'];
+        $this->distrito = $fila['distrito'];
+        $this->provincia = $fila['provincia'];
+        $this->departamento = $fila['departamento'];
     }
 
     public function validarLogin()
@@ -229,9 +301,10 @@ class Empresa
         from empresas 
         where ruc = '$this->ruc'";
         $this->id_empresa = $this->conectar->get_valor_query($sql, 'id_empresa');
-        return true;
         if ($this->id_empresa == NULL || $this->id_empresa == "") {
             return false;
+        } else{
+            return true;
         }
     }
 

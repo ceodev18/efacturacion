@@ -136,7 +136,7 @@ class Cliente
     public function insertar()
     {
         $sql = "insert into clientes 
-        values ('$this->id_cliente', '$this->documento', '$this->datos', '$this->direccion', '$this->id_empresa', '$this->ultima_venta', '$this->total_venta')";
+        values ('$this->id_cliente', '$this->documento', '$this->datos', '$this->direccion', '$this->id_empresa', '1000-01-01', '0')";
         return $this->conectar->ejecutar_idu($sql);
     }
 
@@ -167,6 +167,19 @@ class Cliente
         $this->id_empresa = $fila['id_empresa'];
         $this->ultima_venta = $fila['ultima_venta'];
         $this->total_venta = $fila['total_venta'];
+    }
+
+    public function verificarDocumento()
+    {
+        $sql = "select id_cliente
+        from clientes 
+        where documento = '$this->documento' and id_empresa = '$this->id_empresa'";
+        $this->id_cliente = $this->conectar->get_valor_query($sql, 'id_cliente');
+        if ($this->id_cliente == NULL || $this->id_cliente == "") {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public function verFilas()

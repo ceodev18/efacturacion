@@ -2,6 +2,7 @@
 require '../models/Cliente.php';
 
 $c_cliente = new Cliente();
+$c_cliente->setIdEmpresa($_SESSION['id_empresa']);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -91,12 +92,15 @@ $c_cliente = new Cliente();
                             $a_clientes = $c_cliente->verFilas();
 
                             foreach ($a_clientes as $fila) {
+                                if ($fila['ultima_venta'] == '1000-01-01') {
+                                    $label_estado = "<span class='label label-danger'>nunca</span>";
+                                }
                                 ?>
                                 <tr>
-                                    <td class="text-center"><?php echo $fila['id_cliente']?>></td>
-                                    <td>datos - documento</td>
-                                    <td class="text-right">total_venta</td>
-                                    <td class="text-center">estado</td>
+                                    <td class="text-center"><?php echo $fila['id_cliente']?></td>
+                                    <td><?php echo $fila['documento'] . " | ". $fila['datos']?></td>
+                                    <td class="text-right"><?php echo number_format($fila['total_venta'], 2)?></td>
+                                    <td class="text-center"><?php echo $label_estado?></td>
                                     <td class="text-center">
                                         <a href="#" class="btn btn-xs btn-danger"> <i class="fa fa-edit"></i></a>
                                     </td>
