@@ -47,5 +47,3 @@ class PDF_Rotate extends FPDF {
     }
 
 }
-
-?>

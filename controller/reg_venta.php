@@ -5,11 +5,13 @@ require '../models/Venta.php';
 require '../models/DocumentoEmpresa.php';
 require '../models/ProductoVenta.php';
 require '../models/Cliente.php';
+require '../tools/SendCurlVenta.php';
 
 $c_cliente = new Cliente();
 $c_venta = new Venta();
 $c_tido = new DocumentoEmpresa();
 $c_detalle = new ProductoVenta();
+$c_curl = new SendCurlVenta();
 $id_empresa = $_SESSION['id_empresa'];
 
 $c_cliente->setIdEmpresa($id_empresa);
@@ -39,6 +41,7 @@ $c_detalle->setIdVenta($c_venta->getIdVenta());
 
 $resultado = [];
 if ($c_venta->insertar()) {
+    //recorrer array para guardar productos en la venta
     $array_detalle = $_SESSION['ventaproductos'];
     foreach ($array_detalle as $fila) {
         $c_detalle->setIdProducto($fila['idproducto']);
@@ -47,7 +50,31 @@ if ($c_venta->insertar()) {
         $c_detalle->setPrecio($fila['precio']);
         $c_detalle->insertar();
     }
-    $resultado["valor"] = $c_venta->getIdVenta();
+
+    //definir url segun el tipo de documento sunat
+    if ($c_venta->getIdTido() == 1) {
+        $archivo = "boleta";
+    }
+    if ($c_venta->getIdTido() == 2) {
+        $archivo = "factura";
+    }
+
+    //enviar por curl id de venta para generar xml, hash, qr y retornar json para generar fpdf documento de venta
+    $c_curl->setIdTido($c_venta->getIdTido());
+    $c_curl->setIdVenta($c_venta->getIdVenta());
+    $respuesta = $c_curl->enviar_json();
+
+    $json_respuesta = json_decode($respuesta);
+
+    if ($json_respuesta["success"] == true) {
+        //ya no es necesario llamar a generar pdf
+        //$c_curl->generar_pdf();
+        $resultado["valor"] = $c_venta->getIdVenta();
+    } else {
+        print_r($json_respuesta);
+    }
+
+//    $resultado["valor"] = $c_venta->getIdVenta();
 } else {
     $resultado["valor"] = 0;
 }

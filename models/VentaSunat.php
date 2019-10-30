@@ -71,4 +71,14 @@ class VentaSunat
         values ('$this->id_venta', '$this->hash', '$this->nombre_xml')";
         return $this->conectar->ejecutar_idu($sql);
     }
+
+    public function obtenerDatos()
+    {
+        $sql = "select * 
+        from ventas_sunat 
+        where id_venta = '$this->id_venta'";
+        $fila = $this->conectar->get_Row($sql);
+        $this->hash = $fila['hash'];
+        $this->nombre_xml = $fila['nombre_xml'];
+    }
 }

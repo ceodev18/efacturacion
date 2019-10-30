@@ -14,6 +14,7 @@ class Empresa
     private $password;
     private $user_sol;
     private $clave_sol;
+    private $logo;
     private $ubigeo;
     private $distrito;
     private $provincia;
@@ -252,10 +253,26 @@ class Empresa
         $this->departamento = $departamento;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getLogo()
+    {
+        return $this->logo;
+    }
+
+    /**
+     * @param mixed $logo
+     */
+    public function setLogo($logo)
+    {
+        $this->logo = $logo;
+    }
+
     public function insertar()
     {
         $sql = "insert into empresas 
-        values ('$this->id_empresa', '$this->ruc', '$this->razon_social', '$this->direccion', '$this->email', '$this->telefono', '$this->estado', '$this->password', '$this->user_sol', '$this->clave_sol', '$this->ubigeo', '$this->distrito', '$this->provincia', '$this->departamento')";
+        values ('$this->id_empresa', '$this->ruc', '$this->razon_social', '$this->direccion', '$this->email', '$this->telefono', '$this->estado', '$this->password', '$this->user_sol', '$this->clave_sol', '$this->logo', '$this->ubigeo', '$this->distrito', '$this->provincia', '$this->departamento')";
         return $this->conectar->ejecutar_idu($sql);
     }
 
@@ -289,6 +306,7 @@ class Empresa
         $this->password = $fila['password'];
         $this->user_sol = $fila['user_sol'];
         $this->clave_sol = $fila['clave_sol'];
+        $this->logo = $fila['logo'];
         $this->ubigeo = $fila['ubigeo'];
         $this->distrito = $fila['distrito'];
         $this->provincia = $fila['provincia'];

@@ -110,8 +110,9 @@ class DocumentoSunat
         from documentos_sunat 
         where id_tido = '$this->id_tido'";
         $fila = $this->conectar->get_Row($sql);
-        $this->serie = $fila['serie'];
-        $this->numero = $fila['numero'];
+        $this->nombre = $fila['nombre'];
+        $this->cod_sunat = $fila['cod_sunat'];
+        $this->abreviatura = $fila['abreviatura'];
     }
 
     public function verFilas()

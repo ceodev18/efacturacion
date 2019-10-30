@@ -1,3 +1,9 @@
+<?php
+session_start();
+require '../models/Venta.php';
+$c_venta = new Venta();
+$c_venta->setIdEmpresa($_SESSION['id_empresa']);
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -127,35 +133,40 @@
                             </thead>
                             <tbody>
                             <?php
-                            $i = 0;
-                            if ($i  == 0) {
-                                $estado = '<span class="label label-success">Normal</span>';
+                            $a_ventas = $c_venta->verFilas();
+                            foreach ($a_ventas as $fila) {
+                                if ($fila['estado'] == 1) {
+                                    $estado = '<span class="label label-success">Normal</span>';
+                                }
+                                if ($fila['estado'] == 2) {
+                                    $estado = '<span class="label label-warning">Anulado</span>';
+                                }
+                                $documento_venta = $fila['abreviatura'] . " | " . $fila['serie'] . " - " . $fila['numero'];
+                                ?>
+                                <tr>
+                                    <td class="text-center">
+                                        <a href="../reports/documento_venta.php?&id_venta=<?php echo $fila['id_venta']?>" target="_blank" alt="Ver e Imprimir" title="Ver e Imprimir"><?php echo $documento_venta?></a>
+                                    </td>
+                                    <td class="text-center"><?php echo $fila['fecha']?></td>
+                                    <td class="text-center"><?php echo $fila['documento'] . " | " . $fila['datos']?></td>
+                                    <td class="text-right"><?php echo number_format($fila['total'] / 1.18,2 )?></td>
+                                    <td class="text-right"><?php echo number_format($fila['total'] / 1.18 * 0.18,2 )?></td>
+                                    <td class="text-right"><?php echo number_format($fila['total'],2 )?></td>
+                                    <td class="text-center"><?php echo $estado ?></td>
+                                    <td class="text-center">
+                                        <?php
+                                        if ($fila['estado'] == 1) { ?>
+                                            <a href="ver_productos.php" target="_blank" class="btn btn-xs btn-dropbox" alt="ver archivo XML" title="ver archivo XML"> <i class="fa fa-file"></i></a>
+                                            <button type="button" onclick="" data-toggle="modal" data-target="#modal_ver_detalle" class="btn btn-xs btn-facebook" alt="Ver Detalle" title="Ver Detalle"><i class="fa fa-bars"></i></button>
+                                            <button type="button" onclick="" class="btn btn-xs btn-danger" alt="Anular Venta" title="Anular Venta"><i class="fa fa-trash"></i></button>
+                                        <?php }
+                                        ?>
+                                    </td>
+                                </tr>
+                                <?php
                             }
-                            if ($i  == 1) {
-                                $estado = '<span class="label label-warning">Anulado</span>';
-                            }
-
                             ?>
-                            <tr>
-                                <td class="text-center">
-                                    <a href="reports/ver_documento_venta.php?&id_venta=1" target="_blank" alt="Ver e Imprimir" title="Ver e Imprimir">BT | B001-0035</a>
-                                </td>
-                                <td class="text-center">2019-10-24</td>
-                                <td class="text-center">46993209 | OYANGUREN GIRON LUIS ENRIQUE</td>
-                                <td class="text-right">100.00</td>
-                                <td class="text-right">18.00</td>
-                                <td class="text-right">118.00</td>
-                                <td class="text-center"><?php echo $estado?></td>
-                                <td class="text-center">
-                                    <?php
-                                    if ($estado == 0) { ?>
-                                        <a href="ver_productos.php" target="_blank" class="btn btn-xs btn-dropbox" alt="ver archivo XML" title="ver archivo XML"> <i class="fa fa-file"></i></a>
-                                        <button type="button" onclick="" data-toggle="modal" data-target="#modal_ver_detalle" class="btn btn-xs btn-facebook" alt="Ver Detalle" title="Ver Detalle"><i class="fa fa-bars"></i></button>
-                                        <button type="button" onclick="" class="btn btn-xs btn-danger" alt="Anular Venta" title="Anular Venta"><i class="fa fa-trash"></i></button>
-                                    <?php }
-                                    ?>
-                                </td>
-                            </tr>
+
                             </tbody>
                             <tfoot>
                             <tr>
