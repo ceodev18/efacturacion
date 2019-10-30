@@ -15,6 +15,7 @@
     <link href="public/plugins/jasny-bootstrap/css/jasny-bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="public/plugins/nano-scroll/nanoscroller.css">
     <link rel="stylesheet" href="public/plugins/metisMenu/metisMenu.min.css">
+    <link href="public/images/favicon.png" rel="icon"/>
     <!--for checkbox-->
     <link href="public/plugins/iCheck/blue.css" rel="stylesheet">
     <!--template css-->
@@ -39,7 +40,7 @@
             <div class="row">
                 <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
                     <div class="misc-header text-center">
-                        <img src="public/images/store_logo_all.png" alt="Chimbote Store" height="45px">
+                        <img src="public/images/logo-white.png" alt="Chimbote Store" height="45px">
                     </div>
                     <div class="misc-box">
                         <p class="text-center text-uppercase pad-v">ingrese para continuar.</p>
@@ -82,7 +83,7 @@
                         </form>
                     </div>
                     <div class="text-center misc-footer">
-                        <span>&copy; Copyright <?php echo date('Y') ?>. Chimbote Store <br>development by Luna Systems Peru</span>
+                        <span>&copy; Copyright <?php echo date('Y') ?>. Sistema de Facturacion Electronica <br>development by Luna Systems Peru</span>
                     </div>
                 </div>
             </div>

@@ -64,7 +64,7 @@ if ($c_venta->insertar()) {
     $c_curl->setIdVenta($c_venta->getIdVenta());
     $respuesta = $c_curl->enviar_json();
 
-    $json_respuesta = json_decode($respuesta);
+    $json_respuesta = json_decode($respuesta, true);
 
     if ($json_respuesta["success"] == true) {
         //ya no es necesario llamar a generar pdf

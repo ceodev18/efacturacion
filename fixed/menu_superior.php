@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-xs-6">
                 <a href="index.php" class="admin-logo">
-                    <h1><img src="../public/images/logo.png" height="45px" alt="Software de Facturacion Electronica"></h1>
+                    <h1><img src="../public/images/logo-en.png" height="35px" alt="Software de Facturacion Electronica"></h1>
                 </a>
                 <div class="left-nav-toggle visible-xs visible-sm">
                     <a href="#">
@@ -28,7 +28,7 @@
                             <i class="fa fa-shopping-cart"></i>
                         </a>
                     </li>
-                    <li class="dropdown hidden-xs icon-dropdown">
+                    <!--<li class="dropdown hidden-xs icon-dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="glyphicon glyphicon-envelope"></i>
                             <span class="badge badge-warning">4</span>
@@ -39,7 +39,7 @@
                                 <div class="scrollDiv">
 
                                     <div class="notification-list">
-<!--                                        <a href="javascript: void(0);" class="clearfix">
+                                        <a href="javascript: void(0);" class="clearfix">
                                             <span class="notification-icon">
                                                 <img src="images/avtar-2.jpg" alt="" class="img-circle" width="50">
                                             </span>                                                 
@@ -70,14 +70,14 @@
                                             <span class="notification-title">Ronaldo <label class="label label-success pull-right">Metting</label> </span>
                                             <span class="notification-description">Praesent dictum nisl non est sagittis luctus.</span>
                                             <span class="notification-time">40 minutes ago</span>
-                                        </a>-->
+                                        </a>
                                     </div>
                                 </div>
                             </li>
 
                         </ul>
-                    </li>
-                    <li class="dropdown hidden-xs icon-dropdown">
+                    </li>-->
+                    <!--<li class="dropdown hidden-xs icon-dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="glyphicon glyphicon-bell"></i>
                             <span class="badge badge-danger">6</span>
@@ -110,18 +110,18 @@
                             </li>
 
                         </ul>
-                    </li>
+                    </li>-->
                     <li class="dropdown">
                         <a href="javascript: void(0);" class="right-sidebar-toggle"><i class="glyphicon glyphicon-align-right"></i></a>
                     </li>
                     <li class="dropdown avtar-dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="../public/images/logo.png" class="img-circle" width="30" alt="">
+                            <img src="../public/images/<?php echo $_SESSION['logo_empresa'];?>" class="img-circle" width="30" alt="">
                         </a>
                         <ul class="dropdown-menu top-dropdown">
                             <li><a href="javascript: void(0);"><i class="icon-home"></i> <?php echo $_SESSION['nombre_empresa'];?></a></li>
-                            <li><a href="javascript: void(0);"><i class="icon-user"></i> Perfil</a></li>
-                            <li><a href="javascript: void(0);"><i class="icon-settings"></i> Configuracion</a></li>
+                            <!--<li><a href="javascript: void(0);"><i class="icon-user"></i> Perfil</a></li>
+                            <li><a href="javascript: void(0);"><i class="icon-settings"></i> Configuracion</a></li>-->
                             <li class="divider"></li>
                             <li><a href="../controller/logout.php"><i class="icon-logout"></i> Cerrar Sesion</a></li>
                         </ul>

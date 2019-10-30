@@ -15,6 +15,7 @@ if ($c_empresa->validarLogin()) {
     if ($c_empresa->getPassword() == $password) {
         $_SESSION['id_empresa'] = $c_empresa->getIdEmpresa();
         $_SESSION['nombre_empresa'] = $c_empresa->getRazonSocial();
+        $_SESSION['logo_empresa'] = $c_empresa->getLogo();
         header("Location: ../index.php");
     } else {
         header("Location: ../login.php?error=CONTRASEÑA INCORRECTA");

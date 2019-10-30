@@ -70,9 +70,9 @@ $pdf->SetAutoPageBreak(true, 8);
 $pdf->AddPage();
 
 $imagen = $c_empresa->getLogo();
-$r = 0;
-$g = 150;
-$b = 200;
+$r = 100;
+$g = 100;
+$b = 100;
 
 $pdf->Image('../public/images/' . $imagen, 10, 10, 25, 25);
 $pdf->Ln(5);
@@ -81,31 +81,31 @@ $pdf->SetTextColor(0, 0, 0);
 
 
 $pdf->SetFont('Arial', 'B', 12);
-$pdf->Rect(130, 10, 70, 24);
+$pdf->Rect(140, 10, 60, 24);
 $pdf->SetTextColor(00, 00, 0);
 $pdf->SetY(10);
-$pdf->SetX(130);
-$pdf->Cell(70, 6, "RUC: " . $c_empresa->getRuc(), 0, 1, 'C');
-$pdf->SetX(130);
+$pdf->SetX(140);
+$pdf->Cell(60, 6, "RUC: " . $c_empresa->getRuc(), 0, 1, 'C');
+$pdf->SetX(140);
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->SetTextColor(255, 255, 255);  // Establece el color del texto (en este caso es blanco)
 $pdf->SetFillColor($r, $g, $b);
-$pdf->MultiCell(70, 6, $c_tido->getNombre() . " ELECTRONICA", 0, "C", 1);
+$pdf->MultiCell(60, 6, $c_tido->getNombre() . " ELECTRONICA", 0, "C", 1);
 //$pdf->Cell(70, 8, $c_tido->getNombre() . " ELECTRONICA", 0, 1, 'C', 1);
 $pdf->SetFont('Arial', 'B', 12);
-$pdf->SetX(130);
+$pdf->SetX(140);
 $pdf->SetTextColor(00, 00, 0);
-$pdf->Cell(70, 6, $serie . "-" . $numero, 0, 1, 'C');
+$pdf->Cell(60, 6, $serie . "-" . $numero, 0, 1, 'C');
 
 $pdf->SetY(10);
 $pdf->SetX(40);
 $pdf->SetFont('Arial', 'B', 9);
-$pdf->Cell(110, 5, $c_empresa->getRazonSocial(), 0, 1, 'L');
+$pdf->Cell(110, 4, $c_empresa->getRazonSocial(), 0, 1, 'L');
 $pdf->SetX(40);
 $pdf->SetFont('Arial', '', 9);
-$pdf->MultiCell(75, 5, $c_empresa->getDireccion(), 0, "L");
+$pdf->MultiCell(75, 4, $c_empresa->getDireccion(), 0, "L");
 $pdf->SetX(40);
-$pdf->Cell(75, 5, "Telefono: " . $c_empresa->getTelefono() , 0, 1, 'L');
+$pdf->Cell(75, 4, "Telefono: " . $c_empresa->getTelefono() , 0, 1, 'L');
 
 $pdf->SetY(36);
 $pdf->SetFont('Arial', 'B', 9);

@@ -94,15 +94,19 @@ $c_producto->setIdEmpresa($_SESSION['id_empresa']);
                             <?php
                             $a_productos = $c_producto->verFilas();
                             foreach ($a_productos as $fila) {
-                                $label_estado = '<span class="label label-warning">Sin Movimiento</span>';
+                                if ($fila['ultima_salida'] == '1000-01-01') {
+                                    $label_estado = '<span class="label label-warning">Sin Movimiento</span>';
+                                } else {
+                                    $label_estado = '<span class="label label-success">' . $fila['ultima_salida'] . '</span>';
+                                }
                                 ?>
                                 <tr>
-                                    <td class="text-center"><?php echo $fila['id_producto']?></td>
-                                    <td><?php echo $fila['descripcion']?></td>
-                                    <td class="text-right"><?php echo $fila['precio']?></td>
-                                    <td class="text-center"><?php echo $label_estado?></td>
+                                    <td class="text-center"><?php echo $fila['id_producto'] ?></td>
+                                    <td><?php echo $fila['descripcion'] ?></td>
+                                    <td class="text-right"><?php echo $fila['precio'] ?></td>
+                                    <td class="text-center"><?php echo $label_estado ?></td>
                                     <td class="text-center">
-                                        <a href="reg_producto.php?action=2&id=<?php echo $fila['id_producto']?>" class="btn btn-xs btn-facebook" title="Editar Producto" alt="Editar Producto"> <i class="fa fa-edit"></i></a>
+                                        <a href="reg_producto.php?action=2&id=<?php echo $fila['id_producto'] ?>" class="btn btn-xs btn-facebook" title="Editar Producto" alt="Editar Producto"> <i class="fa fa-edit"></i></a>
                                         <a href="ver_kardex.php?codigo=" class="btn btn-xs btn-success" title="Ver Kardex" alt="Ver Kardex"> <i class="fa fa-arrows-h"></i></a>
                                     </td>
                                 </tr>

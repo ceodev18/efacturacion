@@ -92,6 +92,7 @@ $c_cliente->setIdEmpresa($_SESSION['id_empresa']);
                             $a_clientes = $c_cliente->verFilas();
 
                             foreach ($a_clientes as $fila) {
+                                $label_estado = "<span class='label label-info'>".$fila['ultima_venta']."</span>";
                                 if ($fila['ultima_venta'] == '1000-01-01') {
                                     $label_estado = "<span class='label label-danger'>nunca</span>";
                                 }

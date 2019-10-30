@@ -3,6 +3,11 @@ session_start();
 require '../models/Venta.php';
 $c_venta = new Venta();
 $c_venta->setIdEmpresa($_SESSION['id_empresa']);
+
+$periodo = date("Ym");
+if (filter_input(INPUT_GET, 'periodo')) {
+    $periodo = filter_input(INPUT_GET, 'periodo');
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -27,6 +32,8 @@ $c_venta->setIdEmpresa($_SESSION['id_empresa']);
     <link href="../public/plugins/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
     <link href="../public/plugins/datatables/responsive.bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="../public/plugins/toast/jquery.toast.min.css" rel="stylesheet">
+
+    <link href="../public/plugins/bootstrap-sweet-alerts/sweet-alert.css" rel="stylesheet">
 
     <!--template css-->
     <link href="../public/css/style.css" rel="stylesheet">
@@ -99,7 +106,12 @@ $c_venta->setIdEmpresa($_SESSION['id_empresa']);
                             <h5>Seleccionar Periodo:</h5>
                             <select class="form-control" id="select_periodo" name="select_periodo">
                                 <option value="-">Seleccionar Periodo</option>
-                                <option value="">Periodo</option>
+                                <?php
+                                $a_periodos = $c_venta->verPeriodos();
+                                foreach ($a_periodos as $fila) {
+                                    echo '<option value="' . $fila['periodo'] . '">' . $fila['periodo'] . '</option>';
+                                }
+                                ?>
                             </select>
                         </div>
                     </form>
@@ -113,11 +125,12 @@ $c_venta->setIdEmpresa($_SESSION['id_empresa']);
         <div class="col-md-12">
             <div class="panel panel-default collapsed">
                 <div class="panel-heading">
-                    <a href="reg_venta.php" class="btn btn-success"><i class="fa fa-plus"></i> Agregar Venta</a>
+                    <a href="reg_venta.php" class="btn btn-success"><i class="fa fa-plus"></i> Agregar Doc. Venta</a>
+                    <a href="reg_venta.php" class="btn btn-success"><i class="fa fa-plus"></i> Agregar Nota Electronica</a>
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
-                        <table id="tabla_clasificacion" class="table table-striped dt-responsive nowrap">
+                        <table id="tabla_ventas" class="table table-striped dt-responsive nowrap">
                             <thead>
                             <tr>
                                 <!--<th>Codigo</th>-->
@@ -133,32 +146,45 @@ $c_venta->setIdEmpresa($_SESSION['id_empresa']);
                             </thead>
                             <tbody>
                             <?php
-                            $a_ventas = $c_venta->verFilas();
+                            $a_ventas = $c_venta->verFilas($periodo);
                             foreach ($a_ventas as $fila) {
                                 if ($fila['estado'] == 1) {
                                     $estado = '<span class="label label-success">Normal</span>';
+                                    $total = $fila['total'];
                                 }
                                 if ($fila['estado'] == 2) {
                                     $estado = '<span class="label label-warning">Anulado</span>';
+                                    $total = 0;
                                 }
                                 $documento_venta = $fila['abreviatura'] . " | " . $fila['serie'] . " - " . $fila['numero'];
                                 ?>
                                 <tr>
+                                    <?php
+                                    if ($fila['estado'] == 1) { ?>
+                                        <td class="text-center">
+                                            <a href="../reports/documento_venta.php?&id_venta=<?php echo $fila['id_venta'] ?>" target="_blank" alt="Ver e Imprimir" title="Ver e Imprimir"><?php echo $documento_venta ?></a>
+                                        </td>
+                                        <?php
+                                    }
+                                    if ($fila['estado'] == 2) { ?>
                                     <td class="text-center">
-                                        <a href="../reports/documento_venta.php?&id_venta=<?php echo $fila['id_venta']?>" target="_blank" alt="Ver e Imprimir" title="Ver e Imprimir"><?php echo $documento_venta?></a>
+                                        <?php echo $documento_venta ?>
                                     </td>
-                                    <td class="text-center"><?php echo $fila['fecha']?></td>
-                                    <td class="text-center"><?php echo $fila['documento'] . " | " . $fila['datos']?></td>
-                                    <td class="text-right"><?php echo number_format($fila['total'] / 1.18,2 )?></td>
-                                    <td class="text-right"><?php echo number_format($fila['total'] / 1.18 * 0.18,2 )?></td>
-                                    <td class="text-right"><?php echo number_format($fila['total'],2 )?></td>
+                                    <?php
+                                    }
+                                    ?>
+                                    <td class="text-center"><?php echo $fila['fecha'] ?></td>
+                                    <td><?php echo $fila['documento'] . " | " . $fila['datos'] ?></td>
+                                    <td class="text-right"><?php echo number_format($total / 1.18, 2) ?></td>
+                                    <td class="text-right"><?php echo number_format($total / 1.18 * 0.18, 2) ?></td>
+                                    <td class="text-right"><?php echo number_format($total, 2) ?></td>
                                     <td class="text-center"><?php echo $estado ?></td>
                                     <td class="text-center">
                                         <?php
                                         if ($fila['estado'] == 1) { ?>
-                                            <a href="ver_productos.php" target="_blank" class="btn btn-xs btn-dropbox" alt="ver archivo XML" title="ver archivo XML"> <i class="fa fa-file"></i></a>
-                                            <button type="button" onclick="" data-toggle="modal" data-target="#modal_ver_detalle" class="btn btn-xs btn-facebook" alt="Ver Detalle" title="Ver Detalle"><i class="fa fa-bars"></i></button>
-                                            <button type="button" onclick="" class="btn btn-xs btn-danger" alt="Anular Venta" title="Anular Venta"><i class="fa fa-trash"></i></button>
+                                            <a href="../greenter/files/<?php echo $fila['nombre_xml'] . ".xml" ?>" target="_blank" class="btn btn-xs btn-dropbox" alt="ver archivo XML" title="ver archivo XML"> <i class="fa fa-file"></i></a>
+                                            <button type="button" onclick="obtener_detalle('<?php echo $fila['id_venta'] ?>')" class="btn btn-xs btn-facebook" alt="Ver Detalle" title="Ver Detalle"><i class="fa fa-bars"></i></button>
+                                            <button type="button" onclick="anular_venta('<?php echo $fila['id_venta'] ?>')" class="btn btn-xs btn-danger" alt="Anular Venta" title="Anular Venta"><i class="fa fa-trash"></i></button>
                                         <?php }
                                         ?>
                                     </td>
@@ -223,6 +249,7 @@ $c_venta->setIdEmpresa($_SESSION['id_empresa']);
 <script src="../public/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="../public/plugins/datatables/dataTables.responsive.min.js"></script>
 <script src="../public/plugins/toast/jquery.toast.min.js"></script>
+<script src="../public/plugins/bootstrap-sweet-alerts/sweet-alert.min.js"></script>
 
 <script>
     $(document).ready(function () {
@@ -236,40 +263,41 @@ $c_venta->setIdEmpresa($_SESSION['id_empresa']);
     });
 </script>
 <script>
-    function obtener_detalle(id_venta, periodo) {
+    function obtener_detalle(id_venta) {
         var parametros = {
-            id_venta: id_venta,
-            periodo: periodo
+            idventa: id_venta,
         };
         $.ajax({
             data: parametros, //datos que se envian a traves de ajax
-            url: 'modals/m_detalle_venta.php', //archivo que recibe la peticion
+            url: '../modals/productos_venta.php', //archivo que recibe la peticion
             type: 'post', //método de envio
             beforeSend: function () {
-
                 $("#modal_detalle").html("Procesando, espere por favor...");
             },
-            success: function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
+            success: function (response) {
+                //una vez que el archivo recibe el request lo procesa y lo devuelve
                 $("#modal_detalle").html(response);
+                $("#modal_ver_detalle").modal('toggle');
             }
         });
     }
 
-    function anular_venta(id_venta, periodo) {
+    function anular_venta(id_venta) {
 
-        var parametros = {
-            periodo: periodo,
-            id_venta: id_venta
-        };
-        $.ajax({
-            data: parametros, //datos que se envian a traves de ajax
-            url: 'procesos/del_venta.php', //archivo que recibe la peticion
-            type: 'post', //método de envio
-            beforeSend: function () {
-                alert("procesando accion");
-            },
-            success: function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
-                location.reload();
+        swal({
+            title: "Anular Venta",
+            text: "Esta seguro de ANULAR este documento?",
+            type: "warning",
+            showCancelButton: true,
+            //cancelButtonClass: 'btn-secondary ',
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Anular",
+            cancelButtonText: "No, cancelar!",
+            closeOnConfirm: false,
+            closeOnCancel: true
+        }, function (isConfirm) {
+            if (isConfirm) {
+                window.location.href = '../controller/del_venta.php?id_venta=' + id_venta;
             }
         });
     }

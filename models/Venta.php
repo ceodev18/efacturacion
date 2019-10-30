@@ -223,13 +223,22 @@ class Venta
         $this->id_empresa = $fila['id_empresa'];
     }
 
-    public function verFilas()
+    public function verFilas($periodo)
     {
-        $sql = "select v.id_venta, v.fecha, ds.abreviatura, v.serie, v.numero, c.documento, c.datos, v.total, v.estado, v.enviado_sunat 
+        $sql = "select v.id_venta, v.fecha, ds.abreviatura, v.serie, v.numero, c.documento, c.datos, v.total, v.estado, v.enviado_sunat, vs.nombre_xml 
         from ventas as v 
             inner join documentos_sunat ds on v.id_tido = ds.id_tido
             inner join clientes c on v.id_cliente = c.id_cliente 
-        where v.id_empresa = '$this->id_empresa'";
+            inner join ventas_sunat vs on v.id_venta = vs.id_venta
+        where v.id_empresa = '$this->id_empresa' and concat(year(fecha), LPAD(month(fecha), 2, 0)) = '$periodo'";
+        return $this->conectar->get_Cursor($sql);
+    }
+
+    public function verPeriodos () {
+        $sql = "select DISTINCT(concat(year(fecha), LPAD(month(fecha), 2, 0))) as periodo 
+        from ventas 
+        where id_empresa = '$this->id_empresa'
+        order by concat(year(fecha), LPAD(month(fecha), 2, 0)) desc";
         return $this->conectar->get_Cursor($sql);
     }
 }

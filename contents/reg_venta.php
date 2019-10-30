@@ -409,7 +409,7 @@ $c_tido->setIdEmpresa($_SESSION['id_empresa']);
                     }, function (isConfirm) {
                         if (isConfirm) {
 
-                            window.location.href = 'frm_finaliza_venta.php?id_venta=' + json_response.id_venta + '&periodo=' + json_response.periodo;
+                            window.location.href = 'ver_preimpresion_venta.php?id_venta=' + json_response.valor;
                         }
                     });
                 }
