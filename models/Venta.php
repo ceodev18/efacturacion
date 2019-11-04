@@ -242,6 +242,16 @@ class Venta
         return $this->conectar->get_Cursor($sql);
     }
 
+    public function verDocumentosFecha()
+    {
+        $sql = "select v.id_venta, v.fecha, ds.abreviatura, v.serie, v.numero, c.documento, c.datos, v.total, v.estado, v.enviado_sunat, v.estado
+        from ventas as v 
+            inner join documentos_sunat ds on v.id_tido = ds.id_tido
+            inner join clientes c on v.id_cliente = c.id_cliente 
+        where v.id_empresa = '$this->id_empresa' and v.fecha = '$this->fecha' and v.id_tido = '$this->id_tido'";
+        return $this->conectar->get_Cursor($sql);
+    }
+
     public function verPeriodos () {
         $sql = "select DISTINCT(concat(year(fecha), LPAD(month(fecha), 2, 0))) as periodo 
         from ventas 

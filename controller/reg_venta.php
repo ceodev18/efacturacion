@@ -5,6 +5,7 @@ require '../models/Venta.php';
 require '../models/DocumentoEmpresa.php';
 require '../models/ProductoVenta.php';
 require '../models/Cliente.php';
+require '../tools/Varios.php';
 require '../tools/SendCurlVenta.php';
 
 $c_cliente = new Cliente();
@@ -12,6 +13,8 @@ $c_venta = new Venta();
 $c_tido = new DocumentoEmpresa();
 $c_detalle = new ProductoVenta();
 $c_curl = new SendCurlVenta();
+$c_varios = new Varios();
+
 $id_empresa = $_SESSION['id_empresa'];
 
 $c_cliente->setIdEmpresa($id_empresa);
@@ -19,9 +22,15 @@ $c_cliente->setDocumento(filter_input(INPUT_POST, 'documento_cliente'));
 $c_cliente->setDatos(filter_input(INPUT_POST, 'datos_cliente'));
 $c_cliente->setDireccion(filter_input(INPUT_POST, 'direccion_cliente'));
 
-if (!$c_cliente->verificarDocumento()) {
+if ($c_cliente->getDocumento() == "") {
+    $c_cliente->setDocumento("SD" . $c_varios->generarCodigo(5));
     $c_cliente->obtenerId();
     $c_cliente->insertar();
+} else {
+    if (!$c_cliente->verificarDocumento()) {
+        $c_cliente->obtenerId();
+        $c_cliente->insertar();
+    }
 }
 
 $c_tido->setIdEmpresa($id_empresa);

@@ -66,7 +66,7 @@ class Cliente
      */
     public function setDatos($datos)
     {
-        $this->datos = $datos;
+        $this->datos = strtoupper($datos);
     }
 
     /**
@@ -82,7 +82,7 @@ class Cliente
      */
     public function setDireccion($direccion)
     {
-        $this->direccion = $direccion;
+        $this->direccion = strtoupper($direccion);
     }
 
     /**
