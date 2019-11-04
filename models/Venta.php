@@ -223,6 +223,14 @@ class Venta
         $this->id_empresa = $fila['id_empresa'];
     }
 
+    public function validarVenta()
+    {
+        $sql = "select id_venta as codigo  
+            from ventas
+            where id_tido = '$this->id_tido' and serie = '$this->serie' and numero = '$this->numero'";
+        $this->id_venta = $this->conectar->get_valor_query($sql, 'codigo');
+    }
+
     public function verFilas($periodo)
     {
         $sql = "select v.id_venta, v.fecha, ds.abreviatura, v.serie, v.numero, c.documento, c.datos, v.total, v.estado, v.enviado_sunat, vs.nombre_xml 

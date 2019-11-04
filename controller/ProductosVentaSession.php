@@ -6,13 +6,16 @@ require '../models_session/VentaProducto.php';
 $cs_detalle = new ventaProducto();
 $action = filter_input(INPUT_POST, 'action');
 
-$cs_detalle->setIdproducto(filter_input(INPUT_POST, 'id_producto'));
-$cs_detalle->setDescripcion(filter_input(INPUT_POST, 'descripcion'));
-$cs_detalle->setCantidad(filter_input(INPUT_POST, 'cantidad'));
-$cs_detalle->setPrecio(filter_input(INPUT_POST, 'precio'));
-$cs_detalle->setCosto(filter_input(INPUT_POST, 'costo'));
+if ($action != 3) {
+    $cs_detalle->setIdproducto(filter_input(INPUT_POST, 'id_producto'));
+}
 
 if ($action == 1) {
+    $cs_detalle->setDescripcion(filter_input(INPUT_POST, 'descripcion'));
+    $cs_detalle->setCantidad(filter_input(INPUT_POST, 'cantidad'));
+    $cs_detalle->setPrecio(filter_input(INPUT_POST, 'precio'));
+    $cs_detalle->setCosto(filter_input(INPUT_POST, 'costo'));
+
     $cs_detalle->agregar();
 }
 if ($action == 2) {

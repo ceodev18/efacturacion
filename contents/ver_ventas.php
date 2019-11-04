@@ -126,7 +126,7 @@ if (filter_input(INPUT_GET, 'periodo')) {
             <div class="panel panel-default collapsed">
                 <div class="panel-heading">
                     <a href="reg_venta.php" class="btn btn-success"><i class="fa fa-plus"></i> Agregar Doc. Venta</a>
-                    <a href="reg_venta.php" class="btn btn-success"><i class="fa fa-plus"></i> Agregar Nota Electronica</a>
+                    <a href="reg_nota_venta.php" class="btn btn-success"><i class="fa fa-plus"></i> Agregar Nota Electronica</a>
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
