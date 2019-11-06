@@ -117,6 +117,13 @@ class ResumenDiario
         $this->tipo = $tipo;
     }
 
+    public function obtenerId()
+    {
+        $sql = "select ifnull(max(id_resumen_diario) + 1, 1) as codigo 
+            from resumen_diario";
+        $this->id = $this->conectar->get_valor_query($sql, 'codigo');
+    }
+
     public function insertar()
     {
         $sql = "insert into resumen_diario 

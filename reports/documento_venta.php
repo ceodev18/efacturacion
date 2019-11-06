@@ -64,7 +64,11 @@ if ($id_moneda == 2) {
     $ncorto = "USD";
 }
 
-$pdf = new FPDF('L', 'mm', 'A5');
+if (strlen($c_cliente->getDocumento())== 7) {
+    $c_cliente->setDocumento("00000000");
+}
+
+$pdf = new FPDF('P', 'mm', 'A4');
 $pdf->SetMargins(10,8,10);
 $pdf->SetAutoPageBreak(true, 8);
 $pdf->AddPage();
@@ -170,13 +174,13 @@ foreach ($a_productos as $value) {
     //$pdf->Ln(2);
 }
 
-$pdf->SetY(-45);
+$pdf->SetY(-195);
 
 $pdf->Ln(3);
 $y = $pdf->GetY();
 $pdf->Line(10, $y, 200, $y);
 
-$pdf->SetY(-36);
+$pdf->SetY(-184);
 
 $pdf->Image('../greenter/generate_qr/temp/' . $c_recibido->getNombreXml() . '.png', 130, 108, 22, 22);
 

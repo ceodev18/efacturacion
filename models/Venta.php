@@ -223,6 +223,14 @@ class Venta
         $this->id_empresa = $fila['id_empresa'];
     }
 
+    public function actualizar_envio()
+    {
+        $query = "update ventas 
+        set enviado_sunat = 1 
+        where id_venta = '$this->id_venta'";
+        return $this->conectar->ejecutar_idu($query);
+    }
+
     public function validarVenta()
     {
         $sql = "select id_venta as codigo  
@@ -242,17 +250,28 @@ class Venta
         return $this->conectar->get_Cursor($sql);
     }
 
-    public function verDocumentosFecha()
+    public function verDocumentosResumen()
     {
-        $sql = "select v.id_venta, v.fecha, ds.abreviatura, v.serie, v.numero, c.documento, c.datos, v.total, v.estado, v.enviado_sunat, v.estado
+        $sql = "select v.id_venta, v.fecha, ds.cod_sunat, ds.abreviatura, v.serie, v.numero, c.documento, c.datos, v.total, v.estado, v.id_tido, v.enviado_sunat, v.estado
         from ventas as v 
             inner join documentos_sunat ds on v.id_tido = ds.id_tido
             inner join clientes c on v.id_cliente = c.id_cliente 
-        where v.id_empresa = '$this->id_empresa' and v.fecha = '$this->fecha' and v.id_tido = '$this->id_tido'";
+        where v.id_empresa = '$this->id_empresa' and v.fecha = '$this->fecha' and v.id_tido in (1,3)";
         return $this->conectar->get_Cursor($sql);
     }
 
-    public function verPeriodos () {
+    public function verFacturasResumen()
+    {
+        $sql = "select v.id_venta, v.fecha, ds.cod_sunat, ds.abreviatura, v.serie, v.numero, c.documento, c.datos, v.total, v.estado, v.id_tido, v.enviado_sunat, v.estado
+        from ventas as v 
+            inner join documentos_sunat ds on v.id_tido = ds.id_tido
+            inner join clientes c on v.id_cliente = c.id_cliente 
+        where v.id_empresa = '$this->id_empresa' and v.fecha = '$this->fecha' and v.id_tido = 2 ";
+        return $this->conectar->get_Cursor($sql);
+    }
+
+    public function verPeriodos()
+    {
         $sql = "select DISTINCT(concat(year(fecha), LPAD(month(fecha), 2, 0))) as periodo 
         from ventas 
         where id_empresa = '$this->id_empresa'
