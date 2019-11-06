@@ -15,8 +15,8 @@ require '../../models/Empresa.php';
 $c_empresa = new Empresa();
 //variables publicas
 $url = "http://" . $_SERVER["HTTP_HOST"] . "/clientes/efacturacion/";
-//$fecha = date("Y-m-d");
-$fecha = '2019-11-05';
+$fecha = date("Y-m-d");
+//$fecha = '2019-11-05';
 
 
 //recorrer lista de empresas
