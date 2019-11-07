@@ -207,6 +207,25 @@ $c_venta_inicio = new VentaInicio();
                 </div>
             </div>
 
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Ventas diarias del mes
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="morris-chart-content">
+                                        <div id="morris-line-diario"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--col-md-12-->
+            </div>
+
             <!--end page content-->
 
 
