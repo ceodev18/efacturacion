@@ -5,6 +5,9 @@
  * Date: 02/09/19
  * Time: 07:45 PM
  */
+if (!isset($_SESSION)) {
+    session_start();
+}
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
@@ -15,13 +18,15 @@ require '../../models/Empresa.php';
 $c_empresa = new Empresa();
 //variables publicas
 $url = "http://" . $_SERVER["HTTP_HOST"] . "/clientes/efacturacion/";
-$fecha = date("Y-m-d");
-//$fecha = '2019-11-05';
+//$fecha = date("Y-m-d");
+$fecha = '2019-11-06';
+
 
 
 //recorrer lista de empresas
 $array_empresas = $c_empresa->verFilas();
 foreach ($array_empresas as $fila) {
+    echo $fila['id_empresa'] . " nombre " . $fila['razon_social'] . PHP_EOL;
     $id_empresa = $fila['id_empresa'];
 
     //enviar resumen de boletas

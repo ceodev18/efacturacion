@@ -1,5 +1,8 @@
 <?php
 
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
 use Greenter\Model\Company\Address;
 use Greenter\Model\Company\Company;
 use Greenter\Model\Summary\Summary;
@@ -13,6 +16,8 @@ require __DIR__ . '/../../models/Empresa.php';
 require __DIR__ . '/../../models/Venta.php';
 require __DIR__ . '/../../models/ResumenDiario.php';
 require __DIR__ . '/../../models/VentaReferencia.php';
+
+$util = Util::getInstance();
 
 $id_empresa = filter_input(INPUT_POST, 'id_empresa');
 $fecha = filter_input(INPUT_POST, 'fecha');
@@ -36,8 +41,6 @@ if ($id_empresa) {
 
     $resultado_empresa = $c_venta->verDocumentosResumen();
 
-
-    $util = Util::getInstance();
 
     $contar_items = 0;
     $array_items = array();

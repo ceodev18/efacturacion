@@ -296,7 +296,6 @@ class Empresa
         $sql = "select * 
         from empresas 
         where id_empresa = '$this->id_empresa'";
-        echo $sql;
         $fila = $this->conectar->get_Row($sql);
         $this->ruc = $fila['ruc'];
         $this->razon_social = $fila['razon_social'];
