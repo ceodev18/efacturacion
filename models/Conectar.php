@@ -12,7 +12,7 @@ class conectar
 
     private static $_instancia;
     private $_connection;
-    private $_host = "192.168.1.6";
+    private $_host = "lunasystemsperu.com";
     private $_user = "root_lsp";
     private $_pass = "root/*123";
     // Almacenar una unica instancia
@@ -147,7 +147,7 @@ class conectar
             $registros[$i] = $row;
             $i++;
         };
-        return json_encode(array('data' => $registros));
+        return json_encode($registros);
     }
 
     /**

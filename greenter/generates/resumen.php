@@ -24,6 +24,10 @@ if ($id_empresa) {
     $c_empresa->setIdEmpresa($id_empresa);
     $c_empresa->obtenerDatos();
 
+    $util->setRuc($c_empresa->getRuc());
+    $util->setClave($c_empresa->getClaveSol());
+    $util->setUsuario($c_empresa->getUserSol());
+
     $c_venta = new Venta();
     $c_venta->setIdEmpresa($id_empresa);
     $c_venta->setFecha($fecha);
@@ -127,9 +131,6 @@ if ($id_empresa) {
 
     if ($contar_items > 0) {
 // Envio a SUNAT.
-        $util->setRuc($c_empresa->getRuc());
-        $util->setClave($c_empresa->getClaveSol());
-        $util->setUsuario($c_empresa->getUserSol());
         $see = $util->getSee(SunatEndpoints::FE_PRODUCCION);
 
         $res = $see->send($sum);

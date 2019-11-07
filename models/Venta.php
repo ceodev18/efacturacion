@@ -278,4 +278,5 @@ class Venta
         order by concat(year(fecha), LPAD(month(fecha), 2, 0)) desc";
         return $this->conectar->get_Cursor($sql);
     }
+
 }

@@ -1,4 +1,7 @@
 <?php
+
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 date_default_timezone_set('America/Lima');
 
 use Greenter\Model\Client\Client;
@@ -49,6 +52,10 @@ $client->setTipoDoc($tipo_doc)
 $c_empresa = new Empresa();
 $c_empresa->setIdEmpresa($c_venta->getIdEmpresa());
 $c_empresa->obtenerDatos();
+
+$util->setRuc($c_empresa->getRuc());
+$util->setClave($c_empresa->getClaveSol());
+$util->setUsuario($c_empresa->getUserSol());
 
 $empresa = new Company();
 $empresa->setRuc($c_empresa->getRuc())
@@ -140,10 +147,7 @@ $c_generar->generar_qr();
 $url_qr = $dominio . "/greenter/generate_qr/temp/" . $nombre_archivo . ".png";
 
 // Envio a SUNAT.
-$util->setRuc($c_empresa->getRuc());
-$util->setClave($c_empresa->getClaveSol());
-$util->setUsuario($c_empresa->getUserSol());
-$see = $util->getSee(SunatEndpoints::FE_PRODUCCION);
+$see = $util->getSee(SunatEndpoints::FE_BETA);
 //$res = $see->send($invoice); //aun no se envia la boleta
 $see->GenerarXML($invoice);
 $util->writeXml($invoice, $see->getFactory()->getLastXml());

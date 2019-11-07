@@ -31,6 +31,7 @@ if (!isset($_SESSION['id_empresa'])) {
         <link rel="stylesheet" href="../public/plugins/metisMenu/metisMenu.min.css">
         <link href="../public/images/favicon.png" rel="icon"/>
         <link href="../public/plugins/chart-c3/c3.min.css" rel="stylesheet">
+        <link href="../public/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
 
         <!--template css-->
         <link href="../public/css/style.css" rel="stylesheet">
@@ -74,21 +75,92 @@ if (!isset($_SESSION['id_empresa'])) {
 
 
             <!--start page content-->
+            <!-- widget de valores generales en inicio -->
             <div class="row">
-                <div class="col-md-5">
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="widget widget-chart white-bg padding-0">
+                        <div class="widget-title">
+                            <span class="label label-primary pull-right">este mes</span>
+                            <h5 class="margin-b-0">Ventas</h5>
+                        </div>
+                        <div class="widget-content">
+                            <h1 class="no-margins" id="total_ventas">0</h1>
+                            <small>Total Ventas</small>
+                        </div>
+                    </div>
+                </div><!--end col-->
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="widget widget-chart white-bg padding-0">
+                        <div class="widget-title">
+                            <span class="label label-success pull-right">este mes</span>
+                            <h5 class="margin-b-0">Clientes</h5>
+                        </div>
+                        <div class="widget-content">
+                            <h1 class="no-margins" id="total_clientes">0</h1>
+                            <small>Total clientes</small>
+                        </div>
+                    </div>
+                </div><!--end col-->
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="widget widget-chart white-bg padding-0">
+                        <div class="widget-title">
+                            <span class="label label-warning pull-right">este mes</span>
+                            <h5 class="margin-b-0">Documentos</h5>
+                        </div>
+                        <div class="widget-content">
+                            <h1 class="no-margins" id="total_documentos">0</h1>
+                            <small>Total Documentos</small>
+                        </div>
+                    </div>
+                </div><!--end col-->
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="widget widget-chart white-bg padding-0">
+                        <div class="widget-title">
+                            <span class="label label-danger pull-right">hoy</span>
+                            <h5 class="margin-b-0">Ventas</h5>
+                        </div>
+                        <div class="widget-content">
+                            <h1 class="no-margins" id="total_ventas_hoy">0</h1>
+                            <small>Total ventas hoy</small>
+                        </div>
+                    </div>
+                </div><!--end col-->
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Bar chart example
+                            Flujo de Dinero
                         </div>
                         <div class="panel-body">
-                            <div class="flot-chart">
-                                <div class="flot-chart-content" id="flot-bar-chart"></div>
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="morris-chart-content">
+                                        <div id="morris-line-chart"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <ul class="stat-list list-unstyled">
+                                        <li>
+                                            <h2 class="margin-b-0 font-300" id="venta_maxima">0.00</h2>
+                                            <small>Venta Maxima del mes</small>
+                                        </li>
+                                        <li>
+                                            <h2 class="margin-b-0  font-300" id="venta_minima">0.00</h2>
+                                            <small>Venta Minima del mes</small>
+                                        </li>
+                                        <li>
+                                            <h2 class="margin-b-0 font-300" id="venta_promedio">0.00</h2>
+                                            <small>Promedio Venta del mes</small>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div><!--col-md-->
-            </div><!--end row-->
-
+                </div><!--col-md-12-->
+            </div>
 
             <!--end page content-->
 
@@ -111,12 +183,9 @@ if (!isset($_SESSION['id_empresa'])) {
         <script src="../public/js/float-custom.js"></script>
 
         <!--page script-->
-        <script src="../public/plugins/flot/jquery.flot.js"></script>
-        <script src="../public/plugins/flot/jquery.flot.resize.js"></script>
-        <script src="../public/plugins/flot/jquery.flot.pie.js"></script>
-        <script src="../public/plugins/flot/jquery.flot.time.js"></script>
-        <script src="../public/plugins/flot/jquery.flot.tooltip.min.js"></script>
-        <script src="../public/js/flot.custom.js"></script>
+        <script src="../public/plugins/morris/raphael-2.1.0.min.js"></script>
+        <script src="../public/plugins/morris/morris.js"></script>
+        <script src="../public/js/inicio.graficas.js"></script>
 
     </body>
 

@@ -167,10 +167,10 @@ if (filter_input(INPUT_GET, 'periodo')) {
                                         <?php
                                     }
                                     if ($fila['estado'] == 2) { ?>
-                                    <td class="text-center">
-                                        <?php echo $documento_venta ?>
-                                    </td>
-                                    <?php
+                                        <td class="text-center">
+                                            <?php echo $documento_venta ?>
+                                        </td>
+                                        <?php
                                     }
                                     ?>
                                     <td class="text-center"><?php echo $fila['fecha'] ?></td>
@@ -253,7 +253,7 @@ if (filter_input(INPUT_GET, 'periodo')) {
 
 <script>
     $(document).ready(function () {
-        $('#tabla_ventas').dataTable();
+        $('#tabla_ventas').dataTable({order: [[1, "desc"]]});
 
     });
 

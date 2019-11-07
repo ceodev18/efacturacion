@@ -19,6 +19,11 @@ final class Util
      */
     public $shared;
 
+    private function __construct()
+    {
+       // $this->shared = new SharedStore();
+    }
+
     /**
      * @param mixed $ruc
      */
@@ -41,11 +46,6 @@ final class Util
     public function setClave($clave)
     {
         $this->clave = $clave;
-    }
-
-    private function __construct()
-    {
-        $this->shared = new SharedStore();
     }
 
     public static function getInstance()

@@ -40,6 +40,11 @@ $c_empresa = new Empresa();
 $c_empresa->setIdEmpresa($id_empresa);
 $c_empresa->obtenerDatos();
 
+$util->setRuc($c_empresa->getRuc());
+$util->setClave($c_empresa->getClaveSol());
+$util->setUsuario($c_empresa->getUserSol());
+
+
 if ($contar_items > 0) {
 
     $empresa = new Company();
@@ -64,10 +69,6 @@ if ($contar_items > 0) {
 
 
     // Envio a SUNAT.
-    //$util->setRucEmpresa($c_empresa->getRuc());
-    $util->setRuc($c_empresa->getRuc());
-    $util->setClave($c_empresa->getClaveSol());
-    $util->setUsuario($c_empresa->getUserSol());
     $see = $util->getSee(SunatEndpoints::FE_PRODUCCION);
 
     $res = $see->send($voided);

@@ -45,6 +45,10 @@ $c_empresa = new Empresa();
 $c_empresa->setIdEmpresa($c_venta->getIdEmpresa());
 $c_empresa->obtenerDatos();
 
+$util->setRuc($c_empresa->getRuc());
+$util->setClave($c_empresa->getClaveSol());
+$util->setUsuario($c_empresa->getUserSol());
+
 $empresa = new Company();
 $empresa->setRuc($c_empresa->getRuc())
     ->setNombreComercial($c_empresa->getRazonSocial())
@@ -138,9 +142,6 @@ $c_generar->generar_qr();
 $url_qr = $dominio . "/greenter/generate_qr/temp/" . $nombre_archivo . ".png";
 
 // Envio a SUNAT.
-$util->setRuc($c_empresa->getRuc());
-$util->setClave($c_empresa->getClaveSol());
-$util->setUsuario($c_empresa->getUserSol());
 $see = $util->getSee(SunatEndpoints::FE_PRODUCCION);
 //$res = $see->send($invoice);
 $see->GenerarXML($invoice);
