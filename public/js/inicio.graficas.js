@@ -27,6 +27,18 @@ $(function () {
         });
     });
 
+    //llenar datos ventas por mes
+    $.getJSON(getAbsolutePath() + "../controller/json/cargar_datos_inicio.php?tipo=4", function (result) {
+        //console.log(result);
+        var array_total = Array();
+        var array_cantidad = Array();
+        $.each(result, function (key, val) {
+            array_total[val.dia] = [val.total_dia , val.cantidad_dia];
+        });
+
+
+    });
+
 });
 
 function formatNumber(num) {

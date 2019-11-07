@@ -8,6 +8,9 @@ if (!isset($_SESSION['id_empresa'])) {
     //session_destroy();
     header("location: ../login.php");
 }
+
+require '../models/VentaInicio.php';
+$c_venta_inicio = new VentaInicio();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -160,6 +163,48 @@ if (!isset($_SESSION['id_empresa'])) {
                         </div>
                     </div>
                 </div><!--col-md-12-->
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default collapsed">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Resumen de Ventas del Mes</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table id="tabla_documento_mensual" class="table table-striped dt-responsive nowrap">
+                                    <thead>
+                                    <tr>
+                                        <th>Item</th>
+                                        <th>Tipo Documento</th>
+                                        <th>S/ Sub Total</th>
+                                        <th>S/ IGV</th>
+                                        <th>S/ Total</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                    $a_totales = $c_venta_inicio->VerResumenVentas();
+
+                                    foreach ($a_totales as $fila) {
+                                        ?>
+                                        <tr>
+                                            <td class="text-center"><?php echo $fila['id_tido']?></td>
+                                            <td><?php echo $fila['nombre']?></td>
+                                            <td class="text-right"><?php echo number_format($fila['total'] / 1.18, 2)?></td>
+                                            <td class="text-right"><?php echo number_format($fila['total'] / 1.18 *0.18,  2)?></td>
+                                            <td class="text-right"><?php echo number_format($fila['total'], 2)?></td>
+                                        </tr>
+                                        <?php
+                                    }
+                                    ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!--end page content-->

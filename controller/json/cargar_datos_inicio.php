@@ -16,3 +16,7 @@ if ($tipo == 2) {
 if ($tipo == 3) {
     echo $c_venta->CargarVentasMensuales();
 }
+
+if ($tipo == 4) {
+    echo $c_venta->VerComparativaDiaria();
+}
