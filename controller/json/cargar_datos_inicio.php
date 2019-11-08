@@ -18,5 +18,18 @@ if ($tipo == 3) {
 }
 
 if ($tipo == 4) {
-    echo $c_venta->VerComparativaDiaria();
+	$dias = date('t');
+	$obJson = json_decode($c_venta->VerComparativaDiaria(), true);
+	$listaDias= array();
+	$cont=0;
+	for ($i=0; $i < $dias; $i++) { 
+		if (isset($obJson[$cont]) && $obJson[$cont]["dia"]==$i+1) {
+			$listaDias[]=$obJson[$cont];
+			$cont+=1;
+		}else{
+			$listaDias[] = array("dia"=>$i+1,"total_dia"=>0,"cantidad_dia"=>0);
+		}
+	}
+	echo json_encode($listaDias);
+   // print_r($listaDias);
 }

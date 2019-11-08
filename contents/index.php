@@ -215,7 +215,7 @@ $c_venta_inicio = new VentaInicio();
                         </div>
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-md-9">
+                                <div class="col-md-12">
                                     <div class="morris-chart-content">
                                         <div id="morris-line-diario"></div>
                                     </div>

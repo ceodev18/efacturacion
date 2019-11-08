@@ -29,7 +29,7 @@ $(function () {
 
     //llenar datos ventas por mes
     $.getJSON(getAbsolutePath() + "../controller/json/cargar_datos_inicio.php?tipo=4", function (result) {
-        //console.log(result);
+        console.log(result);
         var array_total = Array();
         var array_cantidad = Array();
         $.each(result, function (key, val) {
@@ -48,10 +48,12 @@ $(function () {
                 "cantidad_dia": 1
             }
         ];
+        console.log(array_resultado);
+        //console.log(result);
 
         Morris.Line({
             element: 'morris-line-diario',
-            data: array_resultado,
+            data: result,
             xkey: 'dia',
             ykeys: ['total_dia', 'cantidad_dia'],
             parseTime: false,
