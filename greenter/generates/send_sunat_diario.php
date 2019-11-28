@@ -17,7 +17,8 @@ require '../../models/Empresa.php';
 
 $c_empresa = new Empresa();
 //variables publicas
-$url = "http://" . $_SERVER["HTTP_HOST"] . "/clientes/efacturacion/";
+//$dominio = $_SERVER["HTTP_HOST"];
+$url = "http://www.lunasystemsperu.com/clientes/efacturacion/";
 $fecha = date("Y-m-d");
 //$fecha = '2019-11-06';
 

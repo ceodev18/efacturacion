@@ -1,7 +1,10 @@
 <?php
 session_start();
 require '../models/Venta.php';
+require '../tools/Varios.php';
 $c_venta = new Venta();
+$c_varios = new Varios();
+
 $c_venta->setIdEmpresa($_SESSION['id_empresa']);
 
 $periodo = date("Ym");
@@ -156,7 +159,7 @@ if (filter_input(INPUT_GET, 'periodo')) {
                                     $estado = '<span class="label label-warning">Anulado</span>';
                                     $total = 0;
                                 }
-                                $documento_venta = $fila['abreviatura'] . " | " . $fila['serie'] . " - " . $fila['numero'];
+                                $documento_venta = $fila['abreviatura'] . " | " . $fila['serie'] . " - " . $c_varios->zerofill($fila['numero'], 3);
                                 ?>
                                 <tr>
                                     <?php
@@ -253,7 +256,7 @@ if (filter_input(INPUT_GET, 'periodo')) {
 
 <script>
     $(document).ready(function () {
-        $('#tabla_ventas').dataTable({order: [[1, "desc"]]});
+        $('#tabla_ventas').dataTable({order: [[1, "desc"], [0, "desc"]]});
 
     });
 

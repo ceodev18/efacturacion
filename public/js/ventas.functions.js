@@ -84,55 +84,64 @@ function clean() {
 }
 
 function enviar_datos() {
-    var parametros = {
-        datos_cliente: $('#input_datos_cliente').val(),
-        documento_cliente: $('#input_documento_cliente').val(),
-        direccion_cliente: $('#input_direccion_cliente').val(),
-        total_pedido: $('#input_total_pedido').val(),
-        documento_venta: $('#select_documento').val(),
-    };
-    $.ajax({
-        data: parametros, //datos que se envian a traves de ajax
-        url: '../controller/reg_venta.php', //archivo que recibe la peticion
-        type: 'post', //método de envio
-        beforeSend: function () {
-            $("#resultado").html("Procesando, espere por favor...");
-        },
-        success: function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
-            $("#resultado").html(response);
-            var json_response = JSON.parse(response);
-            if (response.valor == 0) {
-                swal({
-                    title: "Error al Registrar",
-                    text: response,
-                    type: "error",
-                    showCancelButton: false,
-                    //cancelButtonClass: 'btn-secondary ',
-                    confirmButtonColor: "#DD6B55",
-                    //confirmButtonText: "Ver Ticket",
-                    cancelButtonText: "No, cancel plx!",
-                    closeOnConfirm: true,
-                    closeOnCancel: true
-                });
-            } else {
-                swal({
-                    title: "Venta Registrada",
-                    text: "El documento de venta se registro con exito!",
-                    type: "success",
-                    showCancelButton: false,
-                    //cancelButtonClass: 'btn-secondary ',
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Ver Ticket",
-                    //cancelButtonText: "No, cancel plx!",
-                    closeOnConfirm: false,
-                    //closeOnCancel: false
-                }, function (isConfirm) {
-                    if (isConfirm) {
+    var nombre_cliente = $('#input_datos_cliente').val();
+    var erros = 0;
+    if (nombre_cliente === "") {
+        alert("Falta Nombre del Cliente, haga clic en Combrobar Documento o Ingrese Nombre");
+        erros++;
+    }
 
-                        window.location.href = 'ver_preimpresion_venta.php?id_venta=' + json_response.valor;
-                    }
-                });
+    if (erros === 0) {
+        var parametros = {
+            datos_cliente: $('#input_datos_cliente').val(),
+            documento_cliente: $('#input_documento_cliente').val(),
+            direccion_cliente: $('#input_direccion_cliente').val(),
+            total_pedido: $('#input_total_pedido').val(),
+            documento_venta: $('#select_documento').val(),
+        };
+        $.ajax({
+            data: parametros, //datos que se envian a traves de ajax
+            url: '../controller/reg_venta.php', //archivo que recibe la peticion
+            type: 'post', //método de envio
+            beforeSend: function () {
+                $("#resultado").html("Procesando, espere por favor...");
+            },
+            success: function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
+                $("#resultado").html(response);
+                var json_response = JSON.parse(response);
+                if (response.valor == 0) {
+                    swal({
+                        title: "Error al Registrar",
+                        text: response,
+                        type: "error",
+                        showCancelButton: false,
+                        //cancelButtonClass: 'btn-secondary ',
+                        confirmButtonColor: "#DD6B55",
+                        //confirmButtonText: "Ver Ticket",
+                        cancelButtonText: "No, cancel plx!",
+                        closeOnConfirm: true,
+                        closeOnCancel: true
+                    });
+                } else {
+                    swal({
+                        title: "Venta Registrada",
+                        text: "El documento de venta se registro con exito!",
+                        type: "success",
+                        showCancelButton: false,
+                        //cancelButtonClass: 'btn-secondary ',
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Ver Ticket",
+                        //cancelButtonText: "No, cancel plx!",
+                        closeOnConfirm: false,
+                        //closeOnCancel: false
+                    }, function (isConfirm) {
+                        if (isConfirm) {
+
+                            window.location.href = 'ver_preimpresion_venta.php?id_venta=' + json_response.valor;
+                        }
+                    });
+                }
             }
-        }
-    });
+        });
+    }
 }
