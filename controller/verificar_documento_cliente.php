@@ -12,6 +12,7 @@ $resultado = [];
 
 $c_cliente->setDocumento($documento);
 $c_cliente->setIdEmpresa($_SESSION['id_empresa']);
+/*
 if ($c_cliente->verificarDocumento()) {
     $c_cliente->obtenerDatos();
     $resultado["success"] = "existe";
@@ -19,6 +20,7 @@ if ($c_cliente->verificarDocumento()) {
     $resultado["datos"] = $c_cliente->getDatos();
     $resultado["direccion"] = $c_cliente->getDireccion();
 } else {
+*/
     if (strlen($documento) == 8) {
         $c_internet->setTipo(2);
     }
@@ -50,6 +52,6 @@ if ($c_cliente->verificarDocumento()) {
             $resultado["direccion"] = $respuesta["result"]["Direccion"];
         }
     }
-}
+//}
 
 echo json_encode($resultado);

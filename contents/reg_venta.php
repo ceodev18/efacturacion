@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+if (!isset($_SESSION['id_empresa'])) {
+    header("Location: ../login.php");
+}
+
 $_SESSION['ventaproductos'] = null;
 
 require '../models/DocumentoEmpresa.php';

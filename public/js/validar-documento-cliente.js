@@ -20,15 +20,16 @@ function validarDocumento () {
             });
         },
         success: function (response) {
+            //console.log(response);
             var json = JSON.parse(response);
 
             var success = json.success;
 
             if (success === "nuevo" || success === "existe") {
                // $("#btn_guardar").prop('disabled', false);
-                $("#input_documento_cliente").prop('readonly', true);
-                $("#btn_comprueba").prop('disabled', true);
-                $("#input_datos_cliente").prop('readonly', true);
+                //$("#input_documento_cliente").prop('readonly', true);
+                //$("#btn_comprueba").prop('disabled', true);
+                //$("#input_datos_cliente").prop('readonly', true);
                 $("#input_datos_cliente").val(json.datos);
                 $("#input_direccion_cliente").val(json.direccion);
             }
@@ -39,6 +40,8 @@ function validarDocumento () {
             }
             if (success === "error") {
                // $("#btn_guardar").prop('disabled', true);
+                $("#btn_comprueba").prop('disabled', false);
+                $("#input_datos_cliente").prop('readonly', false);
                 alertarErrorDocumento();
             }
 

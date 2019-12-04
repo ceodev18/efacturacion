@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+}
 
 require_once 'Conectar.php';
 
@@ -52,7 +54,8 @@ class VentaInicio
         return $this->conectar->get_Cursor($sql);
     }
 
-    public function VerComparativaDiaria () {
+    public function VerComparativaDiaria()
+    {
         $sql = "select day(v.fecha) as dia, sum(v.total) as total_dia, count(v.id_tido) as cantidad_dia 
         from ventas as v
         where v.id_empresa = '$this->id_empresa' and year(v.fecha) = year(current_date()) and month(v.fecha) = month(current_date()) and v.estado = 1 

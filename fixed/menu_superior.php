@@ -1,3 +1,8 @@
+<?php
+if (!isset($_SESSION['id_empresa'])) {
+header("Location: ../login.php");
+}
+?>
 <!--top bar start-->
 <div class="top-bar light-top-bar">
 <!--by default top bar is dark, add .light-top-bar class to make it light-->
