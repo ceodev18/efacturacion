@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="19c80643-a1ab-488f-859b-7171cddb0667" name="Default Changelist" comment="comprueba cliente en venta">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contents/reg_venta.php" beforeDir="false" afterPath="$PROJECT_DIR$/contents/reg_venta.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/verificar_documento_cliente.php" beforeDir="false" afterPath="$PROJECT_DIR$/controller/verificar_documento_cliente.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fixed/menu_superior.php" beforeDir="false" afterPath="$PROJECT_DIR$/fixed/menu_superior.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/VentaInicio.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/VentaInicio.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/validar-documento-cliente.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/validar-documento-cliente.js" afterDir="false" />
-    </list>
+    <list default="true" id="19c80643-a1ab-488f-859b-7171cddb0667" name="Default Changelist" comment="comprueba cliente en venta" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -471,6 +463,10 @@
       <screen x="0" y="25" width="1440" height="875" />
     </state>
     <state x="331" y="60" width="770" height="800" key="CommitChangelistDialog2/0.25.1440.875@0.25.1440.875" timestamp="1575475302927" />
+    <state x="59" y="95" width="1242" height="676" key="DiffContextDialog" timestamp="1575476585671">
+      <screen x="0" y="25" width="1440" height="875" />
+    </state>
+    <state x="59" y="95" width="1242" height="676" key="DiffContextDialog/0.25.1440.875@0.25.1440.875" timestamp="1575476585671" />
     <state x="315" y="199" width="802" height="523" key="Vcs.Push.Dialog.v2" timestamp="1574958435636">
       <screen x="0" y="25" width="1440" height="875" />
     </state>
