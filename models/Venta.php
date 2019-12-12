@@ -246,7 +246,8 @@ class Venta
             inner join documentos_sunat ds on v.id_tido = ds.id_tido
             inner join clientes c on v.id_cliente = c.id_cliente 
             inner join ventas_sunat vs on v.id_venta = vs.id_venta
-        where v.id_empresa = '$this->id_empresa' and concat(year(fecha), LPAD(month(fecha), 2, 0)) = '$periodo' ";
+        where v.id_empresa = '$this->id_empresa' and concat(year(fecha), LPAD(month(fecha), 2, 0)) = '$periodo'  
+        order by v.fecha asc, v.numero asc";
         return $this->conectar->get_Cursor($sql);
     }
 

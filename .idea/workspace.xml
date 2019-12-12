@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="19c80643-a1ab-488f-859b-7171cddb0667" name="Default Changelist" comment="comprueba cliente en venta" />
+    <list default="true" id="19c80643-a1ab-488f-859b-7171cddb0667" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/reports/pdf_ventas_periodo.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/contents/ver_ventas.php" beforeDir="false" afterPath="$PROJECT_DIR$/contents/ver_ventas.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Venta.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/Venta.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -124,8 +129,9 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../lsp/nueva_intranet" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../agente" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -197,6 +203,11 @@
       <workItem from="1574797226325" duration="1458000" />
       <workItem from="1574957602093" duration="1995000" />
       <workItem from="1575475089845" duration="57000" />
+      <workItem from="1575579335084" duration="144000" />
+      <workItem from="1575926204235" duration="605000" />
+      <workItem from="1575930733889" duration="2254000" />
+      <workItem from="1575990974187" duration="10000" />
+      <workItem from="1576107955303" duration="2819000" />
     </task>
     <task id="LOCAL-00001" summary="mi primer commit">
       <created>1571763974872</created>
@@ -401,7 +412,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574958426810</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="comprueba cliente en venta">
+      <created>1575476599722</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1575476599722</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -459,17 +477,25 @@
       <screen x="0" y="25" width="1440" height="875" />
     </state>
     <state x="315" y="124" width="802" height="672" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.25.1440.875@0.25.1440.875" timestamp="1574958542542" />
-    <state x="331" y="60" width="770" height="800" key="CommitChangelistDialog2" timestamp="1575475302927">
+    <state x="331" y="60" width="770" height="800" key="CommitChangelistDialog2" timestamp="1576110963746">
       <screen x="0" y="25" width="1440" height="875" />
     </state>
-    <state x="331" y="60" width="770" height="800" key="CommitChangelistDialog2/0.25.1440.875@0.25.1440.875" timestamp="1575475302927" />
+    <state x="331" y="60" width="770" height="800" key="CommitChangelistDialog2/0.25.1440.875@0.25.1440.875" timestamp="1576110963746" />
     <state x="59" y="95" width="1242" height="676" key="DiffContextDialog" timestamp="1575476585671">
       <screen x="0" y="25" width="1440" height="875" />
     </state>
     <state x="59" y="95" width="1242" height="676" key="DiffContextDialog/0.25.1440.875@0.25.1440.875" timestamp="1575476585671" />
-    <state x="315" y="199" width="802" height="523" key="Vcs.Push.Dialog.v2" timestamp="1574958435636">
+    <state x="503" y="221" width="426" height="479" key="FileChooserDialogImpl" timestamp="1575477432473">
       <screen x="0" y="25" width="1440" height="875" />
     </state>
-    <state x="315" y="199" width="802" height="523" key="Vcs.Push.Dialog.v2/0.25.1440.875@0.25.1440.875" timestamp="1574958435636" />
+    <state x="503" y="221" width="426" height="479" key="FileChooserDialogImpl/0.25.1440.875@0.25.1440.875" timestamp="1575477432473" />
+    <state x="540" y="389" width="351" height="143" key="NewPhpFileDialog" timestamp="1576108319700">
+      <screen x="0" y="25" width="1440" height="875" />
+    </state>
+    <state x="540" y="389" width="351" height="143" key="NewPhpFileDialog/0.25.1440.875@0.25.1440.875" timestamp="1576108319700" />
+    <state x="315" y="199" width="802" height="523" key="Vcs.Push.Dialog.v2" timestamp="1575476607930">
+      <screen x="0" y="25" width="1440" height="875" />
+    </state>
+    <state x="315" y="199" width="802" height="523" key="Vcs.Push.Dialog.v2/0.25.1440.875@0.25.1440.875" timestamp="1575476607930" />
   </component>
 </project>

@@ -130,6 +130,7 @@ if (filter_input(INPUT_GET, 'periodo')) {
                 <div class="panel-heading">
                     <a href="reg_venta.php" class="btn btn-success"><i class="fa fa-plus"></i> Agregar Doc. Venta</a>
                     <a href="reg_nota_venta.php" class="btn btn-success"><i class="fa fa-plus"></i> Agregar Nota Electronica</a>
+                    <a href="../reports/pdf_ventas_periodo.php?periodo=<?php echo $periodo?>" target="_blank" class="btn btn-warning"><i class="fa fa-file-pdf-o"></i> Exportar a PDF</a>
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
@@ -256,7 +257,11 @@ if (filter_input(INPUT_GET, 'periodo')) {
 
 <script>
     $(document).ready(function () {
-        $('#tabla_ventas').dataTable({order: [[1, "desc"], [0, "desc"]]});
+        $('#tabla_ventas').dataTable({
+            order: [[1, "desc"], [0, "desc"]],
+            dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>tp",
+            "lengthMenu": [[50, 100, 300, -1], [50, 100, 300, "All"]],
+        });
 
     });
 
