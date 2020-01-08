@@ -64,12 +64,12 @@ if ($id_moneda == 2) {
     $ncorto = "USD";
 }
 
-if (strlen($c_cliente->getDocumento())== 7) {
+if (strlen($c_cliente->getDocumento())< 8) {
     $c_cliente->setDocumento("00000000");
 }
 
 $pdf = new FPDF('P', 'mm', array(80, 350));
-$pdf->SetMargins(10,8,10);
+$pdf->SetMargins(8,8,8);
 $pdf->SetAutoPageBreak(true, 8);
 $pdf->AddPage();
 
@@ -83,4 +83,43 @@ $pdf->Cell(64, $altura_linea, "Cel/Tel: " . $c_empresa->getTelefono(), 0, 1, 'C'
 $pdf->MultiCell(64, $altura_linea, utf8_decode($c_empresa->getDireccion()), 0, 'C');
 $pdf->Ln();
 
+$pdf->Cell(64, $altura_linea, $c_tido->getNombre() . " ELECTRONICA ", 0, 1, 'C');
+$pdf->Cell(64, $altura_linea, "Serie: " . $c_venta->getSerie() . " -  Numero: " . $c_varios->zerofill($c_venta->getNumero(), 5), 0, 1, 'C');
+$pdf->Cell(64, $altura_linea, "Fecha: " . $c_varios->fecha_mysql_web($c_venta->getFecha()) . " " . date("h:i:s a"), 0, 1, 'L');
+$pdf->Cell(64, $altura_linea, "Cliente: " . $c_cliente->getDocumento(), 0, 1, 'L');
+$pdf->MultiCell(64, $altura_linea, utf8_decode($c_cliente->getDatos()), 0, 'J');
+$pdf->Ln();
+
+$a_productos = $c_detalle->verFilas();
+$suma = 0;
+foreach ($a_productos as $value) {
+    $suma += ($value['cantidad'] * $value['precio']);
+    $y = $pdf->GetY();
+    $pdf->SetX(58);
+    $pdf->Cell(5, $altura_linea, "x", 0, 0, 'R');
+    $pdf->Cell(10, $altura_linea, number_format($value['cantidad'] * $value['precio'], 2), 0, 1, 'R');
+    $pdf->SetX(8);
+    $pdf->SetY($y);
+    $pdf->MultiCell(49, $altura_linea, number_format($value['cantidad'], 0) . " | " . utf8_decode($value['descripcion']), 0, 'J');
+}
+
+$pdf->Ln(2);
+if ($c_recibido->getNombreXml() != "-") {
+    $pdf->Image('../greenter/generate_qr/temp/' . $c_recibido->getNombreXml() . '.png', 130, 108, 22, 22);
+}
+
+$pdf->Ln(2);
+$pdf->Cell(50, $altura_linea, "SUB TOTAL: ", 0, 0, 'R');
+$pdf->Cell(14, $altura_linea, number_format($c_venta->getTotal() / 1.18, 2), 0, 1, 'R');
+$pdf->Cell(50, $altura_linea, "IGV: ", 0, 0, 'R');
+$pdf->Cell(14, $altura_linea, number_format($c_venta->getTotal() / 1.18 * 0.18, 2), 0, 1, 'R');
+$pdf->Cell(50, $altura_linea, "TOTAL: ", 0, 0, 'R');
+$pdf->Cell(14, $altura_linea, number_format($c_venta->getTotal(), 2), 0, 1, 'R');
+
+$pdf->Ln(2);
+$pdf->Cell(64, $altura_linea, utf8_decode($c_numeros_letras->to_word($c_venta->getTotal(), $ncorto)), 0, 1, 'J');
+
+$pdf->Ln(2);
+$pdf->MultiCell(64, $altura_linea, "Representacion Impresora de la " . $c_tido->getNombre() . " Electronica, esta puede ser consultada en efacturacion.lunasystemsperu.com.", 0, 'J');
+$pdf->Cell(64, $altura_linea, "Gracias por su compra", 0, 1, 'J');
 $pdf->Output();

@@ -44,6 +44,7 @@ class SendCurlVenta
         if ($this->id_tido == 1) {
             $archivo = "boleta";
         }
+
         $ruta = $this->ruta . "greenter/generates/" . $archivo . ".php";
 
         $ch = curl_init();

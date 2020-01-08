@@ -21,6 +21,7 @@ class Empresa
     private $distrito;
     private $provincia;
     private $departamento;
+    private $tipo_impresion;
     private $conectar;
 
     /**
@@ -303,6 +304,22 @@ class Empresa
         $this->cod_sucursal = $cod_sucursal;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getTipoImpresion()
+    {
+        return $this->tipo_impresion;
+    }
+
+    /**
+     * @param mixed $tipo_impresion
+     */
+    public function setTipoImpresion($tipo_impresion)
+    {
+        $this->tipo_impresion = $tipo_impresion;
+    }
+
     public function insertar()
     {
         $sql = "insert into empresas 
@@ -352,6 +369,7 @@ class Empresa
         $this->distrito = $fila['distrito'];
         $this->provincia = $fila['provincia'];
         $this->departamento = $fila['departamento'];
+        $this->tipo_impresion = $fila['tipo_impresion'];
     }
 
     public function validarLogin()

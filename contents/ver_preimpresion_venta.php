@@ -1,6 +1,12 @@
 <?php
 session_start();
 
+require '../models/Empresa.php';
+
+$c_empresa = new Empresa();
+
+$c_empresa->setIdEmpresa($_SESSION['id_empresa']);
+$c_empresa->obtenerDatos();
 $id_venta = filter_input(INPUT_GET, 'id_venta');
 ?>
 <!DOCTYPE html>
@@ -72,7 +78,14 @@ $id_venta = filter_input(INPUT_GET, 'id_venta');
                 <a href="reg_venta.php" class="btn btn-info"><i class="fa fa-plus"></i> Agregar Venta</a>
             </div>
             <div class="col-lg-9">
-                <iframe class="col-lg-12" height="500px" src="../reports/documento_venta.php?id_venta=<?php echo $id_venta?>"></iframe>
+                <?php
+                if ($c_empresa->getTipoImpresion() == 1) {
+                    $url = "documento_venta.php";
+                } else {
+                    $url = "ticket_venta.php";
+                }
+                ?>
+                <iframe class="col-lg-12" height="500px" src="../reports/<?php echo $url?>?id_venta=<?php echo $id_venta?>"></iframe>
             </div>
         </div>
     </div>

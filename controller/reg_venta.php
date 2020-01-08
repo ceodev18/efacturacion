@@ -2,6 +2,7 @@
 session_start();
 
 require '../models/Venta.php';
+require '../models/VentaSunat.php';
 require '../models/DocumentoEmpresa.php';
 require '../models/ProductoVenta.php';
 require '../models/Cliente.php';
@@ -13,6 +14,7 @@ $c_venta = new Venta();
 $c_tido = new DocumentoEmpresa();
 $c_detalle = new ProductoVenta();
 $c_curl = new SendCurlVenta();
+$c_sunat = new VentaSunat();
 $c_varios = new Varios();
 
 $id_empresa = $_SESSION['id_empresa'];
@@ -68,19 +70,29 @@ if ($c_venta->insertar()) {
         $archivo = "factura";
     }
 
-    //enviar por curl id de venta para generar xml, hash, qr y retornar json para generar fpdf documento de venta
-    $c_curl->setIdTido($c_venta->getIdTido());
-    $c_curl->setIdVenta($c_venta->getIdVenta());
-    $respuesta = $c_curl->enviar_json();
+    if ($c_venta->getIdTido() == 1 || $c_venta->getIdTido()==2) {
+        //enviar por curl id de venta para generar xml, hash, qr y retornar json para generar fpdf documento de venta
+        $c_curl->setIdTido($c_venta->getIdTido());
+        $c_curl->setIdVenta($c_venta->getIdVenta());
+        $respuesta = $c_curl->enviar_json();
 
-    $json_respuesta = json_decode($respuesta, true);
+        $json_respuesta = json_decode($respuesta, true);
 
-    if ($json_respuesta["success"] == true) {
-        //ya no es necesario llamar a generar pdf
-        //$c_curl->generar_pdf();
-        $resultado["valor"] = $c_venta->getIdVenta();
+        if ($json_respuesta["success"] == true) {
+            //ya no es necesario llamar a generar pdf
+            //$c_curl->generar_pdf();
+            $resultado["valor"] = $c_venta->getIdVenta();
+        } else {
+            print_r($json_respuesta);
+        }
     } else {
-        print_r($json_respuesta);
+        $c_sunat->setIdVenta($c_venta->getIdVenta());
+        $c_sunat->setHash("-");
+        $c_sunat->setNombreXml("-");
+        $c_sunat->insertar();
+
+        $resultado["valor"] = $c_venta->getIdVenta();
+
     }
 
 //    $resultado["valor"] = $c_venta->getIdVenta();

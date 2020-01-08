@@ -106,6 +106,13 @@ class ProductoVenta
         return $this->conectar->ejecutar_idu($sql);
     }
 
+    public function eliminar()
+    {
+        $sql = "delete from productos_ventas 
+        where id_venta =  '$this->id_venta'";
+        return $this->conectar->ejecutar_idu($sql);
+    }
+
     public function verFilas()
     {
         $sql = "select pv.id_producto, p.descripcion, p.iscbp, pv.precio, pv.cantidad, pv.costo 

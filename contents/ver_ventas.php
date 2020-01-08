@@ -1,11 +1,16 @@
 <?php
 session_start();
 require '../models/Venta.php';
-require '../tools/Varios.php';
+require '../tools/Varios.php';require '../models/Empresa.php';
+
+$c_empresa = new Empresa();
 $c_venta = new Venta();
 $c_varios = new Varios();
 
 $c_venta->setIdEmpresa($_SESSION['id_empresa']);
+
+$c_empresa->setIdEmpresa($_SESSION['id_empresa']);
+$c_empresa->obtenerDatos();
 
 $periodo = date("Ym");
 if (filter_input(INPUT_GET, 'periodo')) {
@@ -164,9 +169,15 @@ if (filter_input(INPUT_GET, 'periodo')) {
                                 ?>
                                 <tr>
                                     <?php
-                                    if ($fila['estado'] == 1) { ?>
+                                    if ($fila['estado'] == 1) {
+                                        if ($c_empresa->getTipoImpresion() == 1) {
+                                            $url_pdf = "documento_venta";
+                                        } else {
+                                            $url_pdf = "ticket_venta";
+                                        }
+                                        ?>
                                         <td class="text-center">
-                                            <a href="../reports/documento_venta.php?&id_venta=<?php echo $fila['id_venta'] ?>" target="_blank" alt="Ver e Imprimir" title="Ver e Imprimir"><?php echo $documento_venta ?></a>
+                                            <a href="../reports/<?php echo $url_pdf?>.php?&id_venta=<?php echo $fila['id_venta'] ?>" target="_blank" alt="Ver e Imprimir" title="Ver e Imprimir"><?php echo $documento_venta ?></a>
                                         </td>
                                         <?php
                                     }

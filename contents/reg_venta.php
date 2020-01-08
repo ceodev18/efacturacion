@@ -8,7 +8,9 @@ if (!isset($_SESSION['id_empresa'])) {
 $_SESSION['ventaproductos'] = null;
 
 require '../models/DocumentoEmpresa.php';
+
 $c_tido = new DocumentoEmpresa();
+
 $c_tido->setIdEmpresa($_SESSION['id_empresa']);
 
 ?>
