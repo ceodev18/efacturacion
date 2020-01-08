@@ -188,5 +188,13 @@ class Cliente
         return $this->conectar->get_Cursor($sql);
     }
 
+    public function buscarClientes($termino)
+    {
+        $sql = "select * from clientes 
+        where id_empresa = '$this->id_empresa' and (datos like '%$termino%' or documento like '%$termino%') 
+        order by datos asc";
+        return $this->conectar->get_Cursor($sql);
+    }
+
 
 }

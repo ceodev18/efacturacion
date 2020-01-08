@@ -206,7 +206,7 @@ $c_tido->setIdEmpresa($_SESSION['id_empresa']);
                         <div class="form-group">
                             <div class="col-lg-12">
                                 <input type="text" placeholder="Ingrese Documento" class="form-control"
-                                       id="input_documento_cliente" name="input_documento_cliente" maxlength="11">
+                                       id="input_documento_cliente" name="input_documento_cliente" maxlength="11" onkeypress="return soloNumeros(event)">
                                 <input type="hidden" id="input_direccion_cliente" name="input_direccion_cliente" value="">
                             </div>
                         </div>
@@ -285,9 +285,26 @@ $c_tido->setIdEmpresa($_SESSION['id_empresa']);
             }
         });
 
+        $("#input_datos_cliente").autocomplete({
+            source: "../controller/json/cargar_clientes.php",
+            minLength: 2,
+            select: function (event, ui) {
+                event.preventDefault();
+                $('#input_datos_cliente').val(ui.item.datos);
+                $('#input_documento_cliente').val(ui.item.documento);
+                $('#input_datos_cliente').focus();
+            }
+        });
+
     });
 
+    function soloNumeros(e){
 
+        var key = window.Event ? e.which : e.keyCode
+
+        return (key >= 48 && key <= 57)
+
+    }
 </script>
 
 </body>
