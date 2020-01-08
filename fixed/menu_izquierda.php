@@ -12,6 +12,7 @@
                     <ul class="nav-second-level nav" aria-expanded="true">
                         <li><a href="../contents/ver_clientes.php">Clientes</a></li>
                         <li><a href="../contents/ver_ventas.php">Documentos de Ventas </a></li>
+                        <li><a href="../contents/ver_guias_remision.php">Guias de Remision </a></li>
                     </ul>
                 </li>
                 <li>

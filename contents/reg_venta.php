@@ -168,7 +168,7 @@ $c_tido->setIdEmpresa($_SESSION['id_empresa']);
                             <div class="col-md-8">
                                 <select class="form-control" name="select_documento" id="select_documento" onchange="obtenerDatos()">
                                     <?php
-                                    $a_tido = $c_tido->verFilas("1,2");
+                                    $a_tido = $c_tido->verFilas("1,2,6");
                                     foreach ($a_tido as $fila) {
                                         ?>
                                         <option value="<?php echo $fila['id_tido'] ?>"><?php echo $fila['nombre'] ?></option>

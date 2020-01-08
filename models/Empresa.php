@@ -7,6 +7,8 @@ class Empresa
     private $id_empresa;
     private $ruc;
     private $razon_social;
+    private $nombre_comercial;
+    private $cod_sucursal;
     private $direccion;
     private $email;
     private $telefono;
@@ -269,17 +271,54 @@ class Empresa
         $this->logo = $logo;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getNombreComercial()
+    {
+        return $this->nombre_comercial;
+    }
+
+    /**
+     * @param mixed $nombre_comercial
+     */
+    public function setNombreComercial($nombre_comercial)
+    {
+        $this->nombre_comercial = $nombre_comercial;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCodSucursal()
+    {
+        return $this->cod_sucursal;
+    }
+
+    /**
+     * @param mixed $cod_sucursal
+     */
+    public function setCodSucursal($cod_sucursal)
+    {
+        $this->cod_sucursal = $cod_sucursal;
+    }
+
     public function insertar()
     {
         $sql = "insert into empresas 
-        values ('$this->id_empresa', '$this->ruc', '$this->razon_social', '$this->direccion', '$this->email', '$this->telefono', '$this->estado', '$this->password', '$this->user_sol', '$this->clave_sol', '$this->logo', '$this->ubigeo', '$this->distrito', '$this->provincia', '$this->departamento')";
+        values ('$this->id_empresa', '$this->ruc', '$this->razon_social', '$this->combre_comercial', '$this->cod_sucursal', '$this->direccion', '$this->email', '$this->telefono', '$this->estado', '$this->password', '$this->user_sol', '$this->clave_sol', '$this->logo', '$this->ubigeo', '$this->distrito', '$this->provincia', '$this->departamento')";
         return $this->conectar->ejecutar_idu($sql);
     }
 
     public function modificar()
     {
         $sql = "update empresas 
-        set ruc = '$this->ruc', direccion = '$this->direccion', email = '$this->email', telefono = '$this->telefono', user_sol= '$this->user_sol', clave_sol= '$this->clave_sol'
+        set ruc = '$this->ruc', 
+            direccion = '$this->direccion', 
+            email = '$this->email', 
+            telefono = '$this->telefono', 
+            user_sol= '$this->user_sol', 
+            clave_sol= '$this->clave_sol'
         where id_empresa = '$this->id_empresa'";
         return $this->conectar->ejecutar_idu($sql);
     }
@@ -299,6 +338,8 @@ class Empresa
         $fila = $this->conectar->get_Row($sql);
         $this->ruc = $fila['ruc'];
         $this->razon_social = $fila['razon_social'];
+        $this->nombre_comercial = $fila['comercial'];
+        $this->cod_sucursal = $fila['cod_sucursal'];
         $this->direccion = $fila['direccion'];
         $this->email = $fila['email'];
         $this->telefono = $fila['telefono'];
