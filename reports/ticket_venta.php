@@ -105,7 +105,7 @@ foreach ($a_productos as $value) {
 
 $pdf->Ln(2);
 if ($c_recibido->getNombreXml() != "-") {
-    $pdf->Image('../greenter/generate_qr/temp/' . $c_recibido->getNombreXml() . '.png', 130, 108, 22, 22);
+    $pdf->Image('../greenter/generate_qr/temp/' . $c_recibido->getNombreXml() . '.png', $pdf->GetX(), $pdf->GetY(), 22, 22);
 }
 
 $pdf->Ln(2);
