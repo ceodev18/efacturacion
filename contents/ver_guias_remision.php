@@ -73,7 +73,7 @@ $c_cliente->setIdEmpresa($_SESSION['id_empresa']);
         <div class="col-md-12">
             <div class="panel panel-default collapsed">
                 <div class="panel-heading">
-                    <a href="reg_cliente.php" class="btn btn-success"> Crear Guia de Remision</a>
+                    <a href="reg_guia_remision.php" class="btn btn-success"> Crear Guia de Remision</a>
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
