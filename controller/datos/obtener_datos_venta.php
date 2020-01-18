@@ -1,5 +1,6 @@
 <?php
 session_start();
+$_SESSION['ventaproductos'] = array();
 
 require '../../models/Venta.php';
 require '../../models/Cliente.php';
@@ -47,8 +48,10 @@ if ($c_venta->getIdVenta() == null || $c_venta->getIdVenta() == "") {
     //iniciar array resultado con valores reales
     $resultado['success'] = "existe";
     $resultado['idventa'] = $c_venta->getIdVenta();
+    $resultado['total'] = $c_venta->getTotal();
     $resultado['doc_cliente'] = $c_cliente->getDocumento();
     $resultado['nom_cliente'] = $c_cliente->getDatos();
+    $resultado['dir_cliente'] = $c_cliente->getDireccion();
 }
 
 echo json_encode($resultado);

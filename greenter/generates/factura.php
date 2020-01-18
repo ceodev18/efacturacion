@@ -34,8 +34,17 @@ $c_cliente = new Cliente();
 $c_cliente->setIdCliente($c_venta->getIdCliente());
 $c_cliente->obtenerDatos();
 
+if (strlen($c_cliente->getDocumento()) == 8) {
+    $tipo_doc = "01";
+} elseif (strlen($c_cliente->getDocumento()) == 11) {
+    $tipo_doc = "06";
+}else {
+    $tipo_doc = "00";
+    $c_cliente->setDocumento('00000000');
+}
+
 $client = new Client();
-$client->setTipoDoc('6')
+$client->setTipoDoc('06')
     ->setNumDoc($c_cliente->getDocumento())
     ->setRznSocial($c_cliente->getDatos())
     ->setAddress((new Address())

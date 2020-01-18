@@ -8,8 +8,10 @@ if (!isset($_SESSION['id_empresa'])) {
 $_SESSION['ventaproductos'] = null;
 
 require '../models/DocumentoEmpresa.php';
+require '../models/Ubigeo.php';
 
 $c_tido = new DocumentoEmpresa();
+$c_ubigeo = new Ubigeo();
 
 $c_tido->setIdEmpresa($_SESSION['id_empresa']);
 
@@ -97,7 +99,7 @@ $c_tido->setIdEmpresa($_SESSION['id_empresa']);
                         <div class="form-group">
                             <label class="col-md-4 control-label">Doc.</label>
                             <div class="col-md-8">
-                                <select class="form-control" name="select_documento" id="select_documento" onchange="obtenerDatos()">
+                                <select class="form-control" name="select_documento_venta" id="select_documento_venta">
                                     <?php
                                     $a_tido = $c_tido->verFilas("1,2,6");
                                     foreach ($a_tido as $fila) {
@@ -112,21 +114,22 @@ $c_tido->setIdEmpresa($_SESSION['id_empresa']);
                         <div class="form-group">
                             <label class="col-lg-4 control-label">Ser | Num</label>
                             <div class="col-lg-4">
-                                <input type="text" name="input_serie" id="input_serie" class="form-control text-center" readonly>
+                                <input type="text" name="input_serie_venta" id="input_serie_venta" class="form-control text-center">
                             </div>
                             <div class="col-lg-4">
-                                <input type="text" name="input_numero" id="input_numero" class="form-control text-center" readonly>
+                                <input type="text" name="input_numero_venta" id="input_numero_venta" class="form-control text-center">
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-lg-12 text-center">
-                            <button class="btn btn-info"><i class="fa fa-search"></i> Comprobar Documento Venta</button>
+                            <button type="button" class="btn btn-info" onclick="comprobarVenta()"><i class="fa fa-search"></i> Comprobar Documento Venta</button>
+                                <input type="hidden" name="input_id_venta_referencia" id="input_id_venta_referencia">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-4 control-label">Total</label>
                             <div class="col-lg-6">
-                                <input type="text" value="100.00"
+                                <input type="text" class="form-control text-right" name="input_total_venta" id="input_total_venta" value="0.00"
                                        disabled>
                             </div>
                         </div>
@@ -135,22 +138,22 @@ $c_tido->setIdEmpresa($_SESSION['id_empresa']);
                         <div class="form-group">
                             <label class="col-md-4 control-label">Doc.</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" value="GUIA DE REMISION" readonly name="input_doc_envio">
+                                <input type="text" class="form-control text-center" value="GUIA DE REMISION" readonly name="input_doc_envio">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-4 control-label">Ser | Num</label>
                             <div class="col-lg-4">
-                                <input type="text" name="input_serie" id="input_serie" class="form-control text-center" readonly>
+                                <input type="text" name="input_serie_guia" id="input_serie_guia" class="form-control text-center" readonly>
                             </div>
                             <div class="col-lg-4">
-                                <input type="text" name="input_numero" id="input_numero" class="form-control text-center" readonly>
+                                <input type="text" name="input_numero_guia" id="input_numero_guia" class="form-control text-center" readonly>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-4 control-label">Fecha</label>
                             <div class="col-lg-6">
-                                <input type="text" placeholder="dd/mm/aaaa" name="input_fecha"
+                                <input type="date" name="input_fecha" id="input_fecha"
                                        class="form-control text-center" value="<?php echo date("Y-m-d"); ?>"
                                        disabled>
                             </div>
@@ -166,13 +169,13 @@ $c_tido->setIdEmpresa($_SESSION['id_empresa']);
                         <div class="form-group">
                             <label class="col-lg-4 control-label">Peso total</label>
                             <div class="col-lg-6">
-                                <input type="text" disabled>
+                                <input type="text" id="input_peso_total">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-4 control-label">Nro Bultos</label>
                             <div class="col-lg-6">
-                                <input type="text" disabled>
+                                <input type="text" id="input_nro_bultos" >
                             </div>
                         </div>
                     </form>
@@ -187,92 +190,89 @@ $c_tido->setIdEmpresa($_SESSION['id_empresa']);
                     <h5>Datos del Destino</h5>
                 </div>
                 <div class="panel-body">
-                    <form class="form-horizontal">
+                    <form class="form-horizontal" >
                         <div class="form-group">
                             <label class="col-lg-2 control-label">Destinatario</label>
                             <div class="col-lg-10">
                                 <input type="text" class="form-control"
-                                       id="input_buscar_productos" readonly>
+                                       id="input_datos_destinatario" readonly>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-2 control-label">Dir. Llegada</label>
                             <div class="col-lg-10">
                                 <input type="text" class="form-control"
-                                       id="input_buscar_productos">
+                                       id="input_dir_llegada" name="input_dir_llegada">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-2 control-label">Dir. Llegada</label>
+                            <label class="col-lg-2 control-label">Ubigeo</label>
                             <div class="col-lg-3">
-                                <select class="form-control">
-                                    <option>LIMA</option>
+                                <select class="form-control" name="select_departamento" id="select_departamento" onchange="obtenerProvincias()">
+                                    <?php
+                                    foreach ($c_ubigeo->verDepartamentos() as $fila) {
+                                        echo "<option value='{$fila["departamento"]}'>{$fila['nombre']}</option>";
+                                    }
+                                    ?>
                                 </select>
                             </div>
                             <div class="col-lg-3">
-                                <select class="form-control">
-                                    <option>LIMA</option>
+                                <select class="form-control" name="select_provincia" id="select_provincia" onchange="obtenerDistritos()">
                                 </select>
                             </div>
                             <div class="col-lg-3">
-                                <select class="form-control">
-                                    <option>LIMA</option>
+                                <select class="form-control" name="select_distrito" id="select_distrito">
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-2 control-label">Transportista</label>
                             <div class="col-lg-3">
-                                <select class="form-control">
-                                    <option>Propio</option>
-                                    <option>Externo</option>
+                                <select class="form-control" name="select_tipo_transporte" id="select_tipo_transporte">
+                                    <option value="1">Propio</option>
+                                    <option value="2">Externo</option>
                                 </select>
                             </div>
                             <div class="col-lg-3">
-                                <input type="text" id="input_cantidad_producto"
-                                       name="input_cantidad_producto" class="form-control text-center"
+                                <input type="text" id="input_documento_cliente"
+                                       name="input_ruc_transporte" class="form-control text-center"
                                        readonly="true">
+                                <input type="hidden" id="hidden_documento_cliente">
                             </div>
                             <div class="col-lg-3">
-                                <button class="btn btn-info"> Comprobar DOC</button>
+                                <button type="button" class="btn btn-info" onclick="comprobarRucTransporte()"> Comprobar DOC</button>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-2 control-label">Razon Social Trans.</label>
                             <div class="col-lg-10">
-                                <input type="text" placeholder="Descripcion" id="input_descripcion_producto"
-                                       name="input_descripcion_producto" class="form-control" readonly="true">
+                                <input type="text" id="input_datos_cliente"
+                                       name="input_datos_cliente" class="form-control" readonly="true">
+                                <input type="hidden" id="hidden_datos_cliente">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-2 control-label">Vehiculo</label>
                             <div class="col-lg-3">
-                                <input type="text" class="form-control"
-                                       id="input_buscar_productos">
+                                <input type="text" class="form-control" maxlength="7"
+                                       id="input_vehiculo">
                             </div>
                                                    </div>
                         <div class="form-group">
                             <label class="col-lg-2 control-label">Chofer</label>
                             <div class="col-lg-2">
                                 <input type="text" class="form-control"
-                                       id="input_buscar_productos">
+                                       id="input_dni_chofer" onkeypress="soloNumeros(event)" maxlength="10">
                             </div>
                             <div class="col-lg-8">
                                 <input type="text" class="form-control"
-                                       id="input_buscar_productos">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-2 control-label">Dir. Llegada</label>
-                            <div class="col-lg-10">
-                                <input type="text" class="form-control"
-                                       id="input_buscar_productos">
+                                       id="input_datos_chofer">
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="panel-footer">
-                    <button class="btn btn-success"><i class="fa fa-save"></i> Generar Guia</button>
+                    <button type="submit" class="btn btn-success" disabled id="btn_graba_guia"><i class="fa fa-save"></i> Generar Guia</button>
                 </div>
             </div>
 
@@ -326,8 +326,9 @@ $c_tido->setIdEmpresa($_SESSION['id_empresa']);
 <script src="../public/plugins/metisMenu/metisMenu.min.js"></script>
 <script src="../public/js/float-custom.js"></script>
 <script src="../public/js/validar-documento-cliente.js"></script>
-<script src="../public/js/funciones_basicas.js"></script>
 <script src="../public/js/ventas.functions.js"></script>
+<script src="../public/js/funciones_basicas.js"></script>
+<script src="../public/js/funciones_guia.js"></script>
 <script src="../public/js/documento_empresa.js"></script>
 <script src="../public/plugins/toast/jquery.toast.min.js"></script>
 
@@ -335,39 +336,10 @@ $c_tido->setIdEmpresa($_SESSION['id_empresa']);
 
 
 <script>
+
     $(document).ready(function () {
-        $("#select_documento").trigger('change');
-    });
-
-    $(function () {
-
-        $("#input_buscar_productos").autocomplete({
-            source: "../controller/json/cargar_productos.php",
-            minLength: 2,
-            select: function (event, ui) {
-                event.preventDefault();
-                $('#input_descripcion_producto').val(ui.item.codigo + " | " + ui.item.descripcion);
-                $('#input_precio_producto').val(ui.item.precio);
-                $('#hidden_codigo_producto').val(ui.item.codigo);
-                $('#input_costo_producto').val(ui.item.costo);
-                $('#input_cantidad_producto').prop("readonly", false);
-                $('#input_precio_producto').prop("readonly", false);
-                $('#btn_add_producto').prop("disabled", false);
-                $('#input_cantidad_producto').focus();
-                $('#input_buscar_productos').val("");
-            }
-        });
-
-        $("#input_datos_cliente").autocomplete({
-            source: "../controller/json/cargar_clientes.php",
-            minLength: 2,
-            select: function (event, ui) {
-                event.preventDefault();
-                $('#input_datos_cliente').val(ui.item.datos);
-                $('#input_documento_cliente').val(ui.item.documento);
-                $('#input_datos_cliente').focus();
-            }
-        });
+        obtenerDatosGuia();
+        obtenerProvincias();
 
     });
 

@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+date_default_timezone_set('America/Lima');
 
 use Greenter\Model\Client\Client;
 use Greenter\Model\Despatch\Despatch;
@@ -13,44 +16,50 @@ use Greenter\Ws\Services\SunatEndpoints;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-require __DIR__ . '/../../class/cl_venta.php';
-require __DIR__ . '/../../class/cl_guia_remision.php';
-require __DIR__ . '/../../class/cl_cliente.php';
-require __DIR__ . '/../../class/cl_almacen.php';
-require __DIR__ . '/../../class/cl_empresa.php';
-require __DIR__ . '/../../class/cl_venta_productos.php';
+require __DIR__ . '/../../models/Venta.php';
+require __DIR__ . '/../../models/GuiaRemision.php';
+require __DIR__ . '/../../models/Cliente.php';
+require __DIR__ . '/../../models/Empresa.php';
+require __DIR__ . '/../../models/ProductoVenta.php';
 
 require __DIR__ . '/../../greenter/generate_qr/class/GenerarQr.php';
 
 $util = Util::getInstance();
 
-$c_venta = new cl_venta();
+$c_guia = new GuiaRemision();
+$c_guia->setIdGuia(filter_input(INPUT_POST, 'id_guia'));
+$c_guia->obtenerDatos();
 
-$c_venta->setIdVenta(filter_input(INPUT_GET, 'id_venta'));
-$c_venta->setIdAlmacen(filter_input(INPUT_GET, 'id_almacen'));
-$c_venta->obtener_datos();
+$c_venta = new Venta();
+$c_venta->setIdVenta($c_guia->getIdVenta());
+$c_venta->obtenerDatos();
 
-$c_guia = new cl_guia_remision();
-$c_guia->setIdVenta($c_venta->getIdVenta());
-$c_guia->setIdAlmacen($c_venta->getIdAlmacen());
-$c_guia->cargar_datos();
-
-$c_cliente = new cl_cliente();
+$c_cliente = new Cliente();
 $c_cliente->setIdCliente($c_venta->getIdCliente());
-$c_cliente->obtener_datos();
+$c_cliente->obtenerDatos();
+
+if (strlen($c_cliente->getDocumento()) == 8) {
+    $tipo_doc = "01";
+} elseif (strlen($c_cliente->getDocumento()) == 11) {
+    $tipo_doc = "06";
+}else {
+    $tipo_doc = "00";
+    $c_cliente->setDocumento('00000000');
+}
+
 
 $client = new Client();
-$client->setTipoDoc('6')
+$client->setTipoDoc($tipo_doc)
     ->setNumDoc($c_cliente->getDocumento())
     ->setRznSocial($c_cliente->getDatos());
 
-$c_almacen = new cl_almacen();
-$c_almacen->setIdAlmacen($c_venta->getIdAlmacen());
-$c_almacen->obtener_datos();
+$c_empresa = new Empresa();
+$c_empresa->setIdEmpresa($c_venta->getIdEmpresa());
+$c_empresa->obtenerDatos();
 
-$c_empresa = new cl_empresa();
-$c_empresa->setIdEmpresa($c_almacen->getIdEmpresa());
-$c_empresa->obtener_datos();
+$util->setRuc($c_empresa->getRuc());
+$util->setClave($c_empresa->getClaveSol());
+$util->setUsuario($c_empresa->getUserSol());
 
 $empresa = new Company();
 $empresa->setRuc($c_empresa->getRuc())
@@ -66,11 +75,10 @@ $empresa->setRuc($c_empresa->getRuc())
         ->setDireccion($c_empresa->getDireccion()));
 
 
-$c_productos = new cl_venta_productos();
+$c_productos = new ProductoVenta();
 $c_productos->setIdVenta($c_venta->getIdVenta());
-$c_productos->setIdAlmacen($c_venta->getIdAlmacen());
 
-$items = $c_productos->ver_detalle();
+$items = $c_productos->verFilas();
 
 $array_items = array();
 $sumar_cantidades = 0;
@@ -79,7 +87,7 @@ foreach ($items as $value) {
     $detail = new DespatchDetail();
     $detail->setCantidad($value['cantidad'])
         ->setUnidad('NIU')
-        ->setDescripcion($value['descripcion'] . ' ' . $value['marca'] . ' ' . $value['modelo'])
+        ->setDescripcion($value['descripcion'] )
         ->setCodigo($value['id_producto']);
         //->setCodProdSunat($value['id_producto']);
 
@@ -91,10 +99,10 @@ foreach ($items as $value) {
 $transp = new Transportist();
 $transp->setTipoDoc('6')
     ->setNumDoc($c_guia->getRucTransporte())
-    ->setRznSocial($c_guia->getRazonTransporte())
-    ->setPlaca($c_guia->getPlaca())
+    ->setRznSocial($c_guia->getRazTransporte())
+    ->setPlaca($c_guia->getVehiculo())
     ->setChoferTipoDoc('1')
-    ->setChoferDoc($c_guia->getDniChofer());
+    ->setChoferDoc($c_guia->getChofer());
 
 $envio = new Shipment();
 $envio->setModTraslado('01')
@@ -102,11 +110,11 @@ $envio->setModTraslado('01')
     ->setDesTraslado('VENTA')
     ->setFecTraslado(new \DateTime())
     ->setIndTransbordo(false)
-    ->setPesoTotal(50)
+    ->setPesoTotal($c_guia->getPeso())
     ->setUndPesoTotal('KGM')
     ->setNumBultos($sumar_cantidades)
-    ->setLlegada(new Direction($c_guia->getUbigeo(), $c_guia->getLlegada()))
-    ->setPartida(new Direction($c_almacen->getUbigeo(), $c_almacen->getDireccion()))
+    ->setLlegada(new Direction($c_guia->getUbigeo(), $c_guia->getDirLlegada()))
+    ->setPartida(new Direction($c_empresa->getUbigeo(),$c_empresa->getDireccion()))
     ->setTransportista($transp);
 
 $despatch = new Despatch();
@@ -123,13 +131,19 @@ $despatch->setTipoDoc('09')
 $despatch->setDetails([$detail]);
 
 // Envio a SUNAT.
-$util->setRucEmpresa($c_empresa->getRuc());
-$see = $util->getSee(SunatEndpoints::GUIA_PRODUCCION);
+$see = $util->getSee(SunatEndpoints::GUIA_BETA);
 
 $res = $see->send($despatch);
 $util->writeXml($despatch, $see->getFactory()->getLastXml());
 
 $nombre_archivo = $despatch->getName();
+
+//generar qr
+$qr = $c_empresa->getRuc() . "|" . "09" . "|" . $c_guia->getSerie() . "-" . $c_guia->getNumero() . "|0.00|0.00|" . $c_guia->getFecha() . "|" . $tipo_doc . "|" . $c_cliente->getDocumento();
+$c_generar = new generarQr();
+$c_generar->setTexto_qr($qr);
+$c_generar->setNombre_archivo($nombre_archivo);
+$c_generar->generar_qr();
 /*
 if ($res->isSuccess()) {
     $cdr = $res->getCdrResponse();
@@ -144,12 +158,12 @@ if ($res->isSuccess()) {
 $respuesta = array();
 if ($res->isSuccess()) {
 
-    $dominio = "http://" . $_SERVER["HTTP_HOST"] . "/clientes/sonomusic/";
+    $dominio = "http://" . $_SERVER["HTTP_HOST"] . "/clientes/efacturacion/";
     $nombre_xml = $dominio . "/greenter/files/" . $despatch->getName() . ".xml";
     $hash = $util->getHash($despatch);
 
     $c_guia->setHash($hash);
-    $c_guia->actualizar_hash();
+    $c_guia->actualizarHash();
 
     //obtener cdr y guardar en json
     $cdr = $res->getCdrResponse();
@@ -161,7 +175,7 @@ if ($res->isSuccess()) {
         "resultado" => array(
             "nombre_archivo" => $nombre_archivo,
             "direccion_xml" => $nombre_xml,
-            "direccion_qr" => "",
+            "direccion_qr" => $qr,
             "hash" => $hash,
             "descripcion_cdr" => $descripcion
         )

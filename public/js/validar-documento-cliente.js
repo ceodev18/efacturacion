@@ -15,12 +15,13 @@ function validarDocumento () {
                 position: 'top-right',
                 loaderBg: '#fff',
                 icon: 'info',
-                hideAfter: 3000,
+                hideAfter: 5000,
                 stack: 1
             });
         },
         success: function (response) {
-            //console.log(response);
+            console.log(response);
+            $("#input_datos_cliente").val("gola");
             var json = JSON.parse(response);
 
             var success = json.success;
@@ -34,6 +35,7 @@ function validarDocumento () {
                 $("#input_direccion_cliente").val(json.direccion);
             }
             if (success === "existe") {
+                $("#input_datos_cliente").val(json.datos);
                // $("#btn_guardar").prop('disabled', true);
               //  alertarClienteExiste();
 
