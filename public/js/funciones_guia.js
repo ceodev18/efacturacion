@@ -165,7 +165,7 @@ function enviarDatosGuia() {
         "dir_llegada" : $("#input_dir_llegada").val(),
         "ubigeo" : $("#select_distrito").val(),
         "tipo_transporte" : $("#select_tipo_transporte").val(),
-        "ruc_transporte" : $("#input_ruc_transporte").val(),
+        "ruc_transporte" : $("#input_documento_cliente").val(),
         "razon_transporte" : $("#input_datos_cliente").val(),
         "vehiculo" : $("#input_vehiculo").val(),
         "chofer" : $("#input_dni_chofer").val(),
@@ -182,6 +182,38 @@ function enviarDatosGuia() {
         },
         success: function (response) {
             console.log(response);
+            var json_response = JSON.parse(response);
+            if (json_response.valor == 0) {
+                swal({
+                    title: "Error al Registrar",
+                    text: response,
+                    type: "error",
+                    showCancelButton: false,
+                    //cancelButtonClass: 'btn-secondary ',
+                    confirmButtonColor: "#DD6B55",
+                    //confirmButtonText: "Ver Ticket",
+                    cancelButtonText: "No, cancel plx!",
+                    closeOnConfirm: true,
+                    closeOnCancel: true
+                });
+            } else {
+                swal({
+                    title: "Guia Registrada",
+                    text: "El documento se registro con exito!",
+                    type: "success",
+                    showCancelButton: false,
+                    //cancelButtonClass: 'btn-secondary ',
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Ver Guia Remision",
+                    //cancelButtonText: "No, cancel plx!",
+                    closeOnConfirm: false,
+                    //closeOnCancel: false
+                }, function (isConfirm) {
+                    if (isConfirm) {
+                        window.location.href = 'ver_preimpresion_guia.php?id_guia=' + json_response.valor;
+                    }
+                });
+            }
         },
         error: function () {
             alert("error al procesar");

@@ -23,6 +23,7 @@ $c_guia->setNroBultos(filter_input(INPUT_POST, 'nro_bultos'));
 $c_guia->setIdEmpresa($_SESSION['id_empresa']);
 
 $c_documentos->setIdTido(11);
+$c_documentos->setIdEmpresa($c_guia->getIdEmpresa());
 $c_documentos->obtenerDatos();
 
 $c_guia->setSerie($c_documentos->getSerie());
@@ -36,7 +37,8 @@ if ($c_guia->insertar()) {
     $respuesta = $sendGuia->enviar_json();
 
     $json_respuesta = json_decode($respuesta, true);
-
+    //die($respuesta);
+    $resultado["valor"] = 0;
     if ($json_respuesta["success"] == true) {
         //ya no es necesario llamar a generar pdf
         //$c_curl->generar_pdf();

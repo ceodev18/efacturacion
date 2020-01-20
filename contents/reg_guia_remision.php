@@ -169,13 +169,13 @@ $c_tido->setIdEmpresa($_SESSION['id_empresa']);
                         <div class="form-group">
                             <label class="col-lg-4 control-label">Peso total</label>
                             <div class="col-lg-6">
-                                <input type="text" id="input_peso_total">
+                                <input type="text" id="input_peso_total" value="0">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-4 control-label">Nro Bultos</label>
                             <div class="col-lg-6">
-                                <input type="text" id="input_nro_bultos" >
+                                <input type="text" id="input_nro_bultos"  value="0">
                             </div>
                         </div>
                     </form>
@@ -272,7 +272,7 @@ $c_tido->setIdEmpresa($_SESSION['id_empresa']);
                     </form>
                 </div>
                 <div class="panel-footer">
-                    <button type="submit" class="btn btn-success" disabled id="btn_graba_guia"><i class="fa fa-save"></i> Generar Guia</button>
+                    <button type="button" class="btn btn-success" disabled id="btn_graba_guia" onclick="enviarDatosGuia()"><i class="fa fa-save"></i> Generar Guia</button>
                 </div>
             </div>
 

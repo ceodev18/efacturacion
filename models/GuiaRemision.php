@@ -23,14 +23,14 @@ class GuiaRemision
     private $nro_bultos;
     private $estado;
     private $id_empresa;
-    private $c_conectar;
+    private $conectar;
 
     /**
      * GuiaRemision constructor.
      */
     public function __construct()
     {
-        $this->c_conectar = Conectar::getInstancia();
+        $this->conectar = Conectar::getInstancia();
     }
 
     /**
@@ -351,6 +351,7 @@ class GuiaRemision
         where id_guia_remision = '$this->id_guia'";
         $fila = $this->conectar->get_Row($sql);
         $this->fecha = $fila['fecha_emision'];
+        $this->id_venta = $fila['id_venta'];
         $this->dir_llegada = $fila['dir_llegada'];
         $this->ubigeo = $fila['ubigeo'];
         $this->tipo_transporte = $fila['tipo_transporte'];
@@ -377,7 +378,7 @@ class GuiaRemision
                 '$this->dir_llegada',
                 '$this->ubigeo',
                 '$this->tipo_transporte',
-                '$this->tuc_transporte',
+                '$this->ruc_transporte',
                 '$this->raz_transporte',
                 '$this->vehiculo',
                 '$this->chofer',
@@ -410,9 +411,10 @@ class GuiaRemision
 
     public function verFilas()
     {
-        $sql = "select gr.fecha_emision, gr.id_guia_remision, gr.dir_llegada, gr.enviado_sunat, gr.serie, gr.numero, gr.estado, c.datos 
+        $sql = "select gr.fecha_emision, gr.id_guia_remision, gr.dir_llegada, gr.enviado_sunat, gr.serie, gr.numero, gr.estado, c.datos, v.serie as serie_venta, v.numero as numero_venta, ds.abreviatura as doc_venta 
         from guia_remision as gr 
-        inner join ventas v on gr.id_venta = v.id_venta
+        inner join ventas v on gr.id_venta = v.id_venta 
+        inner join documentos_sunat ds on v.id_tido = ds.id_tido            
         inner join clientes c on v.id_cliente = c.id_cliente 
         where gr.id_empresa = '$this->id_empresa' ";
         return $this->conectar->ejecutar_idu($sql);

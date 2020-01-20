@@ -39,11 +39,11 @@ $c_cliente->setIdCliente($c_venta->getIdCliente());
 $c_cliente->obtenerDatos();
 
 if (strlen($c_cliente->getDocumento()) == 8) {
-    $tipo_doc = "01";
+    $tipo_doc = "1";
 } elseif (strlen($c_cliente->getDocumento()) == 11) {
-    $tipo_doc = "06";
+    $tipo_doc = "6";
 }else {
-    $tipo_doc = "00";
+    $tipo_doc = "0";
     $c_cliente->setDocumento('00000000');
 }
 
@@ -131,7 +131,7 @@ $despatch->setTipoDoc('09')
 $despatch->setDetails([$detail]);
 
 // Envio a SUNAT.
-$see = $util->getSee(SunatEndpoints::GUIA_BETA);
+$see = $util->getSee(SunatEndpoints::GUIA_PRODUCCION);
 
 $res = $see->send($despatch);
 $util->writeXml($despatch, $see->getFactory()->getLastXml());
@@ -163,6 +163,7 @@ if ($res->isSuccess()) {
     $hash = $util->getHash($despatch);
 
     $c_guia->setHash($hash);
+    $c_guia->setNombreXml($nombre_archivo);
     $c_guia->actualizarHash();
 
     //obtener cdr y guardar en json
