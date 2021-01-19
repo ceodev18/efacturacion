@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PhpIncludePathManager">
+    <include_path>
+      <path value="$PROJECT_DIR$/greenter/vendor/greenter/data" />
+      <path value="$PROJECT_DIR$/greenter/vendor/greenter/report" />
+      <path value="$PROJECT_DIR$/greenter/vendor/mikehaertl/php-shellcommand" />
+      <path value="$PROJECT_DIR$/greenter/vendor/mikehaertl/phpwkhtmltopdf" />
+      <path value="$PROJECT_DIR$/greenter/vendor/mikehaertl/php-tmpfile" />
+      <path value="$PROJECT_DIR$/greenter/vendor/composer" />
+      <path value="$PROJECT_DIR$/greenter/vendor/twig/twig" />
+      <path value="$PROJECT_DIR$/greenter/vendor/bacon/bacon-qr-code" />
+      <path value="$PROJECT_DIR$/greenter/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/greenter/vendor/greenter/core" />
+      <path value="$PROJECT_DIR$/greenter/vendor/greenter/htmltopdf" />
+      <path value="$PROJECT_DIR$/greenter/vendor/greenter/xml" />
+      <path value="$PROJECT_DIR$/greenter/vendor/greenter/ws" />
+      <path value="$PROJECT_DIR$/greenter/vendor/greenter/greenter" />
+      <path value="$PROJECT_DIR$/greenter/vendor/greenter/xmldsig" />
+    </include_path>
+  </component>
+  <component name="PhpProjectSharedConfiguration" php_language_level="7">
+    <option name="suggestChangeDefaultLanguageLevel" value="false" />
+  </component>
+</project>
