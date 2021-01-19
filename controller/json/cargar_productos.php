@@ -12,7 +12,7 @@ $resultados = $c_producto->BuscarProductos($searchTerm);
 $array_resultado = array();
 foreach ($resultados as $value) {
     $fila = array();
-    $fila['value'] = $value['descripcion'] . " | P.Venta S/ : " . $value['precio'] . "% | P.Compra S/ : " . $value['costo'] . " | Cod: " . $value['id_producto'] ;
+    $fila['value'] = $value['descripcion'] . " | P.Venta S/ : " . $value['precio'] . " | Cod: " . $value['id_producto'] ;
     $fila['codigo'] = $value['id_producto'];
     $fila['descripcion'] = $value['descripcion'];
     $fila['precio'] = $value['precio'];
