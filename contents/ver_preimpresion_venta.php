@@ -75,23 +75,25 @@ $id_venta = filter_input(INPUT_GET, 'id_venta');
             <div class="col-lg-3 buttons">
                 <a href="ver_ventas.php" class="btn btn-success"><i class="fa fa-arrow-circle-o-left"></i> Ver Ventas</a>
                 <br>
-                <a href="reg_venta.php" class="btn btn-info"><i class="fa fa-plus"></i> Agregar Venta</a>
+                <a href="reg_venta.php" class="btn btn-info"><i class="fa fa-plus"></i> Vender Producto</a>
+                <br>
+                <a href="reg_venta_servicio.php" class="btn btn-info"><i class="fa fa-plus"></i> Vender Servicio</a>
             </div>
             <div class="col-lg-9">
                 <?php
                 if ($c_empresa->getTipoImpresion() == 1) {
-                    $url = "documento_venta.php";
+                    $url_pdf = "documento_venta.php";
 					if ($c_empresa->getIdEmpresa() == 4) {
-						$url_pdf = "documento_venta_walga";
+						$url_pdf = "documento_venta_walga.php";
 					}
 					if ($c_empresa->getIdEmpresa() == 3) {
-						$url_pdf = "documento_venta_shucran";
+						$url_pdf = "documento_venta_shucran.php";
 					}	
                 } else {
-                    $url = "ticket_venta.php";
+                    $url_pdf = "ticket_venta.php";
                 }
                 ?>
-                <iframe class="col-lg-12" height="500px" src="../reports/<?php echo $url?>?id_venta=<?php echo $id_venta?>"></iframe>
+                <iframe class="col-lg-12" height="500px" src="../reports/<?php echo $url_pdf?>?id_venta=<?php echo $id_venta?>"></iframe>
             </div>
         </div>
     </div>

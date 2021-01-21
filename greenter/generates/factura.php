@@ -19,6 +19,7 @@ require __DIR__ . '/../../models/Venta.php';
 require __DIR__ . '/../../models/Cliente.php';
 require __DIR__ . '/../../models/Empresa.php';
 require __DIR__ . '/../../models/ProductoVenta.php';
+require __DIR__ . '/../../models/VentaServicio.php';
 require __DIR__ . '/../../models/VentaSunat.php';
 
 require __DIR__ . '/../../tools/NumerosaLetras.php';
@@ -96,14 +97,14 @@ $invoice
     ->setMtoImpVenta(number_format($c_venta->getTotal(), 2, ".", ""))
     ->setCompany($empresa);
 
+$array_items = array();
+
 $c_productos = new ProductoVenta();
 $c_productos->setIdVenta($c_venta->getIdVenta());
 
-$items = $c_productos->verFilas();
+$itemsProductos = $c_productos->verFilas();
 
-$array_items = array();
-
-foreach ($items as $value) {
+foreach ($itemsProductos as $value) {
     $item = new SaleDetail();
     $item->setCodProducto($value['id_producto'])
         ->setUnidad('NIU')
@@ -119,6 +120,29 @@ foreach ($items as $value) {
         ->setMtoPrecioUnitario(number_format($value['precio'], 2, '.', ''));
     $array_items[] = $item;
 }
+
+$c_servicios = new VentaServicio();
+$c_servicios->setIdVenta($c_venta->getIdVenta());
+
+$itemsServicios = $c_servicios->verFilas();
+
+foreach ($itemsServicios as $value) {
+    $item = new SaleDetail();
+    $item->setCodProducto($value['id_item'])
+        ->setUnidad('ZZ')
+        ->setDescripcion($value['descripcion'])
+        ->setCantidad($value['cantidad'])
+        ->setMtoValorUnitario(number_format($value['precio'] / 1.18, 2, '.', ''))
+        ->setMtoValorVenta(number_format($value['precio'] * $value['cantidad'] / 1.18, 2, '.', ''))
+        ->setMtoBaseIgv(number_format($value['precio'] * $value['cantidad'] / 1.18, 2, '.', ''))
+        ->setPorcentajeIgv(18)
+        ->setIgv(number_format($value['precio'] * $value['cantidad'] / 1.18 * 0.18, 2, '.', ''))
+        ->setTipAfeIgv('10')
+        ->setTotalImpuestos(number_format($value['precio'] * $value['cantidad'] / 1.18 * 0.18, 2, '.', ''))
+        ->setMtoPrecioUnitario(number_format($value['precio'], 2, '.', ''));
+    $array_items[] = $item;
+}
+
 
 $invoice->setDetails($array_items);
 
@@ -151,6 +175,7 @@ $c_generar->generar_qr();
 $url_qr = $dominio . "/greenter/generate_qr/temp/" . $nombre_archivo . ".png";
 
 // Envio a SUNAT.
+//$see = $util->getSee(SunatEndpoints::FE_BETA);
 $see = $util->getSee(SunatEndpoints::FE_PRODUCCION);
 //$res = $see->send($invoice);
 $see->GenerarXML($invoice);

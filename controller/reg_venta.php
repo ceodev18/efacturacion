@@ -5,6 +5,7 @@ require '../models/Venta.php';
 require '../models/VentaSunat.php';
 require '../models/DocumentoEmpresa.php';
 require '../models/ProductoVenta.php';
+require '../models/VentaServicio.php';
 require '../models/Cliente.php';
 require '../tools/Varios.php';
 require '../tools/SendCurlVenta.php';
@@ -13,6 +14,7 @@ $c_cliente = new Cliente();
 $c_venta = new Venta();
 $c_tido = new DocumentoEmpresa();
 $c_detalle = new ProductoVenta();
+$c_servicio = new VentaServicio();
 $c_curl = new SendCurlVenta();
 $c_sunat = new VentaSunat();
 $c_varios = new Varios();
@@ -50,18 +52,37 @@ $c_venta->setTotal(filter_input(INPUT_POST, 'total_pedido'));
 $c_venta->obtenerId();
 
 $c_detalle->setIdVenta($c_venta->getIdVenta());
+$c_servicio->setIdventa($c_venta->getIdVenta());
+$tipoventa = filter_input(INPUT_POST, 'tipoventa');
 
-$resultado = [];
+$resultado["valor"] = 0;
+
 if ($c_venta->insertar()) {
     //recorrer array para guardar productos en la venta
     $array_detalle = $_SESSION['ventaproductos'];
-    foreach ($array_detalle as $fila) {
-        $c_detalle->setIdProducto($fila['idproducto']);
-        $c_detalle->setCantidad($fila['cantidad']);
-        $c_detalle->setCosto($fila['costo']);
-        $c_detalle->setPrecio($fila['precio']);
-        $c_detalle->insertar();
+
+    if ($tipoventa == 1) {
+        foreach ($array_detalle as $fila) {
+            $c_detalle->setIdProducto($fila['idproducto']);
+            $c_detalle->setCantidad($fila['cantidad']);
+            $c_detalle->setCosto($fila['costo']);
+            $c_detalle->setPrecio($fila['precio']);
+            $c_detalle->insertar();
+        }
     }
+
+    if ($tipoventa == 2) {
+        $nroitem = 1;
+        foreach ($array_detalle as $fila) {
+            $c_servicio->setDescripcion($fila['descripcion']);
+            $c_servicio->setCantidad($fila['cantidad']);
+            $c_servicio->setMonto($fila['precio']);
+            $c_servicio->setIditem($nroitem);
+            $c_servicio->insertar();
+            $nroitem++;
+        }
+    }
+
 
     //definir url segun el tipo de documento sunat
     if ($c_venta->getIdTido() == 1) {
@@ -71,11 +92,12 @@ if ($c_venta->insertar()) {
         $archivo = "factura";
     }
 
-    if ($c_venta->getIdTido() == 1 || $c_venta->getIdTido()==2) {
+    if ($c_venta->getIdTido() == 1 || $c_venta->getIdTido() == 2) {
         //enviar por curl id de venta para generar xml, hash, qr y retornar json para generar fpdf documento de venta
         $c_curl->setIdTido($c_venta->getIdTido());
         $c_curl->setIdVenta($c_venta->getIdVenta());
         $respuesta = $c_curl->enviar_json();
+
 
         $json_respuesta = json_decode($respuesta, true);
 

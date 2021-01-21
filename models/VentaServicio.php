@@ -122,11 +122,12 @@ class VentaServicio
 
     public function verFilas()
     {
-        $sql = "select vs.id_item, vs.descripcion, vs.monto, vs.cantidad  
+        $sql = "select vs.id_item, vs.descripcion, vs.monto as precio, vs.monto, vs.cantidad  
         from ventas_servicios as vs 
         inner join ventas v on vs.id_venta = v.id_venta
         where v.id_venta = '$this->idventa'";
         return $this->conectar->get_Cursor($sql);
     }
+
 
 }

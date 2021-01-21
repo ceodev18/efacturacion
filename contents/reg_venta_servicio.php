@@ -160,7 +160,7 @@ $c_tido->setIdEmpresa($_SESSION['id_empresa']);
                             <div class="col-md-8">
                                 <select class="form-control" name="select_documento" id="select_documento" onchange="obtenerDatos()">
                                     <?php
-                                    $a_tido = $c_tido->verFilas("1,2,6");
+                                    $a_tido = $c_tido->verFilas("2");
                                     foreach ($a_tido as $fila) {
                                         ?>
                                         <option value="<?php echo $fila['id_tido'] ?>"><?php echo $fila['nombre'] ?></option>
@@ -209,6 +209,7 @@ $c_tido->setIdEmpresa($_SESSION['id_empresa']);
                         <div class="form-group">
                             <div class="col-lg-12">
                                 <input type="hidden" id="input_total_pedido" name="input_total_pedido">
+                                <input type="hidden" id="tipoventa" name="tipoventa" value="2">
                                 <button type="button" class="btn btn-lg btn-primary" id="btn_finalizar_pedido" disabled onclick="enviar_datos()"><i class="fa fa-save"></i> Guardar
                                 </button>
                             </div>

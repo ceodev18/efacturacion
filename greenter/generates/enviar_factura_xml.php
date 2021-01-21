@@ -38,7 +38,8 @@ if ($id_empresa) {
     $url = $_SERVER["HTTP_HOST"];
     $dominio = "http://" . $url . "/clientes/efacturacion/";
 
-    $see = $util->getSee(SunatEndpoints::FE_PRODUCCION);
+    $see = $util->getSee(SunatEndpoints::FE_BETA);
+        //$see = $util->getSee(SunatEndpoints::FE_PRODUCCION);
 
     $contar_malas = 0;
     $total_filas = 0;

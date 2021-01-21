@@ -131,7 +131,8 @@ $despatch->setTipoDoc('09')
 $despatch->setDetails([$detail]);
 
 // Envio a SUNAT.
-$see = $util->getSee(SunatEndpoints::GUIA_PRODUCCION);
+$see = $util->getSee(SunatEndpoints::GUIA_BETA);
+//$see = $util->getSee(SunatEndpoints::GUIA_PRODUCCION);
 
 $res = $see->send($despatch);
 $util->writeXml($despatch, $see->getFactory()->getLastXml());

@@ -10,6 +10,7 @@ date_default_timezone_set('America/Lima');
 require '../models/Empresa.php';
 require '../models/Venta.php';
 require '../models/ProductoVenta.php';
+require '../models/VentaServicio.php';
 require '../models/Cliente.php';
 require '../models/DocumentoSunat.php';
 require '../tools/NumerosaLetras.php';
@@ -46,6 +47,9 @@ $numero = $c_varios->zerofill($c_venta->getNumero(), 8);
 
 $c_detalle = new ProductoVenta();
 $c_detalle->setIdVenta($c_venta->getIdVenta());
+
+$c_servicio = new VentaServicio();
+$c_servicio->setIdventa($c_venta->getIdVenta());
 
 $c_recibido = new VentaSunat();
 $c_recibido->setIdVenta($c_venta->getIdVenta());
@@ -155,15 +159,30 @@ $y = $pdf->GetY();
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont('Arial', '', 9);
 
-$a_productos = $c_detalle->verFilas();
 $suma = 0;
 $items = array();
-$fila_productos = array();
+
+$a_productos = $c_detalle->verFilas();
 foreach ($a_productos as $value) {
     $cantidad = $value['cantidad'];
     $precio = $value['precio'];
     $subtotal = $cantidad * $precio;
-    $pdf->Cell(15, 4, $value['cantidad'], 0, 0, 'C');
+    $pdf->Cell(15, 4, $cantidad, 0, 0, 'C');
+    //$pdf->Cell(110, 10, $value['descripcion'], 0, 0, 'L');
+    $pdf->SetX(160);
+    $pdf->Cell(20, 4, number_format($precio, 2), 0, 0, 'R');
+    $pdf->Cell(20, 4, number_format($subtotal, 2), 0, 0, 'R');
+    $pdf->SetX(25);
+    $pdf->MultiCell(135, 4, utf8_decode($value['descripcion']), 0, 'J');
+    //$pdf->Ln(2);
+}
+
+$a_servicios = $c_servicio->verFilas();
+foreach ($a_servicios as $value) {
+    $cantidad = $value['cantidad'];
+    $precio = $value['monto'];
+    $subtotal = $cantidad * $precio;
+    $pdf->Cell(15, 4, $cantidad, 0, 0, 'C');
     //$pdf->Cell(110, 10, $value['descripcion'], 0, 0, 'L');
     $pdf->SetX(160);
     $pdf->Cell(20, 4, number_format($precio, 2), 0, 0, 'R');

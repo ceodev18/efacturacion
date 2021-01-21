@@ -147,7 +147,8 @@ $c_generar->generar_qr();
 $url_qr = $dominio . "/greenter/generate_qr/temp/" . $nombre_archivo . ".png";
 
 // Envio a SUNAT.
-$see = $util->getSee(SunatEndpoints::FE_PRODUCCION);
+$see = $util->getSee(SunatEndpoints::FE_BETA);
+//$see = $util->getSee(SunatEndpoints::FE_PRODUCCION);
 //$res = $see->send($invoice); //aun no se envia la boleta
 $see->GenerarXML($invoice);
 $util->writeXml($invoice, $see->getFactory()->getLastXml());

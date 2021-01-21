@@ -115,9 +115,14 @@ function clean() {
 
 function enviar_datos() {
     var nombre_cliente = $('#input_datos_cliente').val();
+    var documento_cliente = $('#input_documento_cliente').val();
     var erros = 0;
     if (nombre_cliente === "") {
         alert("Falta Nombre del Cliente, haga clic en Combrobar Documento o Ingrese Nombre");
+        erros++;
+    }
+    if (documento_cliente === "") {
+        alert("Falta Indicar Nro del documento del cliente");
         erros++;
     }
 
@@ -128,6 +133,7 @@ function enviar_datos() {
             direccion_cliente: $('#input_direccion_cliente').val(),
             total_pedido: $('#input_total_pedido').val(),
             input_fecha: $('#input_fecha').val(),
+            tipoventa: $('#tipoventa').val(),
             documento_venta: $('#select_documento').val(),
         };
         $.ajax({
@@ -140,6 +146,7 @@ function enviar_datos() {
             success: function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
                 $("#resultado").html(response);
                 var json_response = JSON.parse(response);
+                console.log(response);
                 if (response.valor == 0) {
                     swal({
                         title: "Error al Registrar",
@@ -153,7 +160,7 @@ function enviar_datos() {
                         closeOnConfirm: true,
                         closeOnCancel: true
                     });
-                } else {
+                }else {
                     swal({
                         title: "Venta Registrada",
                         text: "El documento de venta se registro con exito!",

@@ -100,7 +100,7 @@ class ventaProducto
     {
         $fila = array();
         $fila['idproducto'] = $this->idproducto;
-        $fila['descripcion'] = $this->descripcion;
+        $fila['descripcion'] = strtoupper($this->descripcion);
         $fila['cantidad'] = $this->cantidad;
         $fila['precio'] = $this->precio;
         $fila['costo'] = $this->costo;

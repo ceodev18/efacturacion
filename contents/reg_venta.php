@@ -126,6 +126,7 @@ $c_tido->setIdEmpresa($_SESSION['id_empresa']);
                             </div>
                             <div class="col-lg-1">
                                 <input type="hidden" name="input_costo_producto" id="input_costo_producto"/>
+                                <input type="hidden" id="tipoventa" name="tipoventa" value="1">
                                 <button type="button" class="btn btn-success" disabled="true" id="btn_add_producto"
                                         onclick="agregarProducto()"><i class="fa fa-check"></i> Agregar
                                 </button>

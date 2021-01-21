@@ -133,7 +133,8 @@ if (filter_input(INPUT_GET, 'periodo')) {
         <div class="col-md-12">
             <div class="panel panel-default collapsed">
                 <div class="panel-heading">
-                    <a href="reg_venta.php" class="btn btn-success"><i class="fa fa-plus"></i> Agregar Doc. Venta</a>
+                    <a href="reg_venta.php" class="btn btn-facebook"><i class="fa fa-plus"></i> Facturar Productos</a>
+                    <a href="reg_venta_servicio.php" class="btn btn-facebook"><i class="fa fa-plus"></i> Facturar Servicios</a>
                     <a href="reg_nota_venta.php" class="btn btn-success"><i class="fa fa-plus"></i> Agregar Nota Electronica</a>
                     <a href="../reports/pdf_ventas_periodo.php?periodo=<?php echo $periodo?>" target="_blank" class="btn btn-warning"><i class="fa fa-file-pdf-o"></i> Exportar a PDF</a>
                 </div>
