@@ -15,6 +15,7 @@ if ($action == 1) {
     $cs_detalle->setCantidad(filter_input(INPUT_POST, 'cantidad'));
     $cs_detalle->setPrecio(filter_input(INPUT_POST, 'precio'));
     $cs_detalle->setCosto(filter_input(INPUT_POST, 'costo'));
+    $cs_detalle->setCodsunat(filter_input(INPUT_POST, 'codsunat'));
 
     $cs_detalle->agregar();
 }
@@ -31,7 +32,7 @@ foreach ($array_detalle as $fila) {
     ?>
     <tr>
         <td class="text-center"><?php echo $item ?></td>
-        <td><?php echo $fila['descripcion'] ?></td>
+        <td><?php echo $fila['descripcion'] . " | Cod. SUNAT " . $fila['codsunat'] ?></td>
         <td class="text-right"><?php echo number_format($fila['cantidad'], 0) ?></td>
         <td class="text-right"><?php echo number_format($fila['precio'], 2) ?></td>
         <td class="text-right"><?php echo number_format($fila['cantidad'] * $fila['precio'], 2) ?></td>

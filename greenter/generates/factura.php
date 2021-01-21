@@ -107,6 +107,7 @@ $itemsProductos = $c_productos->verFilas();
 foreach ($itemsProductos as $value) {
     $item = new SaleDetail();
     $item->setCodProducto($value['id_producto'])
+        ->setCodProdSunat($value['codsunat'])
         ->setUnidad('NIU')
         ->setDescripcion($value['descripcion'])
         ->setCantidad($value['cantidad'])
@@ -128,7 +129,8 @@ $itemsServicios = $c_servicios->verFilas();
 
 foreach ($itemsServicios as $value) {
     $item = new SaleDetail();
-    $item->setCodProducto($value['id_item'])
+    $item->setCodProducto($c_venta->getIdVenta() . $value['id_item'])
+        ->setCodProdSunat($value['codsunat'])
         ->setUnidad('ZZ')
         ->setDescripcion($value['descripcion'])
         ->setCantidad($value['cantidad'])
@@ -175,8 +177,8 @@ $c_generar->generar_qr();
 $url_qr = $dominio . "/greenter/generate_qr/temp/" . $nombre_archivo . ".png";
 
 // Envio a SUNAT.
-//$see = $util->getSee(SunatEndpoints::FE_BETA);
-$see = $util->getSee(SunatEndpoints::FE_PRODUCCION);
+$see = $util->getSee(SunatEndpoints::FE_BETA);
+//$see = $util->getSee(SunatEndpoints::FE_PRODUCCION);
 //$res = $see->send($invoice);
 $see->GenerarXML($invoice);
 $util->writeXml($invoice, $see->getFactory()->getLastXml());

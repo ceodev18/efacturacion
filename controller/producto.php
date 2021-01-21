@@ -9,6 +9,7 @@ $c_producto->setDescripcion(filter_input(INPUT_POST, 'input_descripcion_producto
 $c_producto->setPrecio(filter_input(INPUT_POST, 'input_precio_producto'));
 $c_producto->setCosto(filter_input(INPUT_POST, 'input_costo_producto'));
 $c_producto->setIscbp(filter_input(INPUT_POST, 'input_afecto'));
+$c_producto->setCodsunat(filter_input(INPUT_POST, 'input_codsunat'));
 if ($c_producto->getIscbp() == "") {
     $c_producto->setIscbp(0);
 }

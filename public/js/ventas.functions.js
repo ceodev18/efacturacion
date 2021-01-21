@@ -49,6 +49,7 @@ function agregarServicio() {
             precio: $('#input_precio_producto').val(),
             costo: 0,
             cantidad: $('#input_cantidad_producto').val(),
+            codsunat: $('#input_codsunat').val(),
             action: 1
         }
         obtenerDetalle(datainput,2);
@@ -92,6 +93,7 @@ function obtenerDetalle(datainput, tipo) {
 
 function cleanServicio() {
     $('#input_cactual_producto').val('');
+    $('#input_codsunat').val('');
     $('#input_descripcion_producto').val('');
     $('#input_precio_producto').val('0.00');
     $('#input_costo_producto').val('0.00');

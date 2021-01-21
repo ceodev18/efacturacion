@@ -105,6 +105,7 @@ foreach ($items as $value) {
     $total_producto = $value['precio'] * $value['cantidad'];
     $item = new SaleDetail();
     $item->setCodProducto($value['id_producto'])
+        ->setCodProdSunat($value['codsunat'])
         ->setUnidad('NIU')
         ->setDescripcion($value['descripcion'])
         ->setCantidad($value['cantidad'])

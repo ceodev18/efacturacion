@@ -11,6 +11,7 @@ class Producto
     private $iscbp;
     private $id_empresa;
     private $ultima_salida;
+    private $codsunat;
     private $conectar;
 
     /**
@@ -133,17 +134,33 @@ class Producto
         $this->ultima_salida = $ultima_salida;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getCodsunat()
+    {
+        return $this->codsunat;
+    }
+
+    /**
+     * @param mixed $codsunat
+     */
+    public function setCodsunat($codsunat)
+    {
+        $this->codsunat = $codsunat;
+    }
+
     public function insertar()
     {
         $sql = "insert into productos 
-        values ('$this->id_producto', '$this->descripcion', '$this->precio', '$this->costo', '$this->iscbp', '$this->id_empresa', '$this->ultima_salida')";
+        values ('$this->id_producto', '$this->descripcion', '$this->precio', '$this->costo', '$this->iscbp', '$this->id_empresa', '$this->ultima_salida', '$this->codsunat')";
         return $this->conectar->ejecutar_idu($sql);
     }
 
     public function modificar()
     {
         $sql = "update productos 
-        set descripcion = '$this->descripcion', precio = '$this->precio', costo = '$this->costo', iscbp = '$this->iscbp'  
+        set descripcion = '$this->descripcion', precio = '$this->precio', costo = '$this->costo', iscbp = '$this->iscbp', codsunat = '$this->codsunat'  
         where id_producto = '$this->id_producto'";
         echo $sql;
         return $this->conectar->ejecutar_idu($sql);
@@ -168,6 +185,7 @@ class Producto
         $this->iscbp = $fila['iscbp'];
         $this->id_empresa = $fila['id_empresa'];
         $this->ultima_salida = $fila['ultima_salida'];
+        $this->codsunat = $fila['codsunat'];
     }
 
     public function verFilas()

@@ -104,6 +104,13 @@ $c_tido->setIdEmpresa($_SESSION['id_empresa']);
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="col-lg-2 control-label">Cod. SUNAT</label>
+                            <div class="col-lg-3">
+                                <input type="text" id="input_codsunat"
+                                       name="input_codsunat" class="form-control text-center" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="col-lg-2 control-label">Cantidad</label>
                             <div class="col-lg-2">
                                 <input type="text" value="1" id="input_cantidad_producto"

@@ -8,6 +8,7 @@ class VentaServicio
     private $descripcion;
     private $monto;
     private $cantidad;
+    private $codsunat;
     private $conectar;
 
     /**
@@ -98,10 +99,26 @@ class VentaServicio
         $this->cantidad = $cantidad;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getCodsunat()
+    {
+        return $this->codsunat;
+    }
+
+    /**
+     * @param mixed $codsunat
+     */
+    public function setCodsunat($codsunat)
+    {
+        $this->codsunat = $codsunat;
+    }
+
     public function insertar()
     {
         $sql = "insert into ventas_servicios 
-        values ('$this->idventa', '$this->iditem', '$this->descripcion', '$this->monto', '$this->cantidad')";
+        values ('$this->idventa', '$this->iditem', '$this->descripcion', '$this->monto', '$this->cantidad', '$this->codsunat')";
         return $this->conectar->ejecutar_idu($sql);
     }
 
@@ -122,7 +139,7 @@ class VentaServicio
 
     public function verFilas()
     {
-        $sql = "select vs.id_item, vs.descripcion, vs.monto as precio, vs.monto, vs.cantidad  
+        $sql = "select vs.id_item, vs.descripcion, vs.monto as precio, vs.monto, vs.cantidad, vs.codsunat 
         from ventas_servicios as vs 
         inner join ventas v on vs.id_venta = v.id_venta
         where v.id_venta = '$this->idventa'";

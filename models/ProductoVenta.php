@@ -115,7 +115,7 @@ class ProductoVenta
 
     public function verFilas()
     {
-        $sql = "select pv.id_producto, p.descripcion, p.iscbp, pv.precio, pv.cantidad, pv.costo 
+        $sql = "select pv.id_producto, p.descripcion, p.iscbp, pv.precio, pv.cantidad, pv.costo, p.codsunat 
         from productos_ventas as pv 
         inner join productos p on pv.id_producto = p.id_producto 
         where pv.id_venta = '$this->id_venta'";

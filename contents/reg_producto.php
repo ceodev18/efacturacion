@@ -96,16 +96,26 @@ if ($action == 2) {
                                 </div>
                                 <div class="form-group">
                                     <label class="col-lg-2 control-label">Descripcion</label>
-                                    <div class="col-lg-10">
+                                    <div class="col-lg-9">
                                         <input type="text" placeholder="Descripcion del Producto" class="form-control" id="input_descripcion_producto" name="input_descripcion_producto" required="true" value="<?php echo $c_producto->getDescripcion()?>">
                                     </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label">Cod SUNAT</label>
+                                    <div class="col-lg-3">
+                                        <input type="text" class="form-control text-right" id="input_codsunat" name="input_codsunat" value="<?php echo $c_producto->getCodsunat()?>" required/>
+                                    </div>
+
                                 </div>
                                 <div class="form-group">
                                     <label class="col-lg-2 control-label">Precio Venta</label>
                                     <div class="col-lg-2">
                                         <input type="text" class="form-control text-right" id="input_precio_producto" name="input_precio_producto" value="<?php echo $c_producto->getPrecio()?>" required/>
                                     </div>
-                                    <label class="col-lg-4 control-label">Costo</label>
+
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label">Costo</label>
                                     <div class="col-lg-2">
                                         <input type="text" class="form-control text-right" id="input_costo_producto" name="input_costo_producto" value="<?php echo $c_producto->getCosto()?>" required/>
                                     </div>

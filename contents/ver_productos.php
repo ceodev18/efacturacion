@@ -1,4 +1,13 @@
 <?php
+if (!isset($_SESSION)) {
+    session_start();
+}
+
+if (!isset($_SESSION['id_empresa'])) {
+    var_dump($_SESSION);
+    //session_destroy();
+    header("location: ../login.php");
+}
 require '../models/Producto.php';
 
 $c_producto = new Producto();
@@ -67,6 +76,17 @@ $c_producto->setIdEmpresa($_SESSION['id_empresa']);
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="alert alert-warning alert-dismissible fade in" role="alert">
+                        <strong>ALERTA DE ACTUALIZACION!</strong> a partir del año 2021, sunat exige el codigo SUNAT (Código de productos y servicios estándar de las Naciones Unidas - UNSPSC v14_0801, a que hace referencia el catálogo N° 25 del Anexo V de la Resolución de Superintendencia N° 340-2017/SUNAT y modificatorias.). Modifique el valor en Productos
+                    </div>
+                </div>
+            </div>
+        </div><!--col-md-6-->
+    </div><!--end row-->
     <!--page header end-->
 
 
@@ -85,6 +105,7 @@ $c_producto->setIdEmpresa($_SESSION['id_empresa']);
                             <tr>
                                 <th>Codigo</th>
                                 <th width="60%">Descripcion</th>
+                                <th width="12%">Cod SUNAT</th>
                                 <th>P. Venta</th>
                                 <th>Ultima Venta</th>
                                 <th>Acciones</th>
@@ -103,6 +124,7 @@ $c_producto->setIdEmpresa($_SESSION['id_empresa']);
                                 <tr>
                                     <td class="text-center"><?php echo $fila['id_producto'] ?></td>
                                     <td><?php echo $fila['descripcion'] ?></td>
+                                    <td><?php echo $fila['codsunat'] ?></td>
                                     <td class="text-right"><?php echo $fila['precio'] ?></td>
                                     <td class="text-center"><?php echo $label_estado ?></td>
                                     <td class="text-center">

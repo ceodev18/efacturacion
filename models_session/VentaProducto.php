@@ -8,6 +8,7 @@ class ventaProducto
     private $cantidad;
     private $precio;
     private $costo;
+    private $codsunat;
 
     /**
      * ventaProducto constructor.
@@ -96,6 +97,22 @@ class ventaProducto
         $this->costo = $costo;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getCodsunat()
+    {
+        return $this->codsunat;
+    }
+
+    /**
+     * @param mixed $codsunat
+     */
+    public function setCodsunat($codsunat)
+    {
+        $this->codsunat = $codsunat;
+    }
+
     function agregar()
     {
         $fila = array();
@@ -104,6 +121,7 @@ class ventaProducto
         $fila['cantidad'] = $this->cantidad;
         $fila['precio'] = $this->precio;
         $fila['costo'] = $this->costo;
+        $fila['codsunat'] = $this->codsunat;
         $_SESSION['ventaproductos'][$this->idproducto] = $fila;
     }
 

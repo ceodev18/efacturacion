@@ -77,6 +77,7 @@ if ($c_venta->insertar()) {
             $c_servicio->setDescripcion($fila['descripcion']);
             $c_servicio->setCantidad($fila['cantidad']);
             $c_servicio->setMonto($fila['precio']);
+            $c_servicio->setCodsunat($fila['codsunat']);
             $c_servicio->setIditem($nroitem);
             $c_servicio->insertar();
             $nroitem++;
@@ -97,7 +98,7 @@ if ($c_venta->insertar()) {
         $c_curl->setIdTido($c_venta->getIdTido());
         $c_curl->setIdVenta($c_venta->getIdVenta());
         $respuesta = $c_curl->enviar_json();
-
+        //var_dump($respuesta);
 
         $json_respuesta = json_decode($respuesta, true);
 

@@ -74,6 +74,18 @@ $c_venta_inicio = new VentaInicio();
                     </div>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="alert alert-warning alert-dismissible fade in" role="alert">
+                                <strong>ALERTA DE ACTUALIZACION!</strong> a partir del año 2021, sunat exige el codigo SUNAT (Código de productos y servicios estándar de las Naciones Unidas - UNSPSC v14_0801, a que hace referencia el catálogo N° 25 del Anexo V de la Resolución de Superintendencia N° 340-2017/SUNAT y modificatorias.). Modifique el valor en Productos
+                            </div>
+                        </div>
+                    </div>
+                </div><!--col-md-6-->
+            </div><!--end row-->
             <!--page header end-->
 
 

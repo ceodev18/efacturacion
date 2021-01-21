@@ -80,6 +80,17 @@ if (filter_input(INPUT_GET, 'periodo')) {
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="alert alert-warning alert-dismissible fade in" role="alert">
+                        <strong>ALERTA DE ACTUALIZACION!</strong> a partir del año 2021, sunat exige el codigo SUNAT (Código de productos y servicios estándar de las Naciones Unidas - UNSPSC v14_0801, a que hace referencia el catálogo N° 25 del Anexo V de la Resolución de Superintendencia N° 340-2017/SUNAT y modificatorias.). Modifique el valor en Productos
+                    </div>
+                </div>
+            </div>
+        </div><!--col-md-6-->
+    </div><!--end row-->
     <!--page header end-->
 
 
@@ -137,6 +148,7 @@ if (filter_input(INPUT_GET, 'periodo')) {
                     <a href="reg_venta_servicio.php" class="btn btn-facebook"><i class="fa fa-plus"></i> Facturar Servicios</a>
                     <a href="reg_nota_venta.php" class="btn btn-success"><i class="fa fa-plus"></i> Agregar Nota Electronica</a>
                     <a href="../reports/pdf_ventas_periodo.php?periodo=<?php echo $periodo?>" target="_blank" class="btn btn-warning"><i class="fa fa-file-pdf-o"></i> Exportar a PDF</a>
+                    <a href="../reports/txt_libro_ventas.php?periodo=<?php echo $periodo?>" target="_blank" class="btn btn-warning"><i class="fa fa-file-pdf-o"></i> Exportar a PDF</a>
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
