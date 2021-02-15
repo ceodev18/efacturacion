@@ -118,6 +118,7 @@ foreach ($a_ventas as $value) {
         "0.00|" .
         "0.00|" .
         "0.00|" .
+        "0.00|" .
         number_format($monto_total_soles, 2, ".", "") . "|" .
         $moneda . "|" .
         "1.000" .

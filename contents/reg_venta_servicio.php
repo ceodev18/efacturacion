@@ -5,7 +5,7 @@ if (!isset($_SESSION['id_empresa'])) {
     header("Location: ../login.php");
 }
 
-$_SESSION['ventaproductos'] = null;
+$_SESSION['ventaproductos'] = Array();
 
 require '../models/DocumentoEmpresa.php';
 

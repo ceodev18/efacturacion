@@ -148,7 +148,7 @@ if (filter_input(INPUT_GET, 'periodo')) {
                     <a href="reg_venta_servicio.php" class="btn btn-facebook"><i class="fa fa-plus"></i> Facturar Servicios</a>
                     <a href="reg_nota_venta.php" class="btn btn-success"><i class="fa fa-plus"></i> Agregar Nota Electronica</a>
                     <a href="../reports/pdf_ventas_periodo.php?periodo=<?php echo $periodo?>" target="_blank" class="btn btn-warning"><i class="fa fa-file-pdf-o"></i> Exportar a PDF</a>
-                    <a href="../reports/txt_libro_ventas.php?periodo=<?php echo $periodo?>" target="_blank" class="btn btn-warning"><i class="fa fa-file-pdf-o"></i> Exportar a PDF</a>
+                    <a href="../reports/txt_libro_ventas.php?periodo=<?php echo $periodo?>" target="_blank" class="btn btn-warning"><i class="fa fa-file-text"></i> Exportar a TXT</a>
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">

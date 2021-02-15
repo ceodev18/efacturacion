@@ -11,6 +11,9 @@ if ($action != 3) {
 }
 
 if ($action == 1) {
+    if (filter_input(INPUT_POST, 'id_producto') == "") {
+        $cs_detalle->setIdproducto(count($_SESSION['ventaproductos']) + 1);
+    }
     $cs_detalle->setDescripcion(filter_input(INPUT_POST, 'descripcion'));
     $cs_detalle->setCantidad(filter_input(INPUT_POST, 'cantidad'));
     $cs_detalle->setPrecio(filter_input(INPUT_POST, 'precio'));
