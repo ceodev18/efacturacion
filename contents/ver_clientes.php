@@ -104,7 +104,7 @@ $c_cliente->setIdEmpresa($_SESSION['id_empresa']);
                                     <td class="text-right"><?php echo number_format($fila['total_venta'], 2)?></td>
                                     <td class="text-center"><?php echo $label_estado?></td>
                                     <td class="text-center">
-                                        <a href="#" class="btn btn-xs btn-danger"> <i class="fa fa-edit"></i></a>
+                                        <a href="reg_cliente.php?id=<?php echo $fila['id_cliente']?>" class="btn btn-xs btn-danger"> <i class="fa fa-edit"></i></a>
                                     </td>
                                 </tr>
                                 <?php

@@ -1,3 +1,16 @@
+<?php
+require '../models/Cliente.php';
+$cliente = new Cliente();
+$cliente->setIdCliente(filter_input(INPUT_GET, 'id'));
+
+if (!$cliente->getIdCliente()) {
+    header("Location: ver_clientes.php");
+} else {
+    $cliente->setIdEmpresa($_SESSION['id_empresa']);
+    $cliente->obtenerDatos();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -75,13 +88,13 @@
                             <div class="form-group">
                                 <label class="col-lg-2 control-label">Codigo</label>
                                 <div class="col-lg-3  ">
-                                    <input type="text" class="form-control" placeholder="Codigo" maxlength="11" required readonly>
+                                    <input type="text" class="form-control" placeholder="Codigo" maxlength="11" required name="inputcodigo" value="<?php echo $cliente->getIdCliente()?>" readonly>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-2 control-label">Nro. de Documento</label>
                                 <div class="col-lg-4  input-group" style="padding: 0 16px;">
-                                    <input type="text" placeholder="Documentos" id="input_documento_cliente" name="input_documento_cliente" class="form-control" maxlength="11" required>
+                                    <input type="text" placeholder="Documentos" id="input_documento_cliente" name="input_documento_cliente" class="form-control" value="<?php echo $cliente->getDocumento()?>" maxlength="11" required>
                                     <span class="input-group-btn">
                                         <button id="btn_comprueba" class="btn btn-default" type="button" onclick="validarDocumento()">Comprobar</button>
                                     </span>
