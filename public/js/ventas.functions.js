@@ -124,8 +124,8 @@ function enviar_datos() {
         erros++;
     }
     if (documento_cliente === "") {
-        alert("Falta Indicar Nro del documento del cliente");
-        erros++;
+       // alert("Falta Indicar Nro del documento del cliente");
+        //erros++;
     }
 
     if (erros === 0) {

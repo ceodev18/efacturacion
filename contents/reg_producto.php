@@ -103,7 +103,7 @@ if ($action == 2) {
                                 <div class="form-group">
                                     <label class="col-lg-2 control-label">Cod SUNAT</label>
                                     <div class="col-lg-3">
-                                        <input type="text" class="form-control text-right" id="input_codsunat" name="input_codsunat" value="<?php echo $c_producto->getCodsunat()?>" required/>
+                                        <input type="text" class="form-control text-right" id="input_codsunat" name="input_codsunat" value="<?php echo $c_producto->getCodsunat()?>" />
                                     </div>
 
                                 </div>
